@@ -30,12 +30,12 @@ app.use("/diary/products", diaryProductsRouter);
 app.use("/products", productsRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ error: true, message: "Not found" });
 });
 
-app.use((err, req, res) => {
+app.use((err, req, res, _) => {
   const { status = 500, message = "Internal server error" } = err;
-  res.status(status).json({ message });
+  res.status(status).json({ error: true, message });
 });
 
 module.exports = app;
