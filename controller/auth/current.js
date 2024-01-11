@@ -1,9 +1,13 @@
-const current = async (req, res, next) => {
+const { userMock } = require("../../mocked");
+const current = async (req, res) => {
   const { email, name } = req.user;
 
   res.json({
-    email,
-    name,
+    data: {
+      ...userMock,
+      email,
+      name,
+    },
   });
 };
 

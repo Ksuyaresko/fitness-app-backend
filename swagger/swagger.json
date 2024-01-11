@@ -9,7 +9,10 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "servers": [{ "url": "https://goit-be.onrender.com/" }, { "url": "http://localhost:3000" }],
+  "servers": [
+    { "url": "https://goit-be.onrender.com/" },
+    { "url": "http://localhost:3000" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -162,14 +165,21 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's jwt token"
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "User's jwt token"
+              }
+            }
           }
         },
-        "example":
-          { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWZjNGZhNzc4MjE4MjEyY2RkZGI5YSIsImlhdCI6MTcwNDk2OTQ2NiwiZXhwIjoxNzA1MDU1ODY2fQ.mjIVXDKk3-W22awzxy3EWSgOBwrG8Rwnzs8UqpqmFww" }
-
+        "example": {
+          "data": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWZjNGZhNzc4MjE4MjEyY2RkZGI5YSIsImlhdCI6MTcwNDk2OTQ2NiwiZXhwIjoxNzA1MDU1ODY2fQ.mjIVXDKk3-W22awzxy3EWSgOBwrG8Rwnzs8UqpqmFww"
+          }
+        }
       },
       "LoginRequest": {
         "type": "object",
@@ -190,18 +200,78 @@
       "UsersResponse": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name"
+          "data": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name"
+              },
+              "dailyCalories": {
+                "type": "number",
+                "description": ""
+              },
+              "dailyActivity": {
+                "type": "number",
+                "description": ""
+              },
+              "settings": {
+                "type": "object",
+                "properties": {
+                  "height": {
+                    "type": "number",
+                    "description": ""
+                  },
+                  "currentWeight": {
+                    "type": "number",
+                    "description": ""
+                  },
+                  "desiredWeight": {
+                    "type": "number",
+                    "description": ""
+                  },
+                  "birthday": {
+                    "type": "string",
+                    "description": ""
+                  },
+                  "blood": {
+                    "type": "number",
+                    "description": ""
+                  },
+                  "sex": {
+                    "type": "string",
+                    "description": "male or female"
+                  },
+                  "levelActivity": {
+                    "type": "number",
+                    "description": "1, 2, 3, 4, 5"
+                  }
+                }
+              }
+            }
           }
         },
-        "example":
-        { "email": "test@test.com", "name": "name" }
-
+        "example": {
+          "data": {
+            "email": "test@test.com",
+            "name": "name",
+            "dailyCalories": 2200,
+            "dailyActivity": 110,
+            "settings": {
+              "height": 180,
+              "currentWeight": 70,
+              "desiredWeight": 60,
+              "birthday": "2005-01-11T00:00:00.000Z",
+              "blood": 1,
+              "sex": "male",
+              "levelActivity": 3
+            }
+          }
+        }
       }
     },
     "securitySchemes": {

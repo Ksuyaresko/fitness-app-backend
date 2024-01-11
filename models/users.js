@@ -29,7 +29,7 @@ const user = new Schema(
     },
     //@todo add calories ans exarcies
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false, timestamps: true }
 );
 
 const registerSchema = Joi.object({
