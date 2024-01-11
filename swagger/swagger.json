@@ -9,6 +9,8 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "servers": [{ "url": "https://goit-be.onrender.com/" }, { "url": "http://localhost:3000" }],
   "tags": [
     {
@@ -49,69 +51,7 @@
             "content": {}
           },
           "409": {
-            "description": "Email in use",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/login": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User login",
-        "parameters": [],
-        "requestBody": {
-          "description": "Login object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Email or password is wrong",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/current": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "User's info",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsersResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized",
+            "description": "Provided email already exists",
             "content": {}
           }
         }
@@ -123,16 +63,7 @@
         "summary": "User logout",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "responses": {
-          "204": {
-            "description": "Successful operation",
-            "content": {}
-          },
-          "401": {
-            "description": "Not authorized",
-            "content": {}
-          }
-        }
+        "responses": {}
       }
     }
   },
@@ -160,48 +91,26 @@
         }
       },
       "RegistrationResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's jwt token"
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "userId": {
+              "type": "number",
+              "description": "User's id",
+              "example": "32143232436545474"
+            }
           }
         },
-        "example":
-          { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWZjNGZhNzc4MjE4MjEyY2RkZGI5YSIsImlhdCI6MTcwNDk2OTQ2NiwiZXhwIjoxNzA1MDU1ODY2fQ.mjIVXDKk3-W22awzxy3EWSgOBwrG8Rwnzs8UqpqmFww" }
-
-      },
-      "LoginRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          }
-        }
-      },
-      "UsersResponse": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name"
-          }
-        },
-        "example":
-        { "email": "test@test.com", "name": "name" }
-
+        "example": [
+          { "email": "1@gmail.com", "userId": "1" },
+          { "email": "2@gmail.com", "userId": "2" }
+        ]
       }
     },
     "securitySchemes": {

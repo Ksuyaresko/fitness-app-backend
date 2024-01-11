@@ -4,7 +4,7 @@ const { User } = require("../../models");
 const { HttpError } = require("../../utils");
 
 const { SECRET_KEY } = process.env;
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
@@ -25,9 +25,9 @@ const login = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
   await User.findByIdAndUpdate(user._id, { token });
 
-  // @todo add user's info
   res.json({
     token,
+    user: { email: user.email },
   });
 };
 
