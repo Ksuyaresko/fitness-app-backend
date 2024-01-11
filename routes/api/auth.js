@@ -19,4 +19,11 @@ router.post(
 router.get("/current", authorization, errorWrap(Auth.current));
 router.post("/logout", authorization, errorWrap(Auth.logout));
 
+router.patch(
+  "/",
+  authorization,
+  validateBody(schemasUser.settingSchema),
+  errorWrap(Auth.settingsPut)
+);
+
 module.exports = router;
