@@ -6,7 +6,11 @@ const swaggerDocument = require("./swagger/swagger.json");
 require("dotenv").config();
 
 const router = require("express").Router();
+
+const authRouter = require("./routes/api/auth");
+const productsRouter = require("./routes/api/product");
 const { authRouter, diaryRouter } = require("./routes/api");
+
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -19,6 +23,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/users", authRouter);
 app.use("/diary", diaryRouter);
+
+app.use("/products", productsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
