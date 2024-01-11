@@ -2,8 +2,9 @@ const bcrypt = require("bcrypt");
 const { User } = require("../../models");
 const { HttpError } = require("../../utils");
 const { nanoid } = require("nanoid");
+const jwt = require("jsonwebtoken");
 
-const { BASE_URL } = process.env;
+const { SECRET_KEY, BASE_URL } = process.env;
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -14,7 +15,6 @@ const register = async (req, res) => {
   const hashPassword = await bcrypt.hash(password, 10);
   const verificationCode = nanoid();
 
-  // @todo add token to bd when user register
   const newUser = await User.create({
     ...req.body,
     email,
@@ -23,11 +23,14 @@ const register = async (req, res) => {
   });
   // @todo add sending conf email
 
-  // @todo add token to resp
+  const payload = {
+    id: newUser._id,
+  };
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
+  await User.findByIdAndUpdate(newUser._id, { token });
+
   res.status(201).json({
-    user: {
-      email: newUser.email,
-    },
+    token,
   });
 };
 
