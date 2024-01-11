@@ -4,7 +4,7 @@ const { HttpError } = require("../../utils");
 const { nanoid } = require("nanoid");
 const jwt = require("jsonwebtoken");
 
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -30,7 +30,9 @@ const register = async (req, res) => {
   await User.findByIdAndUpdate(newUser._id, { token });
 
   res.status(201).json({
-    token,
+    data: {
+      token,
+    },
   });
 };
 
