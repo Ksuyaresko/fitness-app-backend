@@ -26,9 +26,7 @@ const login = async (req, res) => {
   await User.findByIdAndUpdate(user._id, { token });
 
   // @todo add user's info
-  res.json({
-    token,
-  });
+  res.json({ data: { token } });
 };
 
 module.exports = login;
