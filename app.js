@@ -9,12 +9,9 @@ const {
   authRouter,
   diaryRouter,
   diaryProductsRouter,
+  productsRouter,
+  exercisesRouter,
 } = require("./routes/api");
-
-
-const { authRouter, diaryRouter, productsRouter, exercisesRouter } = require("./routes/api");
-
-
 
 const app = express();
 
