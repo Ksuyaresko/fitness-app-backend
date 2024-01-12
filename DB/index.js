@@ -1,3 +1,4 @@
 const userMock = require("./users");
+const exerciseMock = require("./exercises");
 
-module.exports = { userMock };
+module.exports = { userMock, exerciseMock };
