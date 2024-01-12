@@ -26,11 +26,6 @@ const product = new Schema(
       3: Boolean,
       4: Boolean,
     },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      require: true,
-    },
   },
   { versionKey: false, timestamps: true }
 );
