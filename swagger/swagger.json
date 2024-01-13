@@ -17,6 +17,10 @@
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+     {
+      "name": "Products",
+      "description": "Products endpoints"
     }
   ],
   "paths": {
@@ -130,6 +134,30 @@
           "204": {
             "description": "Successful operation",
             "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Products info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
           },
           "401": {
             "description": "Not authorized",
@@ -272,6 +300,67 @@
             }
           }
         }
+      },
+      "ProductsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              
+              "weight": {
+                "type": "number",
+                "description": "product weight"
+              },
+              "calories": {
+                "type": "number",
+                "description": "product calories"
+              },
+              "category": {
+                "type": "string",
+                "description": "product category"
+              },
+              "title": {
+                "type": "string",
+                "description": "product title"
+              },
+              "groupBloodNotAllowed": {
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "2": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "3": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "4": {
+                    "type": "boolean",
+                    "description": ""
+                }
+              }
+            }
+          },
+          "example": {
+          "data": {
+            "weight": 100,
+            "calories": 340,
+            "category": "dairy",
+            "title": "Danbo cheese",
+            "groupBloodNotAllowed": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false
+            }
+          }
+        }
+        }
       }
     },
     "securitySchemes": {
@@ -282,4 +371,4 @@
       }
     }
   }
-}
+}}

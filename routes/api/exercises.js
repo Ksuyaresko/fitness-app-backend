@@ -1,12 +1,12 @@
 const express = require("express");
 const { authorization } = require("../../middlewares");
 
-const { Products } = require("../../controller");
+const { Exercises } = require("../../controller");
 const { errorWrap } = require("../../utils");
 
 const router = express.Router();
 
-router.get("/", authorization, errorWrap(Products.getAllProducts));
-router.get("/:userId", authorization, errorWrap(Products.getАllowedProducts));
+router.get("/", authorization, errorWrap(Exercises.getAllExercises));
+
 
 module.exports = router;
