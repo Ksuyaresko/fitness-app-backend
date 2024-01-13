@@ -9,13 +9,19 @@ const { authorization } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 
 const { addExercise, deleteExercise, getExercises } = diaryExercises;
+const { addExerciseBodySchema, getExercisesBodySchema } = schemasExercise;
 
-router.get("/", authorization, errorWrap(getExercises));
+router.get(
+  "/",
+  authorization,
+  validateBody(getExercisesBodySchema),
+  errorWrap(getExercises)
+);
 
 router.post(
   "/",
   authorization,
-  validateBody(schemasExercise.addExerciseBodySchema),
+  validateBody(addExerciseBodySchema),
   errorWrap(addExercise)
 );
 
