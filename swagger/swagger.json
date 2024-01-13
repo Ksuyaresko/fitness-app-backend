@@ -21,6 +21,10 @@
     {
       "name": "Products",
       "description": "Products endpoints"
+    },
+    {
+      "name": "Exercises",
+      "description": "Exercises endpoints"
     }
   ],
   "paths": {
@@ -190,6 +194,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Exercises info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExercisesResponse"
                 }
               }
             }
@@ -452,7 +480,57 @@
           }
         }
       }
-    },
+      },
+      "ExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "bodyPart": {
+                "type": "string",
+                "description": "Body part"
+              },
+              "equipment": {
+                "type": "string",
+                "description": "Equipment"
+              },
+              "gifUrl": {
+                "type": "string",
+                "description": "Exercise animation"
+              },
+              "name": {
+                "type": "string",
+                "description": "Exercise name"
+              },
+              "target": {
+                "type": "string",
+                "description": "Types of muscles"
+              },
+              "burnedCalories": {
+                "type": "number",
+                "description": "Burned calories"
+              },
+              "time": {
+                "type": "number",
+                "description": "Еxercise time"
+              }
+          },
+          "example": {
+          "data": {
+            "bodyPart": "chest",
+            "equipment": "leverage machine",
+            "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0009.gif",
+            "name": "assisted chest dip (kneeling)",
+            "target": "pectorals",
+            "burnedCalories": 329,
+            "time": 3
+            }
+          }
+        }
+        }
+      }
+      },
     "securitySchemes": {
       "Bearer": {
         "type": "http",

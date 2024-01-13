@@ -10,7 +10,11 @@ const {
   diaryRouter,
   diaryProductsRouter,
   productsRouter,
-  exercisesRouter,
+
+  exercisesRouter
+
+ 
+
 } = require("./routes/api");
 
 const app = express();
