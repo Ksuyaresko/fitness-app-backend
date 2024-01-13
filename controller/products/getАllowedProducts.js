@@ -1,10 +1,13 @@
 const { Product } = require("../../models");
 
 const getАllowedProducts = async (req, res) => {
-    const { settings: blood } = req.user;
-    console.log(req.params)
-     const { choice } = req.params;
-  const result = await Product.find({blood:choice});
+  const { choice } = req.query;
+  const bloodType = req.user.settings.blood;
+
+  const result = await Product.find({
+    [`groupBloodNotAllowed.${bloodType}`]: choice,
+  });
+
   res.json(result);
 };
 

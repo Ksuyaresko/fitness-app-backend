@@ -18,9 +18,13 @@
       "name": "Auth",
       "description": "Authorization endpoints"
     },
-     {
+    {
       "name": "Products",
       "description": "Products endpoints"
+    },
+    {
+      "name": "Exercises",
+      "description": "Exercises endpoints"
     }
   ],
   "paths": {
@@ -142,6 +146,41 @@
         }
       }
     },
+    "/users/settings": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "User patch settings",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Settings' object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "tags": ["Products"],
@@ -155,6 +194,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Exercises info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExercisesResponse"
                 }
               }
             }
@@ -222,6 +285,61 @@
             "type": "string",
             "description": "User's password",
             "example": "qwerty123"
+          }
+        }
+      },
+      "SettingsRequest": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "number",
+            "description": "minimum 150(cm); required",
+            "example": 150
+          },
+          "currentWeight": {
+            "type": "number",
+            "description": "minimum 35(kg); required",
+            "example": 35
+          },
+          "desiredWeight": {
+            "type": "number",
+            "description": "minimum 35(kg); required",
+            "example": 35
+          },
+          "birthday": {
+            "type": "string",
+            "description": "iso string, must be older than 18 years;  required",
+            "example": "2005-01-11T00:00:00.000Z"
+          },
+          "blood": {
+            "type": "number",
+            "description": "allowed values 1, 2, 3, 4; require",
+            "example": 1
+          },
+          "sex": {
+            "type": "string",
+            "description": "allowed values \"male\", \"female\"; required",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "number",
+            "description": "allowed values 1, 2, 3, 4, 5; required",
+            "example": 1
+          }
+        }
+      },
+      "SettingsResponse": {
+        "type": "object",
+        "properties": {
+          "dailyActivity": {
+            "type": "number",
+            "description": "",
+            "example": 110
+          },
+          "dailyCalories": {
+            "type": "number",
+            "description": "",
+            "example": 2200
           }
         }
       },
@@ -307,7 +425,6 @@
           "data": {
             "type": "object",
             "properties": {
-              
               "weight": {
                 "type": "number",
                 "description": "product weight"
@@ -330,45 +447,95 @@
                   "1": {
                     "type": "boolean",
                     "description": ""
-                },
-                "2": {
+                  },
+                  "2": {
                     "type": "boolean",
                     "description": ""
-                },
-                "3": {
+                  },
+                  "3": {
                     "type": "boolean",
                     "description": ""
-                },
-                "4": {
+                  },
+                  "4": {
                     "type": "boolean",
                     "description": ""
+                  }
+                }
+              }
+            },
+            "example": {
+              "data": {
+                "weight": 100,
+                "calories": 340,
+                "category": "dairy",
+                "title": "Danbo cheese",
+                "groupBloodNotAllowed": {
+                  "1": true,
+                  "2": true,
+                  "3": false,
+                  "4": false
                 }
               }
             }
-          },
-          "example": {
-          "data": {
-            "weight": 100,
-            "calories": 340,
-            "category": "dairy",
-            "title": "Danbo cheese",
-            "groupBloodNotAllowed": {
-              "1": true,
-              "2": true,
-              "3": false,
-              "4": false
-            }
           }
-        }
         }
       }
     },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+    "ExercisesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "bodyPart": {
+              "type": "string",
+              "description": "Body part"
+            },
+            "equipment": {
+              "type": "string",
+              "description": "Equipment"
+            },
+            "gifUrl": {
+              "type": "string",
+              "description": "Exercise animation"
+            },
+            "name": {
+              "type": "string",
+              "description": "Exercise name"
+            },
+            "target": {
+              "type": "string",
+              "description": "Types of muscles"
+            },
+            "burnedCalories": {
+              "type": "number",
+              "description": "Burned calories"
+            },
+            "time": {
+              "type": "number",
+              "description": "Еxercise time"
+            }
+          },
+          "example": {
+            "data": {
+              "bodyPart": "chest",
+              "equipment": "leverage machine",
+              "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0009.gif",
+              "name": "assisted chest dip (kneeling)",
+              "target": "pectorals",
+              "burnedCalories": 329,
+              "time": 3
+            }
+          }
+        }
       }
     }
+  },
+  "securitySchemes": {
+    "Bearer": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
   }
-}}
+}
