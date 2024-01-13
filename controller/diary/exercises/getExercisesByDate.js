@@ -1,6 +1,6 @@
 const { DiaryExercise } = require("../../../models");
 
-const getExercises = async (req, res) => {
+const getExercisesByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date: receivedDate } = req.body;
 
@@ -11,4 +11,4 @@ const getExercises = async (req, res) => {
 
   res.status(200).json(result);
 };
-module.exports = { getExercises };
+module.exports = { getExercisesByDate };

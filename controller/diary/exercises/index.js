@@ -1,9 +1,9 @@
 const { addExercise } = require("./addExercise");
 const { deleteExercise } = require("./deleteExercise");
-const { getExercises } = require("./getExercises");
+const { getExercisesByDate } = require("./getExercisesByDate");
 
 module.exports = {
   addExercise,
   deleteExercise,
-  getExercises,
+  getExercisesByDate,
 };

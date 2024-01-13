@@ -8,14 +8,14 @@ const { diaryExercises } = require("../../controller");
 const { authorization } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 
-const { addExercise, deleteExercise, getExercises } = diaryExercises;
+const { addExercise, deleteExercise, getExercisesByDate } = diaryExercises;
 const { addExerciseBodySchema, getExercisesBodySchema } = schemasExercise;
 
 router.get(
   "/",
   authorization,
   validateBody(getExercisesBodySchema),
-  errorWrap(getExercises)
+  errorWrap(getExercisesByDate)
 );
 
 router.post(
