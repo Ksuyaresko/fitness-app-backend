@@ -5,13 +5,13 @@ const Schema = mongoose.Schema;
 emailReqexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
 const setting = new Schema({
-  height: { type: Number, min: [150, 'min is 150'] }, // number; minimum 150(cm); required
-  currentWeight: { type: Number, min: 35 }, // number; minimum 35(kg); required
-  desiredWeight: { type: Number, min: 35 }, // number; minimum 35(kg); required
-  birthday: { type: Date }, // - date; must be older than 18 years;  required
-  blood: { type: Number, enum: [1, 2, 3, 4] }, // number; allowed values 1, 2, 3, 4; required
-  sex: { type: String, enum: ["male", "female"] }, // string; allowed values "male", "female"; required
-  levelActivity: { type: Number, enum: [1, 2, 3, 4] }, // - number; allowed values 1, 2, 3, 4, 5; required
+  height: { type: Number, min: [150, 'min is 150'] },
+  currentWeight: { type: Number, min: 35 },
+  desiredWeight: { type: Number, min: 35 },
+  birthday: { type: Date },
+  blood: { type: Number, enum: [1, 2, 3, 4] },
+  sex: { type: String, enum: ["male", "female"] },
+  levelActivity: { type: Number, enum: [1, 2, 3, 4] },
 });
 
 const user = new Schema(
@@ -48,14 +48,14 @@ const user = new Schema(
     },
     dailyCalories: Number,
     dailyActivity: Number,
-    setting: setting,
+    settings: setting,
   },
   { versionKey: false, timestamps: true }
 );
 
 const registerSchema = Joi.object({
   name: Joi.string().required(),
-  email: Joi.string().regex(emailReqexp).required,
+  email: Joi.string().regex(emailReqexp).required(),
   password: Joi.string().min(6).required(),
 });
 
@@ -72,10 +72,11 @@ const settingSchema = Joi.object({
   height: Joi.number().min(150).required(),
   currentWeight: Joi.number().min(35).required(),
   desiredWeight: Joi.number().min(35).required(),
-  birthday: Joi.date().iso(),
-  blood: Joi.number().valid(1, 2, 3, 4),
-  sex: Joi.number().valid("male", "female"),
-  levelActivity: Joi.number().valid(1, 2, 3, 4, 5),
+  // @todo check 18+
+  birthday: Joi.date().iso().required(),
+  blood: Joi.number().valid(1, 2, 3, 4).required(),
+  sex: Joi.number().valid("male", "female").required(),
+  levelActivity: Joi.number().valid(1, 2, 3, 4, 5).required(),
 });
 
 const schemas = {
