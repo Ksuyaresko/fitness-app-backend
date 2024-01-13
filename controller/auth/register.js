@@ -8,6 +8,7 @@ const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
   const { email, password } = req.body;
+  console.log('req.body', req.body)
   const duplicate = await User.findOne({ email });
   if (duplicate) {
     throw HttpError(409, "Email in use");
