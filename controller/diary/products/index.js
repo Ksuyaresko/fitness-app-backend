@@ -1,9 +1,9 @@
-const addProduct = require("./addProduct");
-const deleteProduct = require("./deleteProduct");
-const getProducts = require("./getProducts");
+const addProductInDiaryByDate = require("./addProductInDiaryByDate");
+const delProductInDiaryByDate = require("./delProductInDiaryByDate");
+const allProductsInDiaryByDate = require("./allProductsInDiaryByDate");
 
 module.exports = {
- addProduct,
- deleteProduct,
- getProducts,
+  addProductInDiaryByDate,
+  delProductInDiaryByDate,
+  allProductsInDiaryByDate,
 };
