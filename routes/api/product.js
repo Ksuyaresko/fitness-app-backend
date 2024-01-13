@@ -7,6 +7,6 @@ const { errorWrap } = require("../../utils");
 const router = express.Router();
 
 router.get("/", authorization, errorWrap(Products.getAllProducts));
-router.get("/choice", authorization, errorWrap(Products.getАllowedProducts));
+router.get("/blood", authorization, errorWrap(Products.getАllowedProducts));
 
 module.exports = router;
