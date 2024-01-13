@@ -1,12 +1,10 @@
-const { Diary } = require("../../../models");
+const { DiaryExercise } = require("../../../models");
 const { exerciseMock } = require("../../../DB");
-const { getCurrentFormatedDate } = require("../../../helpers");
-// const { isValidId } = require("../../../middlewares");
 
 const addExercise = async (req, res) => {
   const { _id: exerciseId, burnedCalories: calories, time } = exerciseMock;
   const { _id: owner } = req.user;
-  const { time: exerciseDuration } = req.body;
+  const { time: exerciseDuration, date: receivedDate } = req.body;
 
   const burnCaloriesPerMinute = Math.round(calories / time);
   const burnCaloriesPerExerciseDuration =
@@ -18,19 +16,23 @@ const addExercise = async (req, res) => {
     burnCaloriesPerMinute,
   };
 
-  const foundedDiary = await Diary.findOne({ ownerId: owner });
+  const foundedDiary = await DiaryExercise.findOne({
+    ownerId: owner,
+    date: receivedDate,
+  });
 
-  if (!foundedDiary || foundedDiary.date !== getCurrentFormatedDate()) {
-    const data = await Diary.create({
+  if (!foundedDiary) {
+    const data = await DiaryExercise.create({
       ownerId: owner,
       doneExercises: [doneExercise],
       burnedCalories: burnCaloriesPerExerciseDuration,
       sportTime: exerciseDuration,
-      date: getCurrentFormatedDate(),
+      date: receivedDate,
     });
+
     res.status(201).json(data);
   } else {
-    const data = await Diary.findByIdAndUpdate(
+    const data = await DiaryExercise.findByIdAndUpdate(
       foundedDiary._id,
       {
         $inc: {
