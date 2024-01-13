@@ -2,15 +2,32 @@ const express = require("express");
 const router = express.Router();
 
 const { diaryProducts } = require("../../controller");
-const { authorization } = require("../../middlewares");
+const { authorization, validateBody } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
+const { bodyDiaryProductSchema } = require("../../models/productDiary");
 
-const { addProduct, deleteProduct, getProducts } = diaryProducts;
+const {
+  addProductInDiaryByDate,
+  delProductInDiaryByDate,
+  allProductsInDiaryByDate,
+} = diaryProducts;
 
-router.get("/", authorization, errorWrap(getProducts));
+// Router для отримання всіх продуктів зі щоденника за обраною датою
+router.get("/day", authorization, errorWrap(allProductsInDiaryByDate));
 
-router.post("/", authorization, errorWrap(addProduct));
+// Router для збереження продукту, що було спожито користувачем, в щоденнику та його закріплення за обраною датою
+router.post(
+  "/day/products",
+  authorization,
+  validateBody(bodyDiaryProductSchema),
+  errorWrap(addProductInDiaryByDate)
+);
 
-router.delete("/:id", authorization, errorWrap(deleteProduct));
+// Router для видалення продукту, що було спожито користувачем, із щоденника в обрану дату
+router.delete(
+  "/day/products/:id",
+  authorization,
+  errorWrap(delProductInDiaryByDate)
+);
 
 module.exports = router;

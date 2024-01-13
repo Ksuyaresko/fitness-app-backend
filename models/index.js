@@ -1,6 +1,10 @@
 const { User, schemas: schemasUser } = require("./users");
-const { Product } = require("./product");
 
+const { Product } = require("./products");
 
-module.exports = { User, schemasUser, Product };
+const {Exercise} = require('./exercises')
+
+const { Diary } = require("./diary-exercise-schema")
+
+module.exports = { User, schemasUser, Product, Exercise, Diary };
 

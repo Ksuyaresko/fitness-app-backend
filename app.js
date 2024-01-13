@@ -9,9 +9,9 @@ const {
   authRouter,
   diaryRouter,
   diaryProductsRouter,
+  productsRouter,
+  exercisesRouter,
 } = require("./routes/api");
-
-const productsRouter = require("./routes/api/product");
 
 const app = express();
 
@@ -24,10 +24,14 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/users", authRouter);
+
 app.use("/diary", diaryRouter);
-app.use("/diary/products", diaryProductsRouter);
+
+app.use("/diary", diaryProductsRouter);
 
 app.use("/products", productsRouter);
+
+app.use("/exercises", exercisesRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: true, message: "Not found" });
