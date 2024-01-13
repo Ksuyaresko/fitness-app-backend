@@ -10,7 +10,11 @@ const {
   diaryRouter,
   diaryProductsRouter,
   productsRouter,
+
   exercisesRouter
+
+ 
+
 } = require("./routes/api");
 
 const app = express();
@@ -24,8 +28,10 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/users", authRouter);
+
 app.use("/diary", diaryRouter);
-app.use("/diary/products", diaryProductsRouter);
+
+app.use("/diary", diaryProductsRouter);
 
 app.use("/products", productsRouter);
 

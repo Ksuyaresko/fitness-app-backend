@@ -146,6 +146,41 @@
         }
       }
     },
+    "/users/settings": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "User patch settings",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Settings' object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "tags": ["Products"],
@@ -253,6 +288,61 @@
           }
         }
       },
+      "SettingsRequest": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "number",
+            "description": "minimum 150(cm); required",
+            "example": 150
+          },
+          "currentWeight": {
+            "type": "number",
+            "description": "minimum 35(kg); required",
+            "example": 35
+          },
+          "desiredWeight": {
+            "type": "number",
+            "description": "minimum 35(kg); required",
+            "example": 35
+          },
+          "birthday": {
+            "type": "string",
+            "description": "iso string, must be older than 18 years;  required",
+            "example": "2005-01-11T00:00:00.000Z"
+          },
+          "blood": {
+            "type": "number",
+            "description": "allowed values 1, 2, 3, 4; require",
+            "example": 1
+          },
+          "sex": {
+            "type": "string",
+            "description": "allowed values \"male\", \"female\"; required",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "number",
+            "description": "allowed values 1, 2, 3, 4, 5; required",
+            "example": 1
+          }
+        }
+      },
+      "SettingsResponse": {
+        "type": "object",
+        "properties": {
+          "dailyActivity": {
+            "type": "number",
+            "description": "",
+            "example": 110
+          },
+          "dailyCalories": {
+            "type": "number",
+            "description": "",
+            "example": 2200
+          }
+        }
+      },
       "UsersResponse": {
         "type": "object",
         "properties": {
@@ -335,7 +425,6 @@
           "data": {
             "type": "object",
             "properties": {
-              
               "weight": {
                 "type": "number",
                 "description": "product weight"
@@ -358,36 +447,37 @@
                   "1": {
                     "type": "boolean",
                     "description": ""
-                },
-                "2": {
+                  },
+                  "2": {
                     "type": "boolean",
                     "description": ""
-                },
-                "3": {
+                  },
+                  "3": {
                     "type": "boolean",
                     "description": ""
-                },
-                "4": {
+                  },
+                  "4": {
                     "type": "boolean",
                     "description": ""
+                  }
+                }
+              }
+            },
+            "example": {
+              "data": {
+                "weight": 100,
+                "calories": 340,
+                "category": "dairy",
+                "title": "Danbo cheese",
+                "groupBloodNotAllowed": {
+                  "1": true,
+                  "2": true,
+                  "3": false,
+                  "4": false
                 }
               }
             }
-          },
-          "example": {
-          "data": {
-            "weight": 100,
-            "calories": 340,
-            "category": "dairy",
-            "title": "Danbo cheese",
-            "groupBloodNotAllowed": {
-              "1": true,
-              "2": true,
-              "3": false,
-              "4": false
-            }
           }
-        }
         }
       }
       },

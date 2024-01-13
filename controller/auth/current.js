@@ -4,9 +4,9 @@ const current = async (req, res) => {
 
   res.json({
     data: {
-      ...userMock,
       email,
       name,
+      settings: req.user.settings
     },
   });
 };
