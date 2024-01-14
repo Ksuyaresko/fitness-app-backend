@@ -13,14 +13,14 @@ const { addExerciseById, deleteExerciseById, getExercisesByDate } =
 const { addExerciseBodySchema, getDelExerciseSchema } = schemasExercise;
 
 router.get(
-  "/",
+  "/exercises",
   authorization,
   validateBody(getDelExerciseSchema),
   errorWrap(getExercisesByDate)
 );
 
 router.post(
-  "/:id",
+  "/exercises/:id",
   authorization,
   isValidId,
   validateBody(addExerciseBodySchema),
@@ -28,7 +28,7 @@ router.post(
 );
 
 router.delete(
-  "/:id",
+  "/exercises/:id",
   authorization,
   validateBody(getDelExerciseSchema),
   errorWrap(deleteExerciseById)
