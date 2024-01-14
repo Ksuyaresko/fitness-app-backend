@@ -9,7 +9,14 @@ const addExerciseById = async (req, res) => {
 
   const foundedExercise = await Exercise.findOne({ _id: exerciseId });
 
-  const { burnedCalories: calories, time } = foundedExercise;
+  const {
+    burnedCalories: calories,
+    time,
+    bodyPart,
+    equipment,
+    name,
+    target,
+  } = foundedExercise;
 
   const burnCaloriesPerMinute = Math.round(calories / time);
   const burnCaloriesPerExerciseDuration =
@@ -17,9 +24,12 @@ const addExerciseById = async (req, res) => {
 
   const doneExercise = {
     id: nanoid(),
-    exerciseId: { $oid: exerciseId },
     exerciseDuration,
     burnCalories: burnCaloriesPerExerciseDuration,
+    bodyPart,
+    equipment,
+    name,
+    target,
   };
 
   const foundedDiary = await DiaryExercise.findOne({
