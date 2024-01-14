@@ -14,6 +14,11 @@ const deleteExerciseById = async (req, res) => {
     (exercise) => exercise.id === id
   );
 
+  if (!foundedExercise)
+    return res.status(404).json({
+      message: "Not found",
+    });
+
   const time = foundedExercise.exerciseDuration;
   const calories = foundedExercise.burnCaloriesPerMinute * time;
 
