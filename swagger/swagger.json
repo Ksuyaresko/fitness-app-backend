@@ -181,6 +181,63 @@
         }
       }
     },
+    "/users/avatars": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User's avatar",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Avatar file",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "avatarURL": {
+                          "type": "string",
+                          "description": "User's avatar url"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "data": {
+                      "avatarURL": "http://res.cloudinary.com/dt2gqhsoc/image/upload/v1705244983/65a2af4959e67bb6e4a0fc83.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "tags": ["Products"],

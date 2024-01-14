@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateBody, authorization } = require("../../middlewares");
+const { validateBody, authorization, upload } = require("../../middlewares");
 const { schemasUser } = require("../../models");
 const { Auth } = require("../../controller");
 const { errorWrap } = require("../../utils");
@@ -24,6 +24,13 @@ router.patch(
   authorization,
   validateBody(schemasUser.settingSchema),
   errorWrap(Auth.settingsPut)
+);
+
+router.post(
+  "/avatars",
+  authorization,
+  upload.single("avatar"),
+  errorWrap(Auth.avatar),
 );
 
 module.exports = router;
