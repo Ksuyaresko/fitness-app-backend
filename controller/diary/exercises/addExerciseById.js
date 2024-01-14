@@ -24,8 +24,8 @@ const addExerciseById = async (req, res) => {
 
   const doneExercise = {
     id: nanoid(),
-    exerciseDuration,
-    burnCalories: burnCaloriesPerExerciseDuration,
+    time: exerciseDuration,
+    burnedCalories: burnCaloriesPerExerciseDuration,
     bodyPart,
     equipment,
     name,
