@@ -19,7 +19,7 @@ const addExerciseById = async (req, res) => {
     id: nanoid(),
     exerciseId: { $oid: exerciseId },
     exerciseDuration,
-    burnCaloriesPerMinute,
+    burnCalories: burnCaloriesPerExerciseDuration,
   };
 
   const foundedDiary = await DiaryExercise.findOne({
