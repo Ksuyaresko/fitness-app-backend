@@ -462,80 +462,80 @@
                   }
                 }
               }
-            },
-            "example": {
-              "data": {
-                "weight": 100,
-                "calories": 340,
-                "category": "dairy",
-                "title": "Danbo cheese",
-                "groupBloodNotAllowed": {
-                  "1": true,
-                  "2": true,
-                  "3": false,
-                  "4": false
-                }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "weight": 100,
+            "calories": 340,
+            "category": "dairy",
+            "title": "Danbo cheese",
+            "groupBloodNotAllowed": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false
+            }
+          }
+        }
+      },
+      "ExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "bodyPart": {
+                "type": "string",
+                "description": "Body part"
+              },
+              "equipment": {
+                "type": "string",
+                "description": "Equipment"
+              },
+              "gifUrl": {
+                "type": "string",
+                "description": "Exercise animation"
+              },
+              "name": {
+                "type": "string",
+                "description": "Exercise name"
+              },
+              "target": {
+                "type": "string",
+                "description": "Types of muscles"
+              },
+              "burnedCalories": {
+                "type": "number",
+                "description": "Burned calories"
+              },
+              "time": {
+                "type": "number",
+                "description": "Еxercise time"
               }
             }
+          }
+        },
+        "example": {
+          "data": {
+            "bodyPart": "chest",
+            "equipment": "leverage machine",
+            "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0009.gif",
+            "name": "assisted chest dip (kneeling)",
+            "target": "pectorals",
+            "burnedCalories": 329,
+            "time": 3
           }
         }
       }
     },
-    "ExercisesResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "bodyPart": {
-              "type": "string",
-              "description": "Body part"
-            },
-            "equipment": {
-              "type": "string",
-              "description": "Equipment"
-            },
-            "gifUrl": {
-              "type": "string",
-              "description": "Exercise animation"
-            },
-            "name": {
-              "type": "string",
-              "description": "Exercise name"
-            },
-            "target": {
-              "type": "string",
-              "description": "Types of muscles"
-            },
-            "burnedCalories": {
-              "type": "number",
-              "description": "Burned calories"
-            },
-            "time": {
-              "type": "number",
-              "description": "Еxercise time"
-            }
-          },
-          "example": {
-            "data": {
-              "bodyPart": "chest",
-              "equipment": "leverage machine",
-              "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0009.gif",
-              "name": "assisted chest dip (kneeling)",
-              "target": "pectorals",
-              "burnedCalories": 329,
-              "time": 3
-            }
-          }
-        }
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
-    }
-  },
-  "securitySchemes": {
-    "Bearer": {
-      "type": "http",
-      "scheme": "bearer",
-      "bearerFormat": "JWT"
     }
   }
 }
