@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateBody } = require("../../middlewares");
+const { validateBody, isValidId } = require("../../middlewares");
 const { schemasExercise } = require("../../models");
 
 const { diaryExercises } = require("../../controller");
@@ -20,8 +20,9 @@ router.get(
 );
 
 router.post(
-  "/",
+  "/:id",
   authorization,
+  isValidId,
   validateBody(addExerciseBodySchema),
   errorWrap(addExerciseById)
 );
