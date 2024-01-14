@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cloudinary": "^1.41.2",
     "cors": "2.8.5",
     "date-fns": "^3.2.0",
     "dotenv": "^16.3.1",
