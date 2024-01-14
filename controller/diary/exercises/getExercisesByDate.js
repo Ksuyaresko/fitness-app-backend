@@ -4,7 +4,7 @@ const getExercisesByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date: receivedDate } = req.body;
 
-  const result = await DiaryExercise.find({
+  const result = await DiaryExercise.findOne({
     ownerId: owner,
     date: receivedDate,
   });

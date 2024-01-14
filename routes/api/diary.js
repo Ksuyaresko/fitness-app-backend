@@ -8,7 +8,8 @@ const { diaryExercises } = require("../../controller");
 const { authorization } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 
-const { addExercise, deleteExercise, getExercisesByDate } = diaryExercises;
+const { addExerciseById, deleteExerciseById, getExercisesByDate } =
+  diaryExercises;
 const { addExerciseBodySchema, getExercisesBodySchema } = schemasExercise;
 
 router.get(
@@ -22,9 +23,9 @@ router.post(
   "/",
   authorization,
   validateBody(addExerciseBodySchema),
-  errorWrap(addExercise)
+  errorWrap(addExerciseById)
 );
 
-router.delete("/:id", authorization, errorWrap(deleteExercise));
+router.delete("/:id", authorization, errorWrap(deleteExerciseById));
 
 module.exports = router;

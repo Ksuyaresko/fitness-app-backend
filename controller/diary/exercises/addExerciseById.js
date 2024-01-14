@@ -1,7 +1,8 @@
 const { DiaryExercise } = require("../../../models");
 const { exerciseMock } = require("../../../DB");
+const { nanoid } = require("nanoid");
 
-const addExercise = async (req, res) => {
+const addExerciseById = async (req, res) => {
   const { _id: exerciseId, burnedCalories: calories, time } = exerciseMock;
   const { _id: owner } = req.user;
   const { time: exerciseDuration, date: receivedDate } = req.body;
@@ -11,6 +12,7 @@ const addExercise = async (req, res) => {
     burnCaloriesPerMinute * exerciseDuration;
 
   const doneExercise = {
+    id: nanoid(),
     exerciseId,
     exerciseDuration,
     burnCaloriesPerMinute,
@@ -49,4 +51,4 @@ const addExercise = async (req, res) => {
     res.status(201).json(data);
   }
 };
-module.exports = { addExercise };
+module.exports = { addExerciseById };
