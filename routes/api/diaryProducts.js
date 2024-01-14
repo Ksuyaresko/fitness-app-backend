@@ -12,7 +12,7 @@ const {
   allProductsInDiaryByDate,
 } = diaryProducts;
 
-// Router для отримання всіх продуктів зі щоденника за обраною датою
+// Router для отримання інформації про спожиті продукти із щоденника за обрану дату
 router.get("/day", authorization, errorWrap(allProductsInDiaryByDate));
 
 // Router для збереження продукту, що було спожито користувачем, в щоденнику та його закріплення за обраною датою
