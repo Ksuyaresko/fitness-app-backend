@@ -1,11 +1,15 @@
 const { DiaryExercise } = require("../../../models");
-const { exerciseMock } = require("../../../DB");
 const { nanoid } = require("nanoid");
+const { Exercise } = require("../../../models");
 
 const addExerciseById = async (req, res) => {
-  const { _id: exerciseId, burnedCalories: calories, time } = exerciseMock;
+  const { id: exerciseId } = req.params;
   const { _id: owner } = req.user;
   const { time: exerciseDuration, date: receivedDate } = req.body;
+
+  const foundedExercise = await Exercise.findOne({ _id: exerciseId });
+
+  const { burnedCalories: calories, time } = foundedExercise;
 
   const burnCaloriesPerMinute = Math.round(calories / time);
   const burnCaloriesPerExerciseDuration =
@@ -13,9 +17,9 @@ const addExerciseById = async (req, res) => {
 
   const doneExercise = {
     id: nanoid(),
-    exerciseId,
+    exerciseId: { $oid: exerciseId },
     exerciseDuration,
-    burnCaloriesPerMinute,
+    burnCalories: burnCaloriesPerExerciseDuration,
   };
 
   const foundedDiary = await DiaryExercise.findOne({

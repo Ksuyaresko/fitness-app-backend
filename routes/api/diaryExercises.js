@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateBody } = require("../../middlewares");
+const { validateBody, isValidId } = require("../../middlewares");
 const { schemasExercise } = require("../../models");
 
 const { diaryExercises } = require("../../controller");
@@ -13,21 +13,22 @@ const { addExerciseById, deleteExerciseById, getExercisesByDate } =
 const { addExerciseBodySchema, getDelExerciseSchema } = schemasExercise;
 
 router.get(
-  "/",
+  "/exercises",
   authorization,
   validateBody(getDelExerciseSchema),
   errorWrap(getExercisesByDate)
 );
 
 router.post(
-  "/",
+  "/exercises/:id",
   authorization,
+  isValidId,
   validateBody(addExerciseBodySchema),
   errorWrap(addExerciseById)
 );
 
 router.delete(
-  "/:id",
+  "/exercises/:id",
   authorization,
   validateBody(getDelExerciseSchema),
   errorWrap(deleteExerciseById)
