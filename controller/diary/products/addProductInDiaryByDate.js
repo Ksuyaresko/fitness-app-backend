@@ -1,3 +1,5 @@
+// controller для збереження продукту, що було спожито користувачем, в щоденнику та його закріплення за обраною датою
+
 const { format } = require("date-fns");
 
 const { ProductDiary } = require("../../../models/productDiary");
@@ -14,7 +16,8 @@ const addProductInDiaryByDate = async (req, res) => {
     }
   );
 
-  res.status(201).json({ product_ID, date, amount, calories, _id });
+  res.status(201).json({ _id, product_ID, date, amount, calories, owner });
+  // res.status(201).json({ product_ID, date, amount, calories, owner });
 };
 
 module.exports = addProductInDiaryByDate;

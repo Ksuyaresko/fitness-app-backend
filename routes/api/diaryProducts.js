@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { diaryProducts } = require("../../controller");
-const { authorization, validateBody } = require("../../middlewares");
+const { authorization, validateBody, isValidId } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 const { bodyDiaryProductSchema } = require("../../models/productDiary");
 
@@ -27,6 +27,7 @@ router.post(
 router.delete(
   "/day/products/:id",
   authorization,
+  isValidId,
   errorWrap(delProductInDiaryByDate)
 );
 
