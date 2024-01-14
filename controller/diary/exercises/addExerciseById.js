@@ -1,36 +1,40 @@
-const { Diary } = require("../../../models");
+const { DiaryExercise } = require("../../../models");
 const { exerciseMock } = require("../../../DB");
-const { getCurrentFormatedDate } = require("../../../helpers");
-// const { isValidId } = require("../../../middlewares");
+const { nanoid } = require("nanoid");
 
-const addExercise = async (req, res) => {
+const addExerciseById = async (req, res) => {
   const { _id: exerciseId, burnedCalories: calories, time } = exerciseMock;
   const { _id: owner } = req.user;
-  const { time: exerciseDuration } = req.body;
+  const { time: exerciseDuration, date: receivedDate } = req.body;
 
   const burnCaloriesPerMinute = Math.round(calories / time);
   const burnCaloriesPerExerciseDuration =
     burnCaloriesPerMinute * exerciseDuration;
 
   const doneExercise = {
+    id: nanoid(),
     exerciseId,
     exerciseDuration,
     burnCaloriesPerMinute,
   };
 
-  const foundedDiary = await Diary.findOne({ ownerId: owner });
+  const foundedDiary = await DiaryExercise.findOne({
+    ownerId: owner,
+    date: receivedDate,
+  });
 
-  if (!foundedDiary || foundedDiary.date !== getCurrentFormatedDate()) {
-    const data = await Diary.create({
+  if (!foundedDiary) {
+    const data = await DiaryExercise.create({
       ownerId: owner,
       doneExercises: [doneExercise],
       burnedCalories: burnCaloriesPerExerciseDuration,
       sportTime: exerciseDuration,
-      date: getCurrentFormatedDate(),
+      date: receivedDate,
     });
+
     res.status(201).json(data);
   } else {
-    const data = await Diary.findByIdAndUpdate(
+    const data = await DiaryExercise.findByIdAndUpdate(
       foundedDiary._id,
       {
         $inc: {
@@ -47,4 +51,4 @@ const addExercise = async (req, res) => {
     res.status(201).json(data);
   }
 };
-module.exports = { addExercise };
+module.exports = { addExerciseById };

@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const diaryEntrySchema = new Schema(
   {
@@ -23,7 +24,20 @@ const diaryEntrySchema = new Schema(
   },
   { versionKey: false }
 );
+const DiaryExercise = model("diary-exercise", diaryEntrySchema);
 
-const Diary = model("diary-exercise", diaryEntrySchema);
+const addExerciseBodySchema = Joi.object({
+  date: Joi.required(),
+  time: Joi.required(),
+});
 
-module.exports = { Diary };
+const getDelExerciseSchema = Joi.object({
+  date: Joi.required(),
+});
+
+const schemas = {
+  addExerciseBodySchema,
+  getDelExerciseSchema,
+};
+
+module.exports = { DiaryExercise, schemas };

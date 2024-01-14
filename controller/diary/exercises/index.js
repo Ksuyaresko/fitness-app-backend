@@ -1,9 +1,9 @@
-const { addExercise } = require("./addExercise");
-const { deleteExercise } = require("./deleteExercise");
-const { getExercises } = require("./getExercises");
+const { addExerciseById } = require("./addExerciseById");
+const { deleteExerciseById } = require("./deleteExerciseById");
+const { getExercisesByDate } = require("./getExercisesByDate");
 
 module.exports = {
-  addExercise,
-  deleteExercise,
-  getExercises,
+  addExerciseById,
+  deleteExerciseById,
+  getExercisesByDate,
 };
