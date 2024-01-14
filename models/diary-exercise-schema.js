@@ -31,13 +31,13 @@ const addExerciseBodySchema = Joi.object({
   time: Joi.required(),
 });
 
-const getExercisesBodySchema = Joi.object({
+const getDelExerciseSchema = Joi.object({
   date: Joi.required(),
 });
 
 const schemas = {
   addExerciseBodySchema,
-  getExercisesBodySchema,
+  getDelExerciseSchema,
 };
 
 module.exports = { DiaryExercise, schemas };
