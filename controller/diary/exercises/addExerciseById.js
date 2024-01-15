@@ -41,7 +41,7 @@ const addExerciseById = async (req, res) => {
   });
 
   if (!foundedDiary) {
-    const data = await DiaryExercise.create({
+    await DiaryExercise.create({
       ownerId: owner,
       doneExercises: [doneExercise],
       burnedCalories: burnCaloriesPerExerciseDuration,
@@ -49,9 +49,9 @@ const addExerciseById = async (req, res) => {
       date: receivedDate,
     });
 
-    res.status(201).json(data);
+    res.status(201).json({ data: { doneExercise: doneExercise } });
   } else {
-    const data = await DiaryExercise.findByIdAndUpdate(
+    await DiaryExercise.findByIdAndUpdate(
       foundedDiary._id,
       {
         $inc: {
@@ -65,7 +65,7 @@ const addExerciseById = async (req, res) => {
       { new: true }
     );
 
-    res.status(201).json(data);
+    res.status(201).json({ data: { doneExercise: doneExercise } });
   }
 };
 module.exports = { addExerciseById };

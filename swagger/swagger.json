@@ -305,12 +305,12 @@
         ],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "Registration's object",
+          "description": "Object for adding an exercise to a diary",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "$ref": "#/components/schemas/DiaryExercisesRequest"
               }
             }
           }
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/DiaryExercisesResponse"
                 }
               }
             }
@@ -634,6 +634,78 @@
             "target": "pectorals",
             "burnedCalories": 329,
             "time": 3
+          }
+        }
+      },
+      "DiaryExercisesRequest": {
+        "type": "object",
+        "required": ["time", "date"],
+        "properties": {
+          "time": {
+            "type": "integer",
+            "description": "How long did the exercise last, in minutes",
+            "example": 5
+          },
+          "date": {
+            "type": "string",
+            "description": "Date the exercise was performed",
+            "example": "15/01/2024"
+          }
+        }
+      },
+      "DiaryExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "doneExercise": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Diary entry ID"
+                  },
+                  "time": {
+                    "type": "integer",
+                    "description": "How long did the exercise last, in minutes"
+                  },
+                  "burnedCalories": {
+                    "type": "integer",
+                    "description": "How many calories this exercise burned during the time"
+                  },
+                  "bodyPart": {
+                    "type": "string",
+                    "description": "Body part trained by this exercise"
+                  },
+                  "equipment": {
+                    "type": "string",
+                    "description": "Equipment needed for this exercise"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the exercise"
+                  },
+                  "target": {
+                    "type": "string",
+                    "description": "Name of the muscle trained in this exercise"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "doneExercise": {
+              "id": "W_0ggtBVw2MA4dxnKbeRn",
+              "time": 5,
+              "burnedCalories": 588,
+              "bodyPart": "upper arms",
+              "equipment": "barbell",
+              "name": "barbell drag curl",
+              "target": "biceps"
+            }
           }
         }
       }
