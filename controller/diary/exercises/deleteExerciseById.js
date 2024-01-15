@@ -21,7 +21,7 @@ const deleteExerciseById = async (req, res) => {
   const time = foundedDiaryEntry.time;
   const calories = foundedDiaryEntry.burnedCalories;
 
-  const data = await DiaryExercise.findByIdAndUpdate(
+  await DiaryExercise.findByIdAndUpdate(
     foundedDiary._id,
     {
       $inc: { burnedCalories: -calories, sportTime: -time },
@@ -30,6 +30,8 @@ const deleteExerciseById = async (req, res) => {
     { new: true }
   );
 
-  res.status(200).json(data);
+  res
+    .status(200)
+    .json({ data: { message: "Diary entry successfully deleted" } });
 };
 module.exports = { deleteExerciseById };
