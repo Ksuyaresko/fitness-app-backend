@@ -12,6 +12,9 @@ const settingsPut = async (req, res) => {
 
   const dailyActivity = 110;
   const age = differenceInYears(new Date(), new Date(body.birthday));
+  if (age < 18) {
+    res.status(403).json({error: true, message: 'must be older than 18 years'})
+  }
   const sexK = body.sex === "male" ? -161 : 5;
 
   const dailyCalories = Math.round(
@@ -19,14 +22,16 @@ const settingsPut = async (req, res) => {
       LEVEL_ACTIVITY_K[body.levelActivity]
   );
 
+  const { name, ...settings } = body;
   const newUser = await User.findByIdAndUpdate(
     _id,
-    { dailyActivity, dailyCalories, settings: body },
+    { name, dailyActivity, dailyCalories, settings },
     { new: true, runValidators: true }
   );
 
   res.json({
     data: {
+      name: newUser.name,
       dailyActivity: newUser.dailyActivity,
       dailyCalories: newUser.dailyCalories,
     },

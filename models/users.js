@@ -69,6 +69,7 @@ const emailSchema = Joi.object({
 });
 
 const settingSchema = Joi.object({
+  name: Joi.string().required(),
   height: Joi.number().min(150).required(),
   currentWeight: Joi.number().min(35).required(),
   desiredWeight: Joi.number().min(35).required(),

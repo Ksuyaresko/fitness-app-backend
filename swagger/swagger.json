@@ -150,7 +150,7 @@
         }
       }
     },
-    "/users/settings": {
+    "/users": {
       "patch": {
         "tags": ["Auth"],
         "summary": "User patch settings",
@@ -399,6 +399,11 @@
       "SettingsRequest": {
         "type": "object",
         "properties": {
+          "name":{
+            "type": "string",
+            "description": "User's name",
+            "example": "Name"
+          },
           "height": {
             "type": "number",
             "description": "minimum 150(cm); required",
