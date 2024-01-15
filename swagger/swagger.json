@@ -241,12 +241,39 @@
     "/products": {
       "get": {
         "tags": ["Products"],
-        "summary": "Products info",
-        "parameters": [],
+        "summary": "Get all products with pagination",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "in": "query",
+            "name": "categories",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by category"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "Getting a list of products taking into account pagination",
             "content": {
               "application/json": {
                 "schema": {
@@ -348,7 +375,7 @@
       "SettingsRequest": {
         "type": "object",
         "properties": {
-          "name":{
+          "name": {
             "type": "string",
             "description": "User's name",
             "example": "Name"
@@ -485,61 +512,81 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "object",
-            "properties": {
-              "weight": {
-                "type": "number",
-                "description": "product weight"
-              },
-              "calories": {
-                "type": "number",
-                "description": "product calories"
-              },
-              "category": {
-                "type": "string",
-                "description": "product category"
-              },
-              "title": {
-                "type": "string",
-                "description": "product title"
-              },
-              "groupBloodNotAllowed": {
-                "type": "object",
-                "properties": {
-                  "1": {
-                    "type": "boolean",
-                    "description": ""
-                  },
-                  "2": {
-                    "type": "boolean",
-                    "description": ""
-                  },
-                  "3": {
-                    "type": "boolean",
-                    "description": ""
-                  },
-                  "4": {
-                    "type": "boolean",
-                    "description": ""
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "weight": {
+                  "type": "number",
+                  "description": "product weight"
+                },
+                "calories": {
+                  "type": "number",
+                  "description": "product calories"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "product category"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "product title"
+                },
+                "groupBloodNotAllowed": {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "boolean",
+                      "description": ""
+                    },
+                    "2": {
+                      "type": "boolean",
+                      "description": ""
+                    },
+                    "3": {
+                      "type": "boolean",
+                      "description": ""
+                    },
+                    "4": {
+                      "type": "boolean",
+                      "description": ""
+                    }
                   }
                 }
               }
             }
+          },
+          "page": {
+            "type": "integer",
+            "description": "Current page number"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Number of items per page"
+          },
+          "totalItems": {
+            "type": "integer",
+            "description": "Total number of items"
           }
         },
         "example": {
-          "data": {
-            "weight": 100,
-            "calories": 340,
-            "category": "dairy",
-            "title": "Danbo cheese",
-            "groupBloodNotAllowed": {
-              "1": true,
-              "2": true,
-              "3": false,
-              "4": false
+          "data": [
+            {
+              "weight": 100,
+              "calories": 340,
+              "category": "dairy",
+              "title": "Danbo cheese",
+              "groupBloodNotAllowed": {
+                "1": true,
+                "2": true,
+                "3": false,
+                "4": false
+              }
             }
-          }
+          ],
+          "page": 1,
+          "pageSize": 10,
+          "totalItems": 100
         }
       },
       "ExercisesResponse": {
