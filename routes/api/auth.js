@@ -20,7 +20,7 @@ router.get("/current", authorization, errorWrap(Auth.current));
 router.post("/logout", authorization, errorWrap(Auth.logout));
 
 router.patch(
-  "/settings",
+  "/",
   authorization,
   validateBody(schemasUser.settingSchema),
   errorWrap(Auth.settingsPut)
