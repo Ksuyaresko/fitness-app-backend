@@ -10,12 +10,12 @@ const { errorWrap } = require("../../utils");
 
 const { addExerciseById, deleteExerciseById, getExercisesByDate } =
   diaryExercises;
-const { addExerciseBodySchema, getDelExerciseSchema } = schemasExercise;
+const { addExerciseBodySchema, getExerciseSchema } = schemasExercise;
 
 router.get(
   "/exercises",
   authorization,
-  validateBody(getDelExerciseSchema),
+  validateBody(getExerciseSchema),
   errorWrap(getExercisesByDate)
 );
 
@@ -27,11 +27,6 @@ router.post(
   errorWrap(addExerciseById)
 );
 
-router.delete(
-  "/exercises/:id",
-  authorization,
-  validateBody(getDelExerciseSchema),
-  errorWrap(deleteExerciseById)
-);
+router.delete("/exercises/:id", authorization, errorWrap(deleteExerciseById));
 
 module.exports = router;

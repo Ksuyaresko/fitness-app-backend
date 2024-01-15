@@ -349,17 +349,6 @@
           }
         ],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Object for deleting an exercise from a diary",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DiaryDeleteExercisesRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -759,17 +748,6 @@
               "name": "barbell drag curl",
               "target": "biceps"
             }
-          }
-        }
-      },
-      "DiaryDeleteExercisesRequest": {
-        "type": "object",
-        "required": ["date"],
-        "properties": {
-          "date": {
-            "type": "string",
-            "description": "Date the exercise was performed",
-            "example": "15/01/2024"
           }
         }
       },
