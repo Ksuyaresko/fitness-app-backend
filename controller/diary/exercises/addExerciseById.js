@@ -26,7 +26,8 @@ const addExerciseById = async (req, res) => {
     burnCaloriesPerMinute * exerciseDuration;
 
   const doneExercise = {
-    id: nanoid(),
+    diaryEntryId: nanoid(),
+    exerciseId: { $oid: exerciseId },
     time: exerciseDuration,
     burnedCalories: burnCaloriesPerExerciseDuration,
     bodyPart,
