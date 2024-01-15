@@ -25,6 +25,10 @@
     {
       "name": "Exercises",
       "description": "Exercises endpoints"
+    },
+    {
+      "name": "Diary",
+      "description": "Diary endpoints"
     }
   ],
   "paths": {
@@ -348,7 +352,7 @@
       "SettingsRequest": {
         "type": "object",
         "properties": {
-          "name":{
+          "name": {
             "type": "string",
             "description": "User's name",
             "example": "Name"
