@@ -3,15 +3,15 @@ const { HttpError } = require("../../../utils");
 
 const deleteExerciseById = async (req, res) => {
   const { _id: owner } = req.user;
-  const { id: diaryEntryId } = req.params;
+  const { id } = req.params;
 
   const foundedDiary = await DiaryExercise.findOne({
     ownerId: owner,
-    "doneExercises.diaryEntryId": diaryEntryId,
+    "doneExercises.id": id,
   });
 
   const foundedDiaryEntry = foundedDiary.doneExercises.find(
-    (exercise) => exercise.diaryEntryId === diaryEntryId
+    (exercise) => exercise.id === id
   );
 
   if (!foundedDiaryEntry)
@@ -24,7 +24,7 @@ const deleteExerciseById = async (req, res) => {
     foundedDiary._id,
     {
       $inc: { burnedCalories: -calories, sportTime: -time },
-      $pull: { doneExercises: { diaryEntryId } },
+      $pull: { doneExercises: { id } },
     },
     { new: true }
   );

@@ -697,13 +697,9 @@
               "doneExercise": {
                 "type": "object",
                 "properties": {
-                  "diaryEntryId": {
+                  "id": {
                     "type": "string",
                     "description": "Diary entry ID"
-                  },
-                  "exerciseId": {
-                    "type": "ObjectId",
-                    "description": "Exercise ID"
                   },
                   "time": {
                     "type": "integer",
@@ -738,9 +734,6 @@
           "data": {
             "doneExercise": {
               "diaryEntryId": "zDLu1HTSVvOMet1B0E_UG",
-              "exerciseId": {
-                "$oid": "64f2458d6f67bc34bae4f813"
-              },
               "time": 21,
               "burnedCalories": 588,
               "bodyPart": "upper arms",
