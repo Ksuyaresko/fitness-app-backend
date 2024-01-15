@@ -1,7 +1,7 @@
 const { Product } = require("../../models");
 
 const getAllProducts = async (req, res) => {
-  const { page = 1, limit = 10, categories } = req.query;
+  const { page = 1, limit = 10, categories, search } = req.query;
   const skip = (page - 1) * limit;
   let query = {};
 
@@ -9,10 +9,18 @@ const getAllProducts = async (req, res) => {
     query.category = categories;
   }
 
-  const data = await Product.find(query).skip(skip).limit(limit);
-  const totalItems = await Product.countDocuments(query);
+  let data, totalItems;
 
-  res.json({ data, page, pageSize: limit, totalItems });
+  if (!search) {
+    data = await Product.find(query).skip(skip).limit(limit);
+    totalItems = await Product.countDocuments(query);
+    res.json({ data, totalItems });
+  } else {
+    query.title = { $regex: search, $options: "i" };
+    data = await Product.find(query).skip(skip).limit(limit);
+    totalItems = await Product.countDocuments(query);
+
+    res.json({ data, totalItems });
+  }
 };
-
 module.exports = getAllProducts;

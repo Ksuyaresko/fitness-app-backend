@@ -21,10 +21,8 @@ const product = new Schema(
       required: true,
     },
     groupBloodNotAllowed: {
-      1: Boolean,
-      2: Boolean,
-      3: Boolean,
-      4: Boolean,
+      type: Map,
+      of: Boolean,
     },
   },
   { versionKey: false, timestamps: true }
