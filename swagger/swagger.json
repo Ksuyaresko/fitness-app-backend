@@ -25,6 +25,10 @@
     {
       "name": "Exercises",
       "description": "Exercises endpoints"
+    },
+    {
+      "name": "Diary Exercises",
+      "description": "Diary Exercises endpoints"
     }
   ],
   "paths": {
@@ -281,6 +285,53 @@
           },
           "401": {
             "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/exercises": {
+      "post": {
+        "tags": ["Diary Exercises"],
+        "summary": "Add exercise to diary",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Exercise ID"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid exercise ID)",
+            "content": {}
+          },
+          "404": {
+            "description": "Exercise not found",
             "content": {}
           }
         }

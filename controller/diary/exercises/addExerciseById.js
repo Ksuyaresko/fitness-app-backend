@@ -1,6 +1,7 @@
 const { DiaryExercise } = require("../../../models");
 const { nanoid } = require("nanoid");
 const { Exercise } = require("../../../models");
+const { HttpError } = require("../../../utils");
 
 const addExerciseById = async (req, res) => {
   const { id: exerciseId } = req.params;
@@ -8,6 +9,8 @@ const addExerciseById = async (req, res) => {
   const { time: exerciseDuration, date: receivedDate } = req.body;
 
   const foundedExercise = await Exercise.findOne({ _id: exerciseId });
+
+  if (!foundedExercise) throw HttpError(404, "No such exercise has been found");
 
   const {
     burnedCalories: calories,
