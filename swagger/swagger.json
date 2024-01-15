@@ -310,7 +310,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DiaryExercisesRequest"
+                "$ref": "#/components/schemas/DiaryAddExercisesRequest"
               }
             }
           }
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DiaryExercisesResponse"
+                  "$ref": "#/components/schemas/DiaryAddExercisesResponse"
                 }
               }
             }
@@ -332,6 +332,47 @@
           },
           "404": {
             "description": "Exercise not found",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Diary Exercises"],
+        "summary": "Delete exercise from diary",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Diary entry ID"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Object for deleting an exercise from a diary",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryDeleteExercisesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryDeleteExercisesResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Diary entry not found",
             "content": {}
           }
         }
@@ -399,7 +440,7 @@
       "SettingsRequest": {
         "type": "object",
         "properties": {
-          "name":{
+          "name": {
             "type": "string",
             "description": "User's name",
             "example": "Name"
@@ -642,7 +683,7 @@
           }
         }
       },
-      "DiaryExercisesRequest": {
+      "DiaryAddExercisesRequest": {
         "type": "object",
         "required": ["time", "date"],
         "properties": {
@@ -658,7 +699,7 @@
           }
         }
       },
-      "DiaryExercisesResponse": {
+      "DiaryAddExercisesResponse": {
         "type": "object",
         "properties": {
           "data": {
@@ -711,6 +752,36 @@
               "name": "barbell drag curl",
               "target": "biceps"
             }
+          }
+        }
+      },
+      "DiaryDeleteExercisesRequest": {
+        "type": "object",
+        "required": ["date"],
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Date the exercise was performed",
+            "example": "15/01/2024"
+          }
+        }
+      },
+      "DiaryDeleteExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Notification of successful deletion of a diary entry"
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "message": "Diary entry successfully deleted"
           }
         }
       }
