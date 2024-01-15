@@ -9,6 +9,6 @@ const getExercisesByDate = async (req, res) => {
     date: receivedDate,
   });
 
-  res.status(200).json({ data: result });
+  res.json({ data: result });
 };
 module.exports = { getExercisesByDate };

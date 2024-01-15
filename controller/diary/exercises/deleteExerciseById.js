@@ -29,8 +29,6 @@ const deleteExerciseById = async (req, res) => {
     { new: true }
   );
 
-  res
-    .status(200)
-    .json({ data: { message: "Diary entry successfully deleted" } });
+  res.json({ data: { message: "Diary entry successfully deleted" } });
 };
 module.exports = { deleteExerciseById };
