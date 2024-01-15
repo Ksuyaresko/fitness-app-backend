@@ -733,7 +733,7 @@
         "example": {
           "data": {
             "doneExercise": {
-              "diaryEntryId": "zDLu1HTSVvOMet1B0E_UG",
+              "id": "zDLu1HTSVvOMet1B0E_UG",
               "time": 21,
               "burnedCalories": 588,
               "bodyPart": "upper arms",
