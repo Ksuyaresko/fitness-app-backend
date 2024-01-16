@@ -1,6 +1,5 @@
 // controller для отримання інформації про спожиті продукти із щоденника за обрану дату
-
-const moment = require("moment");
+const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models/productDiary");
 
@@ -8,12 +7,8 @@ const allProductsInDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.query;
 
-  // Функція isValidDateWithMoment для валідації дати
-  function isValidDateWithMoment(dateString) {
-    return moment(dateString, "DD/MM/YYYY", true).isValid();
-  }
-
-  if (isValidDateWithMoment(date)) {
+  const result = isMatch(date, "dd/MM/yyyy");
+  if (result) {
     const ownerObjId = { owner };
     ownerObjId.date = date;
 
@@ -36,16 +31,10 @@ const allProductsInDiaryByDate = async (req, res) => {
     );
     res.status(200).json(productsResult);
   } else {
-    res.json({ message: `${date} не є коректною датою.` });
+    res.json({
+      message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
+    });
   }
 };
 
 module.exports = allProductsInDiaryByDate;
-
-//==========================================================
-// const { _id: owner } = req.user;
-// const { date } = req.query;
-
-// const result = await ProductDiary.find({ date, owner });
-// res.status(200).json(result)
-//==========================================================
