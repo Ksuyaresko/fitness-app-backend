@@ -1,28 +1,26 @@
 const { DiaryExercise } = require("../../../models");
+const { HttpError } = require("../../../utils");
 
 const deleteExerciseById = async (req, res) => {
   const { _id: owner } = req.user;
-  const { date: receivedDate } = req.body;
   const { id } = req.params;
 
   const foundedDiary = await DiaryExercise.findOne({
     ownerId: owner,
-    date: receivedDate,
+    "doneExercises.id": id,
   });
 
-  const foundedExercise = foundedDiary.doneExercises.find(
+  const foundedDiaryEntry = foundedDiary.doneExercises.find(
     (exercise) => exercise.id === id
   );
 
-  if (!foundedExercise)
-    return res.status(404).json({
-      message: "Not found",
-    });
+  if (!foundedDiaryEntry)
+    throw HttpError(404, "No such diary entry has been found");
 
-  const time = foundedExercise.exerciseDuration;
-  const calories = foundedExercise.burnCaloriesPerMinute * time;
+  const time = foundedDiaryEntry.time;
+  const calories = foundedDiaryEntry.burnedCalories;
 
-  const data = await DiaryExercise.findByIdAndUpdate(
+  await DiaryExercise.findByIdAndUpdate(
     foundedDiary._id,
     {
       $inc: { burnedCalories: -calories, sportTime: -time },
@@ -31,6 +29,6 @@ const deleteExerciseById = async (req, res) => {
     { new: true }
   );
 
-  res.status(200).json(data);
+  res.json({ data: { message: "Diary entry successfully deleted" } });
 };
 module.exports = { deleteExerciseById };
