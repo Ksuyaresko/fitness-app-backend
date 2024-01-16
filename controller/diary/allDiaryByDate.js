@@ -3,6 +3,7 @@
 const moment = require("moment");
 
 const { ProductDiary } = require("../../models/productDiary");
+const { DiaryExercise } = require("../../models");
 
 const allProductsInDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
