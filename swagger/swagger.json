@@ -29,6 +29,10 @@
     {
       "name": "Diary",
       "description": "Diary endpoints"
+    },
+    {
+      "name": "Diary Exercises",
+      "description": "Diary Exercises endpoints"
     }
   ],
   "paths": {
@@ -245,12 +249,47 @@
     "/products": {
       "get": {
         "tags": ["Products"],
-        "summary": "Products info",
-        "parameters": [],
+        "summary": "Get products with page numbering and options",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination (default: 1)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page (default: 10)"
+          },
+          {
+            "in": "query",
+            "name": "categories",
+            "schema": {
+              "type": "string"
+            },
+            "description": "List of categories to filter"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Keyword for searching products"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "Getting a list of products taking into account the numbering of pages of parameters",
             "content": {
               "application/json": {
                 "schema": {
@@ -285,6 +324,83 @@
           },
           "401": {
             "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/exercises": {
+      "post": {
+        "tags": ["Diary Exercises"],
+        "summary": "Add exercise to diary",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Exercise ID"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Object for adding an exercise to a diary",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryAddExercisesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryAddExercisesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid exercise ID)",
+            "content": {}
+          },
+          "404": {
+            "description": "Exercise not found",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Diary Exercises"],
+        "summary": "Delete exercise from diary",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Diary entry ID"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryDeleteExercisesResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Diary entry not found",
             "content": {}
           }
         }
@@ -489,61 +605,57 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "object",
-            "properties": {
-              "weight": {
-                "type": "number",
-                "description": "product weight"
-              },
-              "calories": {
-                "type": "number",
-                "description": "product calories"
-              },
-              "category": {
-                "type": "string",
-                "description": "product category"
-              },
-              "title": {
-                "type": "string",
-                "description": "product title"
-              },
-              "groupBloodNotAllowed": {
-                "type": "object",
-                "properties": {
-                  "1": {
-                    "type": "boolean",
-                    "description": ""
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "weight": {
+                  "type": "number",
+                  "description": "product weight"
+                },
+                "calories": {
+                  "type": "number",
+                  "description": "product calories"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "product category"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "product title"
+                },
+                "groupBloodNotAllowed": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
                   },
-                  "2": {
-                    "type": "boolean",
-                    "description": ""
-                  },
-                  "3": {
-                    "type": "boolean",
-                    "description": ""
-                  },
-                  "4": {
-                    "type": "boolean",
-                    "description": ""
-                  }
+                  "description": "Blood group"
                 }
               }
             }
+          },
+          "totalItems": {
+            "type": "integer",
+            "description": "Total number of items"
           }
         },
         "example": {
-          "data": {
-            "weight": 100,
-            "calories": 340,
-            "category": "dairy",
-            "title": "Danbo cheese",
-            "groupBloodNotAllowed": {
-              "1": true,
-              "2": true,
-              "3": false,
-              "4": false
+          "data": [
+            {
+              "weight": 100,
+              "calories": 340,
+              "category": "dairy",
+              "title": "Danbo cheese",
+              "groupBloodNotAllowed": {
+                "1": true,
+                "2": true,
+                "3": false,
+                "4": false
+              }
             }
-          }
+          ],
+          "totalItems": 100
         }
       },
       "ExercisesResponse": {
@@ -592,6 +704,97 @@
             "target": "pectorals",
             "burnedCalories": 329,
             "time": 3
+          }
+        }
+      },
+      "DiaryAddExercisesRequest": {
+        "type": "object",
+        "required": ["time", "date"],
+        "properties": {
+          "time": {
+            "type": "integer",
+            "description": "How long did the exercise last, in minutes",
+            "example": 5
+          },
+          "date": {
+            "type": "string",
+            "description": "Date the exercise was performed",
+            "example": "15/01/2024"
+          }
+        }
+      },
+      "DiaryAddExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "doneExercise": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Diary entry ID"
+                  },
+                  "time": {
+                    "type": "integer",
+                    "description": "How long did the exercise last, in minutes"
+                  },
+                  "burnedCalories": {
+                    "type": "integer",
+                    "description": "How many calories this exercise burned during the time"
+                  },
+                  "bodyPart": {
+                    "type": "string",
+                    "description": "Body part trained by this exercise"
+                  },
+                  "equipment": {
+                    "type": "string",
+                    "description": "Equipment needed for this exercise"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the exercise"
+                  },
+                  "target": {
+                    "type": "string",
+                    "description": "Name of the muscle trained in this exercise"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "doneExercise": {
+              "id": "zDLu1HTSVvOMet1B0E_UG",
+              "time": 21,
+              "burnedCalories": 588,
+              "bodyPart": "upper arms",
+              "equipment": "barbell",
+              "name": "barbell drag curl",
+              "target": "biceps"
+            }
+          }
+        }
+      },
+      "DiaryDeleteExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Notification of successful deletion of a diary entry"
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "message": "Diary entry successfully deleted"
           }
         }
       }

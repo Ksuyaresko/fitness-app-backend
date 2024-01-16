@@ -1,6 +1,7 @@
 const { DiaryExercise } = require("../../../models");
 const { nanoid } = require("nanoid");
 const { Exercise } = require("../../../models");
+const { HttpError } = require("../../../utils");
 
 const addExerciseById = async (req, res) => {
   const { id: exerciseId } = req.params;
@@ -9,7 +10,16 @@ const addExerciseById = async (req, res) => {
 
   const foundedExercise = await Exercise.findOne({ _id: exerciseId });
 
-  const { burnedCalories: calories, time } = foundedExercise;
+  if (!foundedExercise) throw HttpError(404, "No such exercise has been found");
+
+  const {
+    burnedCalories: calories,
+    time,
+    bodyPart,
+    equipment,
+    name,
+    target,
+  } = foundedExercise;
 
   const burnCaloriesPerMinute = Math.round(calories / time);
   const burnCaloriesPerExerciseDuration =
@@ -17,9 +27,12 @@ const addExerciseById = async (req, res) => {
 
   const doneExercise = {
     id: nanoid(),
-    exerciseId: { $oid: exerciseId },
-    exerciseDuration,
-    burnCalories: burnCaloriesPerExerciseDuration,
+    time: exerciseDuration,
+    burnedCalories: burnCaloriesPerExerciseDuration,
+    bodyPart,
+    equipment,
+    name,
+    target,
   };
 
   const foundedDiary = await DiaryExercise.findOne({
@@ -28,7 +41,7 @@ const addExerciseById = async (req, res) => {
   });
 
   if (!foundedDiary) {
-    const data = await DiaryExercise.create({
+    await DiaryExercise.create({
       ownerId: owner,
       doneExercises: [doneExercise],
       burnedCalories: burnCaloriesPerExerciseDuration,
@@ -36,9 +49,9 @@ const addExerciseById = async (req, res) => {
       date: receivedDate,
     });
 
-    res.status(201).json(data);
+    res.status(201).json({ data: { doneExercise: doneExercise } });
   } else {
-    const data = await DiaryExercise.findByIdAndUpdate(
+    await DiaryExercise.findByIdAndUpdate(
       foundedDiary._id,
       {
         $inc: {
@@ -52,7 +65,7 @@ const addExerciseById = async (req, res) => {
       { new: true }
     );
 
-    res.status(201).json(data);
+    res.status(201).json({ data: { doneExercise: doneExercise } });
   }
 };
 module.exports = { addExerciseById };
