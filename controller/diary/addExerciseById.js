@@ -5,7 +5,7 @@ const { HttpError } = require("../../utils");
 const { isMatch } = require("date-fns");
 
 const addExerciseById = async (req, res) => {
-  const { id: exerciseId } = req.params;
+  const { exerciseId } = req.params;
   const { _id: owner } = req.user;
   const { time: exerciseDuration, date: receivedDate } = req.body;
 

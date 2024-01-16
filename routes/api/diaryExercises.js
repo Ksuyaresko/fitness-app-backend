@@ -20,13 +20,17 @@ router.get(
 );
 
 router.post(
-  "/exercises/:id",
+  "/exercises/:exerciseId",
   authorization,
   isValidId,
   validateBody(addExerciseBodySchema),
   errorWrap(addExerciseById)
 );
 
-router.delete("/exercises/:id", authorization, errorWrap(deleteExerciseById));
+router.delete(
+  "/exercises/:diaryEntryId",
+  authorization,
+  errorWrap(deleteExerciseById)
+);
 
 module.exports = router;
