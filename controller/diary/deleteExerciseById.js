@@ -10,12 +10,11 @@ const deleteExerciseById = async (req, res) => {
     "doneExercises.id": id,
   });
 
+  if (!foundedDiary) throw HttpError(404, "No such diary entry has been found");
+
   const foundedDiaryEntry = foundedDiary.doneExercises.find(
     (exercise) => exercise.id === id
   );
-
-  if (!foundedDiaryEntry)
-    throw HttpError(404, "No such diary entry has been found");
 
   const time = foundedDiaryEntry.time;
   const calories = foundedDiaryEntry.burnedCalories;
@@ -31,4 +30,4 @@ const deleteExerciseById = async (req, res) => {
 
   res.json({ data: { message: "Diary entry successfully deleted" } });
 };
-module.exports = { deleteExerciseById };
+module.exports = deleteExerciseById;

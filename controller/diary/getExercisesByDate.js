@@ -11,4 +11,4 @@ const getExercisesByDate = async (req, res) => {
 
   res.json({ data: result });
 };
-module.exports = { getExercisesByDate };
+module.exports =  getExercisesByDate ;

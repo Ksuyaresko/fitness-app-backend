@@ -68,4 +68,4 @@ const addExerciseById = async (req, res) => {
     res.status(201).json({ data: { doneExercise: doneExercise } });
   }
 };
-module.exports = { addExerciseById };
+module.exports = addExerciseById;
