@@ -31,7 +31,7 @@ const allProductsInDiaryByDate = async (req, res) => {
     );
     res.status(200).json(productsResult);
   } else {
-    res.json({
+    res.status(400).json({
       message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
     });
   }
