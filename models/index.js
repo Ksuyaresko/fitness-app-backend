@@ -4,6 +4,8 @@ const { Product } = require("./products");
 
 const { Exercise } = require("./exercises");
 
+const { Filters } = require("./filters");
+
 const {
   DiaryExercise,
   schemas: schemasExercise,
@@ -14,6 +16,7 @@ module.exports = {
   schemasUser,
   Product,
   Exercise,
+  Filters,
   DiaryExercise,
   schemasExercise,
 };

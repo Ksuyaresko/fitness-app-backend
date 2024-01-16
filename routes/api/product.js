@@ -7,6 +7,6 @@ const { errorWrap } = require("../../utils");
 const router = express.Router();
 
 router.get("/", authorization, errorWrap(Products.getAllProducts));
-router.get("/:type", authorization, errorWrap(Products.getАllowedProducts));
+router.get("/category", authorization, errorWrap(Products.getProductCategory));
 
 module.exports = router;

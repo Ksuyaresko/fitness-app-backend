@@ -284,13 +284,20 @@
               "type": "string"
             },
             "description": "Keyword for searching products"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Type of products to be received (recommended or notrecommended or all)"
           }
         ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Getting a list of products taking into account the numbering of pages of parameters",
-
             "content": {
               "application/json": {
                 "schema": {
@@ -306,20 +313,35 @@
         }
       }
     },
-    "/products/:type": {
+    "/products/category": {
       "get": {
         "tags": ["Products"],
-        "summary": "Get recommended and notrecommended products",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "type",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Type of products to be received (recommended or notrecommended)"
+        "summary": "Get a list of product categories",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Getting a list of products categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsCategoriesResponse"
+                }
+              }
+            }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get a list of exercises based on a filter",
+        "parameters": [
           {
             "in": "query",
             "name": "page",
@@ -337,37 +359,20 @@
               "default": 10
             },
             "description": "Number of items per page (default: 10)"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Type of exercise to be received (body parts, equipment or muscles)"
           }
         ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Getting a list of products taking into account the numbering of pages of parameters",
-
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProductsResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/exercises": {
-      "get": {
-        "tags": ["Exercises"],
-        "summary": "Exercises info",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
+            "description": "Successful request",
             "content": {
               "application/json": {
                 "schema": {
@@ -712,53 +717,71 @@
           "totalItems": 100
         }
       },
+      "ProductsCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "The name of the product category"
+          }
+        },
+        "example": [
+          "alcoholic drinks",
+          "berries",
+          "cereals",
+          "dairy",
+          "dried fruits",
+          "eggs",
+          "fish",
+          "flour",
+          "fruits",
+          "meat",
+          "mushrooms",
+          "nuts",
+          "oils and fats",
+          "poppy",
+          "sausage",
+          "seeds",
+          "sesame",
+          "soft drinks",
+          "vegetables and herbs"
+        ]
+      },
       "ExercisesResponse": {
         "type": "object",
         "properties": {
           "data": {
             "type": "object",
             "properties": {
-              "bodyPart": {
+              "filter": {
                 "type": "string",
-                "description": "Body part"
-              },
-              "equipment": {
-                "type": "string",
-                "description": "Equipment"
-              },
-              "gifUrl": {
-                "type": "string",
-                "description": "Exercise animation"
+                "description": "Filtered value"
               },
               "name": {
                 "type": "string",
-                "description": "Exercise name"
+                "description": "The name of the exercise"
               },
-              "target": {
+              "imgURL": {
                 "type": "string",
-                "description": "Types of muscles"
-              },
-              "burnedCalories": {
-                "type": "number",
-                "description": "Burned calories"
-              },
-              "time": {
-                "type": "number",
-                "description": "Еxercise time"
+                "description": "Link to the picture"
               }
             }
+          },
+          "totalItems": {
+            "type": "integer",
+            "description": "Total number of items"
           }
         },
         "example": {
-          "data": {
-            "bodyPart": "chest",
-            "equipment": "leverage machine",
-            "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0009.gif",
-            "name": "assisted chest dip (kneeling)",
-            "target": "pectorals",
-            "burnedCalories": 329,
-            "time": 3
-          }
+          "data": [
+            {
+              "filter": "Muscles",
+              "name": "adductors",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/adductors_fmkryf.jpg"
+            }
+          ],
+          "totalItems": 20
         }
       },
       "DiaryAddExercisesRequest": {
