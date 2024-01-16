@@ -30,7 +30,15 @@ const allDiaryByDate = async (req, res) => {
         groupBloodNotAllowed: product_ID.groupBloodNotAllowed,
       })
     );
-    res.status(200).json(productsResult);
+
+    const exercisesResult = await DiaryExercise.findOne({
+      ownerId: owner,
+      date: date,
+    });
+    const { doneExercises } = exercisesResult;
+
+    const productsExercisesResult = { productsResult, doneExercises };
+    res.status(200).json({ data: productsExercisesResult });
   } else {
     res.json({
       message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
