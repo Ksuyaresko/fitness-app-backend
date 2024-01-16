@@ -1,7 +1,7 @@
-const { DiaryExercise } = require("../../../models");
+const { DiaryExercise } = require("../../models");
 const { nanoid } = require("nanoid");
-const { Exercise } = require("../../../models");
-const { HttpError } = require("../../../utils");
+const { Exercise } = require("../../models");
+const { HttpError } = require("../../utils");
 
 const addExerciseById = async (req, res) => {
   const { id: exerciseId } = req.params;

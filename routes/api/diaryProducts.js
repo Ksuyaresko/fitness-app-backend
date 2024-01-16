@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { diaryProducts } = require("../../controller");
+const { diaryController } = require("../../controller");
 const { authorization, validateBody, isValidId } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 const { bodyDiaryProductSchema } = require("../../models/productDiary");
@@ -10,7 +10,7 @@ const {
   addProductInDiaryByDate,
   delProductInDiaryByDate,
   allProductsInDiaryByDate,
-} = diaryProducts;
+} = diaryController;
 
 // Router для отримання інформації про спожиті продукти із щоденника за обрану дату
 router.get("/day", authorization, errorWrap(allProductsInDiaryByDate));

@@ -329,16 +329,16 @@
         }
       }
     },
-    "/diary/exercises": {
+    "/diary/exercises/{id}": {
       "post": {
         "tags": ["Diary Exercises"],
         "summary": "Add exercise to diary",
         "parameters": [
           {
-            "in": "query",
+            "in": "path",
             "name": "id",
             "required": true,
-            "type": "string",
+            "type": "ObjectId",
             "description": "Exercise ID"
           }
         ],
@@ -380,7 +380,7 @@
         "summary": "Delete exercise from diary",
         "parameters": [
           {
-            "in": "query",
+            "in": "path",
             "name": "id",
             "required": true,
             "type": "string",
