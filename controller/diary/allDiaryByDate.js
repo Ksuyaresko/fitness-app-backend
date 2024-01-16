@@ -41,7 +41,7 @@ const allDiaryByDate = async (req, res) => {
     res.status(200).json({ data: productsExercisesResult });
   } else {
     res.json({
-      message: `${date} does not match the dd/MM/yyyy format or is not a valid date.`,
+      message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
     });
   }
 };

@@ -383,14 +383,14 @@
         }
       }
     },
-    "/diary/exercises/{exerciseId}": {
+    "/diary/exercises/{id}": {
       "post": {
         "tags": ["Diary Exercises"],
         "summary": "Add exercise to diary",
         "parameters": [
           {
             "in": "path",
-            "name": "exerciseId",
+            "name": "id",
             "required": true,
             "type": "ObjectId",
             "description": "Exercise ID"
@@ -428,16 +428,14 @@
             "content": {}
           }
         }
-      }
-    },
-    "/diary/exercises/{diaryEntryId}": {
+      },
       "delete": {
         "tags": ["Diary Exercises"],
         "summary": "Delete exercise from diary",
         "parameters": [
           {
             "in": "path",
-            "name": "diaryEntryId",
+            "name": "id",
             "required": true,
             "type": "string",
             "description": "Diary entry ID"

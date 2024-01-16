@@ -3,7 +3,7 @@ const { HttpError } = require("../../utils");
 
 const deleteExerciseById = async (req, res) => {
   const { _id: owner } = req.user;
-  const { diaryEntryId: id } = req.params;
+  const { id } = req.params;
 
   const foundedDiary = await DiaryExercise.findOne({
     ownerId: owner,
