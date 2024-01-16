@@ -2,8 +2,9 @@
 const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models/productDiary");
+const { DiaryExercise } = require("../../models");
 
-const allProductsInDiaryByDate = async (req, res) => {
+const allDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.query;
 
@@ -37,4 +38,4 @@ const allProductsInDiaryByDate = async (req, res) => {
   }
 };
 
-module.exports = allProductsInDiaryByDate;
+module.exports = allDiaryByDate;
