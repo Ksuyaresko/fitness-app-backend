@@ -9,15 +9,15 @@ const { bodyDiaryProductSchema } = require("../../models/productDiary");
 const {
   addProductInDiaryByDate,
   delProductInDiaryByDate,
-  // allProductsInDiaryByDate,
+  allProductsInDiaryByDate,
 } = diaryController;
 
 // Router для отримання інформації про спожиті продукти із щоденника за обрану дату
-// router.get("/day", authorization, errorWrap(allProductsInDiaryByDate));
+router.get("/day", authorization, errorWrap(allProductsInDiaryByDate));
 
 // Router для збереження продукту, що було спожито користувачем, в щоденнику та його закріплення за обраною датою
 router.post(
-  "/day/products",
+  "/products",
   authorization,
   validateBody(bodyDiaryProductSchema),
   errorWrap(addProductInDiaryByDate)
@@ -25,7 +25,7 @@ router.post(
 
 // Router для видалення продукту, що було спожито користувачем, із щоденника в обрану дату
 router.delete(
-  "/day/products/:id",
+  "/products/:id",
   authorization,
   isValidId,
   errorWrap(delProductInDiaryByDate)
