@@ -1,14 +1,26 @@
 const { Product } = require("../../models");
 
 const getАllowedProducts = async (req, res) => {
-  const { choice } = req.query;
+  const { page = 1, limit = 10 } = req.query;
+  const productType = req.params.type;
   const bloodType = req.user.settings.blood;
 
-  const result = await Product.find({
-    [`groupBloodNotAllowed.${bloodType}`]: choice,
-  });
+  const skip = (page - 1) * limit;
 
-  res.json(result);
+  let query = {};
+
+  if (productType === "recommended") {
+    query = { [`groupBloodNotAllowed.${bloodType}`]: true };
+  } else if (productType === "notrecommended") {
+    query = { [`groupBloodNotAllowed.${bloodType}`]: false };
+  }
+  const data = await Product.find(query).skip(skip).limit(limit);
+  const totalProducts = await Product.countDocuments(query);
+
+  res.json({
+    data,
+    totalProducts,
+  });
 };
 
 module.exports = getАllowedProducts;
