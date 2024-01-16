@@ -27,6 +27,10 @@
       "description": "Exercises endpoints"
     },
     {
+      "name": "Diary",
+      "description": "Diary endpoints"
+    },
+    {
       "name": "Diary Exercises",
       "description": "Diary Exercises endpoints"
     }
