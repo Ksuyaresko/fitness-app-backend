@@ -2,11 +2,15 @@ const { DiaryExercise } = require("../../models");
 const { nanoid } = require("nanoid");
 const { Exercise } = require("../../models");
 const { HttpError } = require("../../utils");
+const { isMatch } = require("date-fns");
 
 const addExerciseById = async (req, res) => {
   const { id: exerciseId } = req.params;
   const { _id: owner } = req.user;
   const { time: exerciseDuration, date: receivedDate } = req.body;
+
+  const result = isMatch(receivedDate, "dd/MM/yyyy");
+  if (!result) throw HttpError(400, "Incorrect date format");
 
   const foundedExercise = await Exercise.findOne({ _id: exerciseId });
 
@@ -68,4 +72,4 @@ const addExerciseById = async (req, res) => {
     res.status(201).json({ data: { doneExercise: doneExercise } });
   }
 };
-module.exports = { addExerciseById };
+module.exports = addExerciseById;

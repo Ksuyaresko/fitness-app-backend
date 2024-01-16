@@ -1,15 +1,13 @@
-const { addExerciseById } = require("./addExerciseById");
-const { deleteExerciseById } = require("./deleteExerciseById");
-const { getExercisesByDate } = require("./getExercisesByDate");
+const addExerciseById = require("./addExerciseById");
+const deleteExerciseById = require("./deleteExerciseById");
 const addProductInDiaryByDate = require("./addProductInDiaryByDate");
 const delProductInDiaryByDate = require("./delProductInDiaryByDate");
-const allProductsInDiaryByDate = require("./allProductsInDiaryByDate");
+const allDiaryByDate = require("./allDiaryByDate");
 
 module.exports = {
   addProductInDiaryByDate,
   delProductInDiaryByDate,
-  allProductsInDiaryByDate,
+  allDiaryByDate,
   addExerciseById,
   deleteExerciseById,
-  getExercisesByDate,
 };

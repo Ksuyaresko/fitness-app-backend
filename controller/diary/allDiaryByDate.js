@@ -2,8 +2,9 @@
 const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models/productDiary");
+const { DiaryExercise } = require("../../models");
 
-const allProductsInDiaryByDate = async (req, res) => {
+const allDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.query;
 
@@ -29,7 +30,15 @@ const allProductsInDiaryByDate = async (req, res) => {
         groupBloodNotAllowed: product_ID.groupBloodNotAllowed,
       })
     );
-    res.status(200).json(productsResult);
+
+    const exercisesResult = await DiaryExercise.findOne({
+      ownerId: owner,
+      date: date,
+    });
+    const { doneExercises } = exercisesResult;
+
+    const productsExercisesResult = { productsResult, doneExercises };
+    res.status(200).json({ data: productsExercisesResult });
   } else {
     res.json({
       message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
@@ -37,4 +46,4 @@ const allProductsInDiaryByDate = async (req, res) => {
   }
 };
 
-module.exports = allProductsInDiaryByDate;
+module.exports = allDiaryByDate;
