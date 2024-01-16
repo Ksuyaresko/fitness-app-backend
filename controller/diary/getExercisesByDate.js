@@ -1,4 +1,4 @@
-const { DiaryExercise } = require("../../../models");
+const { DiaryExercise } = require("../../models");
 
 const getExercisesByDate = async (req, res) => {
   const { _id: owner } = req.user;

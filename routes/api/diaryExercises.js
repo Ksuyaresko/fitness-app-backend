@@ -4,12 +4,12 @@ const router = express.Router();
 const { validateBody, isValidId } = require("../../middlewares");
 const { schemasExercise } = require("../../models");
 
-const { diaryExercises } = require("../../controller");
+const { diaryController } = require("../../controller");
 const { authorization } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 
 const { addExerciseById, deleteExerciseById, getExercisesByDate } =
-  diaryExercises;
+  diaryController;
 const { addExerciseBodySchema, getExerciseSchema } = schemasExercise;
 
 router.get(

@@ -1,6 +1,6 @@
 // controller для збереження продукту, що було спожито користувачем, в щоденнику та його закріплення за обраною датою
 
-const { ProductDiary } = require("../../../models/productDiary");
+const { ProductDiary } = require("../../models/productDiary");
 
 const addProductInDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;

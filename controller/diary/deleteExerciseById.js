@@ -1,5 +1,5 @@
-const { DiaryExercise } = require("../../../models");
-const { HttpError } = require("../../../utils");
+const { DiaryExercise } = require("../../models");
+const { HttpError } = require("../../utils");
 
 const deleteExerciseById = async (req, res) => {
   const { _id: owner } = req.user;

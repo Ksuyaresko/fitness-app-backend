@@ -1,16 +1,12 @@
 const Auth = require("./auth");
-const diaryProducts = require("./diary/products");
-const diaryExercises = require("./diary/exercises");
+const diaryController = require("./diary");
 const Products = require("./products");
 
-const Exercises = require('./exercises')
-
+const Exercises = require("./exercises");
 
 module.exports = {
   Auth,
-  diaryExercises,
+  diaryController,
   Products,
-  diaryProducts,
-  Products,
-  Exercises
+  Exercises,
 };
