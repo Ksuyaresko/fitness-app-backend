@@ -337,11 +337,21 @@
         }
       }
     },
-    "/exercises": {
+    "/exercises/{query}": {
       "get": {
         "tags": ["Exercises"],
         "summary": "Get a list of exercises based on a filter",
         "parameters": [
+          {
+            "in": "path",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Type of exercise to be received (body parts, equipment or muscles)",
+            "example": "equipment"
+          },
           {
             "in": "query",
             "name": "page",
@@ -359,14 +369,6 @@
               "default": 10
             },
             "description": "Number of items per page (default: 10)"
-          },
-          {
-            "in": "query",
-            "name": "type",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Type of exercise to be received (body parts, equipment or muscles)"
           }
         ],
         "security": [{ "Bearer": [] }],
