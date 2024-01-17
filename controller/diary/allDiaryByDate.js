@@ -35,7 +35,6 @@ const allDiaryByDate = async (req, res) => {
       ownerId: owner,
       date: date,
     });
-
     let doneExercises;
     if (!exercisesResult) doneExercises = [];
     else doneExercises = exercisesResult.doneExercises;
