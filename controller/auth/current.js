@@ -8,6 +8,7 @@ const current = async (req, res) => {
       name,
       dailyActivity,
       dailyCalories,
+      avatarURL,
       settings: req.user.settings,
     },
   });
