@@ -6,7 +6,6 @@ const { errorWrap } = require("../../utils");
 
 const router = express.Router();
 
-router.get("/", authorization, errorWrap(Exercises.getAllExercises));
-
+router.get("/:query", authorization, errorWrap(Exercises.getAllExercises));
 
 module.exports = router;

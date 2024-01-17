@@ -1,7 +1,7 @@
 const getAllProducts = require("./getAllProducts");
-const getАllowedProducts = require("./getАllowedProducts")
+const getProductCategory = require("./getProductCategory");
 
 module.exports = {
   getAllProducts,
-  getАllowedProducts
+  getProductCategory,
 };
