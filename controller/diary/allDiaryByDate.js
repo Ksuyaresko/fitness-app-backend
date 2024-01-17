@@ -38,24 +38,22 @@ const allDiaryByDate = async (req, res) => {
       0
     );
 
-    const exercisesResult = await DiaryExercise.findOne({
+    const exercisesByDayAndOwner = await DiaryExercise.findOne({
       ownerId: owner,
       date: date,
     });
-    let doneExercises;
-    let caloriesBurned;
-    if (!exercisesResult) {
-      doneExercises = [];
-      caloriesBurned = 0;
-    } else {
-      doneExercises = exercisesResult.doneExercises;
-      caloriesBurned = exercisesResult.caloriesTotal;
+
+    let exercisesResult = [];
+    let caloriesBurned = 0;
+    if (exercisesByDayAndOwner) {
+      exercisesResult = exercisesByDayAndOwner.doneExercises;
+      caloriesBurned = exercisesByDayAndOwner.caloriesTotal;
     }
 
     const productsExercisesResult = {
       productsResult,
       caloriesConsumed,
-      doneExercises,
+      exercisesResult,
       caloriesBurned,
     };
     res.status(200).json({ data: productsExercisesResult });
