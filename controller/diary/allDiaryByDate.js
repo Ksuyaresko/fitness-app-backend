@@ -31,6 +31,13 @@ const allDiaryByDate = async (req, res) => {
       })
     );
 
+    const caloriesConsumed = productsResult.reduce(
+      (accumulator, currentProduct) => {
+        return accumulator + currentProduct.calories;
+      },
+      0
+    );
+
     const exercisesResult = await DiaryExercise.findOne({
       ownerId: owner,
       date: date,
@@ -39,7 +46,11 @@ const allDiaryByDate = async (req, res) => {
     if (!exercisesResult) doneExercises = [];
     else doneExercises = exercisesResult.doneExercises;
 
-    const productsExercisesResult = { productsResult, doneExercises };
+    const productsExercisesResult = {
+      productsResult,
+      caloriesConsumed,
+      doneExercises,
+    };
     res.status(200).json({ data: productsExercisesResult });
   } else {
     res.json({
