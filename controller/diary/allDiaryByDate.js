@@ -35,13 +35,15 @@ const allDiaryByDate = async (req, res) => {
       ownerId: owner,
       date: date,
     });
-    const { doneExercises } = exercisesResult;
+    let doneExercises;
+    if (!exercisesResult) doneExercises = [];
+    else doneExercises = exercisesResult.doneExercises;
 
     const productsExercisesResult = { productsResult, doneExercises };
     res.status(200).json({ data: productsExercisesResult });
   } else {
     res.json({
-      message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
+      message: `${date} does not match the dd/MM/yyyy format or is not a valid date.`,
     });
   }
 };
