@@ -27,8 +27,8 @@
       "description": "Exercises endpoints"
     },
     {
-      "name": "Diary",
-      "description": "Diary endpoints"
+      "name": "Diary Products",
+      "description": "Diary Products endpoints"
     },
     {
       "name": "Diary Exercises",
@@ -464,6 +464,98 @@
           }
         }
       }
+    },
+    "/diary/products": {
+      "post": {
+        "tags": ["Diary Products"],
+        "summary": "Add a product to diary",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Object for adding a product to the diary",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryAddProductsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryAddProductsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/products/:id": {
+      "delete": {
+        "tags": ["Diary Products"],
+        "summary": "Delete product from diary",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Diary entry ID",
+            "example": "65a5a1cda706b9e74adf1273"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryDeleteProductsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid ID)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -872,6 +964,77 @@
         "example": {
           "data": {
             "message": "Diary entry successfully deleted"
+          }
+        }
+      },
+      "DiaryAddProductsRequest": {
+        "type": "object",
+        "required": ["product_ID", "date", "amount", "calories"],
+        "properties": {
+          "product_ID": {
+            "type": "string",
+            "description": "ID product",
+            "example": "5d51694902b2373622ff5773"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date add product to dairy",
+            "example": "15/01/2024"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount product",
+            "example": 90
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories consumed",
+            "example": 150
+          }
+        }
+      },
+      "DiaryAddProductsResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "ID product in diary",
+            "example": "5d51694902b2373622ff5b6f"
+          },
+          "product_ID": {
+            "type": "string",
+            "description": "Product-ID in the list of all products",
+            "example": "5d51694902b2373622ff5773"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date add product to dairy",
+            "example": "15/01/2024"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Amount product",
+            "example": 90
+          },
+          "calories": {
+            "type": "integer",
+            "description": "Calories consumed",
+            "example": 150
+          },
+          "owner": {
+            "type": "string",
+            "description": "User`s ID",
+            "example": "65a45e22f46e25e508a9ffb7"
+          }
+        }
+      },
+      "DiaryDeleteProductsResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Notification of successful deletion of a diary entry",
+            "example": "The product has been removed from the diary"
           }
         }
       }

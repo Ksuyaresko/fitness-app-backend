@@ -19,7 +19,7 @@ const addProductInDiaryByDate = async (req, res) => {
 
     res.status(201).json({ _id, product_ID, date, amount, calories, owner });
   } else {
-    res.json({
+    res.status(400).json({
       message: `${date} не відповідає формату dd/MM/yyyy чи не є коректною датою.`,
     });
   }
