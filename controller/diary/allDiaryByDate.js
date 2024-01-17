@@ -43,13 +43,20 @@ const allDiaryByDate = async (req, res) => {
       date: date,
     });
     let doneExercises;
-    if (!exercisesResult) doneExercises = [];
-    else doneExercises = exercisesResult.doneExercises;
+    let caloriesBurned;
+    if (!exercisesResult) {
+      doneExercises = [];
+      caloriesBurned = 0;
+    } else {
+      doneExercises = exercisesResult.doneExercises;
+      caloriesBurned = exercisesResult.caloriesTotal;
+    }
 
     const productsExercisesResult = {
       productsResult,
       caloriesConsumed,
       doneExercises,
+      caloriesBurned,
     };
     res.status(200).json({ data: productsExercisesResult });
   } else {

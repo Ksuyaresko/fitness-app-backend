@@ -11,10 +11,7 @@ const diaryEntrySchema = new Schema(
     doneExercises: {
       type: Array,
     },
-    burnedCalories: {
-      type: Number,
-    },
-    sportTime: {
+    caloriesTotal: {
       type: Number,
     },
     date: {
@@ -27,8 +24,18 @@ const diaryEntrySchema = new Schema(
 const DiaryExercise = model("diary-exercise", diaryEntrySchema);
 
 const addExerciseBodySchema = Joi.object({
-  date: Joi.required(),
-  time: Joi.required(),
+  exercise_ID: Joi.string().required().messages({
+    "any.required": "Missing required exercise_ID field",
+  }),
+  date: Joi.string().required().messages({
+    "any.required": "Missing required date field",
+  }),
+  time: Joi.number().min(1).required().messages({
+    "any.required": "Missing required time field",
+  }),
+  calories: Joi.number().min(1).required().messages({
+    "any.required": "Missing required calories field",
+  }),
 });
 
 const getExerciseSchema = Joi.object({

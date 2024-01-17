@@ -27,6 +27,10 @@
       "description": "Exercises endpoints"
     },
     {
+      "name": "Diary",
+      "description": "Diary endpoints"
+    },
+    {
       "name": "Diary Products",
       "description": "Diary Products endpoints"
     },
@@ -388,19 +392,44 @@
         }
       }
     },
-    "/diary/exercises/{id}": {
+    "/diary": {
+      "get": {
+        "tags": ["Diary"],
+        "summary": "Get products and exercise from diary",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "allowReserved": true,
+            "type": "string",
+            "description": "Requested date"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (The date is not valid or does not match the dd/MM/yyyy format)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/exercises": {
       "post": {
         "tags": ["Diary Exercises"],
         "summary": "Add exercise to diary",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "ObjectId",
-            "description": "Exercise ID"
-          }
-        ],
+        "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Object for adding an exercise to a diary",
@@ -433,7 +462,9 @@
             "content": {}
           }
         }
-      },
+      }
+    },
+    "/diary/exercises/:id": {
       "delete": {
         "tags": ["Diary Exercises"],
         "summary": "Delete exercise from diary",
@@ -876,9 +907,160 @@
           "totalItems": 20
         }
       },
+      "DiaryResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "productsResult": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "Diary entry ID"
+                    },
+                    "product_ID": {
+                      "type": "string",
+                      "description": "Products ID from Data-Base"
+                    },
+                    "date": {
+                      "type": "string",
+                      "description": "Date the product was consumed"
+                    },
+                    "amount": {
+                      "type": "integer",
+                      "description": "Amount of product"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Name of the product"
+                    },
+                    "category": {
+                      "type": "integer",
+                      "description": "Category of the product"
+                    },
+                    "calories": {
+                      "type": "integer",
+                      "description": "number of calories in the product"
+                    },
+                    "groupBloodNotAllowed": {
+                      "type": "object",
+                      "properties": {
+                        "1": {
+                          "type": "boolean",
+                          "description": "Prohibition of consumption according to the user's blood type"
+                        },
+                        "2": {
+                          "type": "boolean",
+                          "description": "Prohibition of consumption according to the user's blood type"
+                        },
+                        "3": {
+                          "type": "boolean",
+                          "description": "Prohibition of consumption according to the user's blood type"
+                        },
+                        "4": {
+                          "type": "boolean",
+                          "description": "Prohibition of consumption according to the user's blood type"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "caloriesConsumed": {
+                "type": "integer",
+                "description": "Sum of calories consumed by the user per day"
+              },
+              "doneExercises": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Diary entry ID"
+                    },
+                    "time": {
+                      "type": "integer",
+                      "description": "How long did the exercise last, in minutes"
+                    },
+                    "calories": {
+                      "type": "integer",
+                      "description": "How many calories this exercise burned during the time"
+                    },
+                    "exercise_ID": {
+                      "type": "string",
+                      "description": "Exercise ID from Data-Base"
+                    }
+                  }
+                }
+              },
+              "caloriesBurned": {
+                "type": "integer",
+                "description": "Sum of calories burned by the user per day"
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "productsResult": [
+              {
+                "_id": "65a8157db0140836b3cb16c0",
+                "product_ID": "5d51694902b2373622ff5b7f",
+                "date": "12/12/4000",
+                "amount": 23,
+                "calories": 23,
+                "title": "marlin",
+                "category": "fish",
+                "groupBloodNotAllowed": {
+                  "1": false,
+                  "2": false,
+                  "3": false,
+                  "4": false
+                }
+              },
+              {
+                "_id": "65a8157eb0140836b3cb16c3",
+                "product_ID": "5d51694902b2373622ff5b7f",
+                "date": "12/12/4000",
+                "amount": 23,
+                "calories": 23,
+                "title": "marlin",
+                "category": "fish",
+                "groupBloodNotAllowed": {
+                  "1": false,
+                  "2": false,
+                  "3": false,
+                  "4": false
+                }
+              }
+            ],
+            "caloriesConsumed": 46,
+            "doneExercises": [
+              {
+                "id": "dgqJNz54a5q2dPslqVwxJ",
+                "exercise_ID": "64f2458d6f67bc34bae4f857",
+                "calories": 300,
+                "time": 21
+              },
+              {
+                "id": "d0pUjRHeUEn3KcnJdEqPb",
+                "exercise_ID": "64f2458d6f67bc34bae4f857",
+                "calories": 300,
+                "time": 21
+              }
+            ],
+            "caloriesBurned": 600
+          }
+        }
+      },
       "DiaryAddExercisesRequest": {
         "type": "object",
-        "required": ["time", "date"],
+        "required": ["time", "date", "calories", "exercise_ID"],
         "properties": {
           "time": {
             "type": "integer",
@@ -889,6 +1071,16 @@
             "type": "string",
             "description": "Date the exercise was performed",
             "example": "15/01/2024"
+          },
+          "calories": {
+            "type": "integer",
+            "description": "How many calories were spent on the exercise",
+            "example": 300
+          },
+          "exercise_ID": {
+            "type": "string",
+            "description": "Exercise ID from Data-Base",
+            "example": "64f2458d6f67bc34bae4f857"
           }
         }
       },
@@ -909,25 +1101,13 @@
                     "type": "integer",
                     "description": "How long did the exercise last, in minutes"
                   },
-                  "burnedCalories": {
+                  "calories": {
                     "type": "integer",
                     "description": "How many calories this exercise burned during the time"
                   },
-                  "bodyPart": {
+                  "exercise_ID": {
                     "type": "string",
-                    "description": "Body part trained by this exercise"
-                  },
-                  "equipment": {
-                    "type": "string",
-                    "description": "Equipment needed for this exercise"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Name of the exercise"
-                  },
-                  "target": {
-                    "type": "string",
-                    "description": "Name of the muscle trained in this exercise"
+                    "description": "Exercise ID from Data-Base"
                   }
                 }
               }
@@ -937,13 +1117,10 @@
         "example": {
           "data": {
             "doneExercise": {
-              "id": "zDLu1HTSVvOMet1B0E_UG",
-              "time": 21,
-              "burnedCalories": 588,
-              "bodyPart": "upper arms",
-              "equipment": "barbell",
-              "name": "barbell drag curl",
-              "target": "biceps"
+              "id": "N7uWu1M0HDgHq0MWaKV4f",
+              "exercise_ID": "64f2458d6f67bc34bae4f857",
+              "calories": 300,
+              "time": 21
             }
           }
         }

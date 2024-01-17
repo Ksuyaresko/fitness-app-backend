@@ -1,56 +1,33 @@
 const { DiaryExercise } = require("../../models");
 const { nanoid } = require("nanoid");
-const { Exercise } = require("../../models");
 const { HttpError } = require("../../utils");
 const { isMatch } = require("date-fns");
 
 const addExerciseById = async (req, res) => {
-  const { id: exerciseId } = req.params;
   const { _id: owner } = req.user;
-  const { time: exerciseDuration, date: receivedDate } = req.body;
+  const { date, exercise_ID, calories, time } = req.body;
 
-  const result = isMatch(receivedDate, "dd/MM/yyyy");
+  const result = isMatch(date, "dd/MM/yyyy");
   if (!result) throw HttpError(400, "Incorrect date format");
-
-  const foundedExercise = await Exercise.findOne({ _id: exerciseId });
-
-  if (!foundedExercise) throw HttpError(404, "No such exercise has been found");
-
-  const {
-    burnedCalories: calories,
-    time,
-    bodyPart,
-    equipment,
-    name,
-    target,
-  } = foundedExercise;
-
-  const burnCaloriesPerMinute = Math.round(calories / time);
-  const burnCaloriesPerExerciseDuration =
-    burnCaloriesPerMinute * exerciseDuration;
 
   const doneExercise = {
     id: nanoid(),
-    time: exerciseDuration,
-    burnedCalories: burnCaloriesPerExerciseDuration,
-    bodyPart,
-    equipment,
-    name,
-    target,
+    exercise_ID,
+    calories,
+    time,
   };
 
   const foundedDiary = await DiaryExercise.findOne({
     ownerId: owner,
-    date: receivedDate,
+    date,
   });
 
   if (!foundedDiary) {
     await DiaryExercise.create({
       ownerId: owner,
       doneExercises: [doneExercise],
-      burnedCalories: burnCaloriesPerExerciseDuration,
-      sportTime: exerciseDuration,
-      date: receivedDate,
+      caloriesTotal: calories,
+      date,
     });
 
     res.status(201).json({ data: { doneExercise: doneExercise } });
@@ -59,8 +36,7 @@ const addExerciseById = async (req, res) => {
       foundedDiary._id,
       {
         $inc: {
-          burnedCalories: +burnCaloriesPerExerciseDuration,
-          sportTime: +exerciseDuration,
+          caloriesTotal: +calories,
         },
         $push: {
           doneExercises: doneExercise,
