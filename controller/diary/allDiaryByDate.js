@@ -35,7 +35,10 @@ const allDiaryByDate = async (req, res) => {
       ownerId: owner,
       date: date,
     });
-    const { doneExercises } = exercisesResult;
+
+    let doneExercises;
+    if (!exercisesResult) doneExercises = [];
+    else doneExercises = exercisesResult.doneExercises;
 
     const productsExercisesResult = { productsResult, doneExercises };
     res.status(200).json({ data: productsExercisesResult });
