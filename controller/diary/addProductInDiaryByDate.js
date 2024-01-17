@@ -26,16 +26,3 @@ const addProductInDiaryByDate = async (req, res) => {
 };
 
 module.exports = addProductInDiaryByDate;
-
-//=============================================================================
-// const addProductInDiaryByDate = async (req, res) => {
-//   const { _id: owner } = req.user;
-
-//   const { product_ID, date, amount, calories } = await ProductDiary.create({
-//     ...req.body,
-//     owner,
-//   });
-
-//   res.status(201).json({ product_ID, date, amount, calories, owner });
-// };
-//===============================================================================
