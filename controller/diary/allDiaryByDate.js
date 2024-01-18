@@ -3,10 +3,18 @@ const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models/productDiary");
 const { DiaryExercise } = require("../../models");
+const { HttpError } = require("../../utils");
 
 const allDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.query;
+
+  let bloodUser;
+  try {
+    bloodUser = req.user.settings.blood.toString();
+  } catch {
+    throw HttpError(404, "User blood type is not specified");
+  }
 
   const result = isMatch(date, "dd/MM/yyyy");
   if (result) {
@@ -31,6 +39,12 @@ const allDiaryByDate = async (req, res) => {
       })
     );
 
+    const newProductsResult = productsResult.map((product) => {
+      const recommend = product.groupBloodNotAllowed.get(bloodUser);
+      product.recommend = recommend;
+      return product;
+    });
+
     const caloriesConsumed = productsResult.reduce(
       (accumulator, currentProduct) => {
         return accumulator + currentProduct.calories;
@@ -38,22 +52,27 @@ const allDiaryByDate = async (req, res) => {
       0
     );
 
-    const exercisesResult = await DiaryExercise.findOne({
+    const exercisesByDayAndOwner = await DiaryExercise.findOne({
       ownerId: owner,
       date: date,
     });
-    let doneExercises;
-    if (!exercisesResult) doneExercises = [];
-    else doneExercises = exercisesResult.doneExercises;
+
+    let exercisesResult = [];
+    let caloriesBurned = 0;
+    if (exercisesByDayAndOwner) {
+      exercisesResult = exercisesByDayAndOwner.doneExercises;
+      caloriesBurned = exercisesByDayAndOwner.caloriesTotal;
+    }
 
     const productsExercisesResult = {
-      productsResult,
+      productsResult: newProductsResult,
       caloriesConsumed,
-      doneExercises,
+      exercisesResult,
+      caloriesBurned,
     };
     res.status(200).json({ data: productsExercisesResult });
   } else {
-    res.json({
+    res.status(400).json({
       message: `${date} does not match the dd/MM/yyyy format or is not a valid date.`,
     });
   }
