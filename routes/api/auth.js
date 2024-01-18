@@ -30,7 +30,15 @@ router.post(
   "/avatars",
   authorization,
   upload.single("avatar"),
-  errorWrap(Auth.avatar),
+  errorWrap(Auth.avatar)
+);
+
+router.get("/verify/:verificationCode", errorWrap(Auth.verifyEmail));
+
+router.post(
+  "/verify",
+  validateBody(schemasUser.emailSchema),
+  errorWrap(Auth.resendVerifyEmail)
 );
 
 module.exports = router;

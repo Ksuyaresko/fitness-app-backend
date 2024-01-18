@@ -19,14 +19,21 @@ const login = async (req, res) => {
     throw HttpError(401, "Email or password is wrong");
   }
 
-  const payload = {
-    id: user._id,
-  };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
-  await User.findByIdAndUpdate(user._id, { token });
+  // check current token to keep sessions on dif devices
+  try {
+    const { id } = jwt.verify(user.token, SECRET_KEY);
+    if (id === user.id) {
+      res.json({ data: { token: user.token } });
+    }
+  } catch (e) {
+    const payload = {
+      id: user._id,
+    };
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
+    await User.findByIdAndUpdate(user._id, { token });
 
-  // @todo add user's info
-  res.json({ data: { token } });
+    res.json({ data: { token } });
+  }
 };
 
 module.exports = login;
