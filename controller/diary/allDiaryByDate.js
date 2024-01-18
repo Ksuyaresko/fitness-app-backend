@@ -7,6 +7,7 @@ const { DiaryExercise } = require("../../models");
 const allDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.query;
+  const bloodUser = req.user.settings.blood.toString();
 
   const result = isMatch(date, "dd/MM/yyyy");
   if (result) {
@@ -31,6 +32,12 @@ const allDiaryByDate = async (req, res) => {
       })
     );
 
+    const newProductsResult = productsResult.map((product) => {
+      const recommend = product.groupBloodNotAllowed.get(bloodUser);
+      product.recommend = recommend;
+      return product;
+    });
+
     const caloriesConsumed = productsResult.reduce(
       (accumulator, currentProduct) => {
         return accumulator + currentProduct.calories;
@@ -51,14 +58,14 @@ const allDiaryByDate = async (req, res) => {
     }
 
     const productsExercisesResult = {
-      productsResult,
+      productsResult: newProductsResult,
       caloriesConsumed,
       exercisesResult,
       caloriesBurned,
     };
     res.status(200).json({ data: productsExercisesResult });
   } else {
-    res.json({
+    res.status(400).json({
       message: `${date} does not match the dd/MM/yyyy format or is not a valid date.`,
     });
   }
