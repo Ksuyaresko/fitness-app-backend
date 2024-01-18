@@ -423,6 +423,10 @@
           "400": {
             "description": "Bad request (The date is not valid or does not match the dd/MM/yyyy format)",
             "content": {}
+          },
+          "404": {
+            "description": "Not found (User blood type is not specified)",
+            "content": {}
           }
         }
       }
@@ -970,7 +974,7 @@
                       }
                     },
                     "recommend": {
-                      "type":"boolean",
+                      "type": "boolean",
                       "description": "Whether the product is recommended according to the user's blood type"
                     }
                   }

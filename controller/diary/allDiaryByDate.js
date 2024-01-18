@@ -13,7 +13,7 @@ const allDiaryByDate = async (req, res) => {
   try {
     bloodUser = req.user.settings.blood.toString();
   } catch {
-    throw HttpError(400, "User blood type is not specified");
+    throw HttpError(404, "User blood type is not specified");
   }
 
   const result = isMatch(date, "dd/MM/yyyy");
