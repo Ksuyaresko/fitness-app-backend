@@ -968,6 +968,10 @@
                           "description": "Prohibition of consumption according to the user's blood type"
                         }
                       }
+                    },
+                    "recommend": {
+                      "type":"boolean",
+                      "description": "Whether the product is recommended according to the user's blood type"
                     }
                   }
                 }
