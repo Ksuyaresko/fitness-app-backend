@@ -12,6 +12,7 @@ const {
   diaryProductsRouter,
   productsRouter,
   exercisesRouter,
+  statisticsRouter,
 } = require("./routes/api");
 
 const app = express();
@@ -33,6 +34,8 @@ app.use("/diary", diaryProductsRouter);
 app.use("/products", productsRouter);
 
 app.use("/exercises", exercisesRouter);
+
+app.use("/statistics", statisticsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: true, message: "Not found" });

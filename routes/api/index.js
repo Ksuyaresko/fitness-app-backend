@@ -6,6 +6,8 @@ const diaryProductsRouter = require("./diaryProducts");
 const productsRouter = require("./product");
 const exercisesRouter = require("./exercises");
 
+const statisticsRouter = require("./statistics");
+
 module.exports = {
   authRouter,
   diaryRouter,
@@ -13,4 +15,5 @@ module.exports = {
   diaryProductsRouter,
   productsRouter,
   exercisesRouter,
+  statisticsRouter,
 };
