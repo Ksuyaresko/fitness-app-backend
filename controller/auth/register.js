@@ -3,8 +3,9 @@ const { User } = require("../../models");
 const { HttpError } = require("../../utils");
 const { nanoid } = require("nanoid");
 const jwt = require("jsonwebtoken");
+const SendMail = require("../../services/email");
 
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, BASE_URL } = process.env;
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -21,7 +22,10 @@ const register = async (req, res) => {
     password: hashPassword,
     verificationCode,
   });
-  // @todo add sending conf email
+  await SendMail({
+    to: email,
+    html: `<a target="_blank" href="${BASE_URL}/users/verify/${verificationCode}">Click verify email</a>`,
+  });
 
   const payload = {
     id: newUser._id,
