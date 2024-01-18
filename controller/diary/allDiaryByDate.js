@@ -3,11 +3,18 @@ const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models/productDiary");
 const { DiaryExercise } = require("../../models");
+const { HttpError } = require("../../utils");
 
 const allDiaryByDate = async (req, res) => {
   const { _id: owner } = req.user;
   const { date } = req.query;
-  const bloodUser = req.user.settings.blood.toString();
+
+  let bloodUser;
+  try {
+    bloodUser = req.user.settings.blood.toString();
+  } catch {
+    throw HttpError(400, "User blood type is not specified");
+  }
 
   const result = isMatch(date, "dd/MM/yyyy");
   if (result) {
