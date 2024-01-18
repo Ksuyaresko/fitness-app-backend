@@ -481,16 +481,10 @@
         }
       }
     },
-    "/diary/exercises/{id}": {
-      "post": {
-        "tags": ["Diary Exercises"],
-        "summary": "Add exercise to diary",
-
     "/diary": {
       "get": {
         "tags": ["Diary"],
         "summary": "Get products and exercise from diary",
-
         "parameters": [
           {
             "in": "query",
@@ -515,10 +509,6 @@
           },
           "400": {
             "description": "Bad request (The date is not valid or does not match the dd/MM/yyyy format)",
-            "content": {}
-          },
-          "404": {
-            "description": "Not found (User blood type is not specified)",
             "content": {}
           }
         }
@@ -1012,7 +1002,6 @@
           "data": {
             "type": "object",
             "properties": {
-
               "bodyPart": {
                 "type": "string",
                 "description": "Body part selection"
@@ -1061,8 +1050,14 @@
             }
           ],
           "totalItems": 20
-
-          "DiaryResponse": {
+        }
+      },
+      "DiaryResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
               "productsResult": {
                 "type": "array",
                 "items": {
