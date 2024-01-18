@@ -1,12 +1,14 @@
 const { userMock } = require("../../DB");
 const current = async (req, res) => {
-  const { email, name } = req.user;
+  const { email, name, dailyActivity, dailyCalories } = req.user;
 
   res.json({
     data: {
       email,
       name,
-      settings: req.user.settings
+      dailyActivity,
+      dailyCalories,
+      settings: req.user.settings,
     },
   });
 };

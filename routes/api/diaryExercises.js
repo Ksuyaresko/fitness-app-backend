@@ -1,28 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateBody, isValidId } = require("../../middlewares");
+const { validateBody } = require("../../middlewares");
 const { schemasExercise } = require("../../models");
 
 const { diaryController } = require("../../controller");
 const { authorization } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 
-const { addExerciseById, deleteExerciseById, getExercisesByDate } =
-  diaryController;
-const { addExerciseBodySchema, getExerciseSchema } = schemasExercise;
-
-router.get(
-  "/exercises",
-  authorization,
-  validateBody(getExerciseSchema),
-  errorWrap(getExercisesByDate)
-);
+const { addExerciseById, deleteExerciseById } = diaryController;
+const { addExerciseBodySchema } = schemasExercise;
 
 router.post(
-  "/exercises/:id",
+  "/exercises",
   authorization,
-  isValidId,
   validateBody(addExerciseBodySchema),
   errorWrap(addExerciseById)
 );
