@@ -37,7 +37,7 @@ const delProductInDiaryByDate = async (req, res) => {
 
   res.json({
     message: "The product has been removed from the diary",
-    caloriesConsumed,
+    caloriesConsumedTotal: caloriesConsumed,
   });
 };
 
