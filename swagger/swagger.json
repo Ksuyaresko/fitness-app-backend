@@ -553,7 +553,7 @@
         }
       }
     },
-    "/diary/exercises/:id": {
+    "/diary/exercises/{id}": {
       "delete": {
         "tags": ["Diary Exercises"],
         "summary": "Delete exercise from diary",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "/diary/products/:id": {
+    "/diary/products/{id}": {
       "delete": {
         "tags": ["Diary Products"],
         "summary": "Delete product from diary",
