@@ -37,6 +37,10 @@
     {
       "name": "Diary Exercises",
       "description": "Diary Exercises endpoints"
+    },
+    {
+      "name": "Statistics",
+      "description": "Retrieve statistics for the application"
     }
   ],
   "paths": {
@@ -673,6 +677,25 @@
           "500": {
             "description": "Internal server error",
             "content": {}
+          }
+        }
+      }
+    },
+    "/statistics": {
+      "get": {
+        "tags": ["Statistics"],
+        "summary": "Get statistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Statistics"
+                }
+              }
+            }
           }
         }
       }
@@ -1361,6 +1384,45 @@
             "type": "string",
             "description": "Notification of successful deletion of a diary entry",
             "example": "The product has been removed from the diary"
+          }
+        }
+      },
+      "Statistics": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "totalVideo": {
+                "type": "number",
+                "description": "How many exercise videos are in the app"
+              },
+              "totalUsersCalories": {
+                "type": "number",
+                "description": "What is the total number of calories burned by all registered users"
+              },
+              "totalUsers": {
+                "type": "number",
+                "description": "What is the total number of users registered in the application"
+              },
+              "totalTrainingHoursUsers": {
+                "type": "number",
+                "description": "What is the total number of hours spent on exercises by registered users"
+              },
+              "totalTrainingUsers": {
+                "type": "number",
+                "description": "What is the total number of exercises performed by registered users"
+              }
+            }
+          }
+        },
+        "example": {
+          "data": {
+            "totalVideo": 10,
+            "totalUsersCalories": 5000,
+            "totalUsers": 20,
+            "totalTrainingHoursUsers": 100,
+            "totalTrainingUsers": 5
           }
         }
       }
