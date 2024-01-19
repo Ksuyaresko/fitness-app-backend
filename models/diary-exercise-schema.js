@@ -8,18 +8,20 @@ const diaryEntrySchema = new Schema(
       type: ObjectId,
       required: true,
     },
-    doneExercises: {
-      type: Array,
-    },
-    caloriesTotal: {
+    calories: {
       type: Number,
     },
     date: {
       type: String,
       required: true,
     },
-    timeTotal: {
+    time: {
       type: Number,
+      required: true,
+    },
+    exercise_ID: {
+      type: Schema.Types.String,
+      ref: "exercises",
       required: true,
     },
   },

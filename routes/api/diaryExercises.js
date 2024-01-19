@@ -5,7 +5,7 @@ const { validateBody } = require("../../middlewares");
 const { schemasExercise } = require("../../models");
 
 const { diaryController } = require("../../controller");
-const { authorization } = require("../../middlewares");
+const { authorization, isValidId } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
 
 const { addExerciseById, deleteExerciseById } = diaryController;
@@ -18,6 +18,11 @@ router.post(
   errorWrap(addExerciseById)
 );
 
-router.delete("/exercises/:id", authorization, errorWrap(deleteExerciseById));
+router.delete(
+  "/exercises/:id",
+  authorization,
+  isValidId,
+  errorWrap(deleteExerciseById)
+);
 
 module.exports = router;

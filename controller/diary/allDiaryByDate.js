@@ -25,62 +25,76 @@ const allDiaryByDate = async (req, res) => {
   );
   // *******************************************************************
 
-  let productsResult;
-  if (!productsByDate || productsByDate.length === 0) productsResult = null;
-  else {
-    let bloodUser;
-    try {
-      bloodUser = req.user.settings.blood.toString();
-    } catch {
-      throw HttpError(404, "User blood type is not specified");
-    }
-
-    const products = productsByDate.map(
-      ({ _id, product_ID, date, amount, calories }) => ({
-        _id,
-        product_ID: product_ID._id,
-        date,
-        amount,
-        calories,
-        title: product_ID.title,
-        category: product_ID.category,
-        groupBloodNotAllowed: product_ID.groupBloodNotAllowed,
-      })
-    );
-
-    const newProducts = products.map((product) => {
-      const recommend = product.groupBloodNotAllowed.get(bloodUser);
-      product.recommend = recommend;
-      return product;
-    });
-
-    const caloriesConsumed = products.reduce((accumulator, currentProduct) => {
-      return accumulator + currentProduct.calories;
-    }, 0);
-
-    productsResult = {
-      products: newProducts,
-      caloriesConsumedTotal: caloriesConsumed,
-    };
+  let bloodUser;
+  try {
+    bloodUser = req.user.settings.blood.toString();
+  } catch {
+    throw HttpError(404, "User blood type is not specified");
   }
+
+  const products = productsByDate.map(
+    ({ _id, product_ID, date, amount, calories }) => ({
+      _id,
+      product_ID: product_ID._id,
+      date,
+      amount,
+      calories,
+      title: product_ID.title,
+      category: product_ID.category,
+      groupBloodNotAllowed: product_ID.groupBloodNotAllowed,
+    })
+  );
+
+  const newProducts = products.map((product) => {
+    const recommend = product.groupBloodNotAllowed.get(bloodUser);
+    product.recommend = recommend;
+    return product;
+  });
+
+  const caloriesConsumed = products.reduce((accumulator, currentProduct) => {
+    return accumulator + currentProduct.calories;
+  }, 0);
+
+  const productsResult = {
+    products: newProducts,
+    caloriesConsumedTotal: caloriesConsumed,
+  };
 
   // exercises *******************************************************
-  const exercises = await DiaryExercise.findOne({
+  const exercises = await DiaryExercise.find({
     ownerId: owner,
     date: date,
-  });
-  // *****************************************************************
-  let exercisesResult;
-  if (!exercises) exercisesResult = null;
-  else {
-    const { doneExercises, timeTotal, caloriesTotal } = exercises;
+  }).populate("exercise_ID", "bodyPart equipment name target");
 
-    exercisesResult = {
-      exercises: doneExercises,
-      timeTotal,
-      caloriesBurnedTotal: caloriesTotal,
-    };
-  }
+  // *****************************************************************
+
+  const exercisesExtended = exercises.map(
+    ({ _id, exercise_ID, time, calories }) => ({
+      _id,
+      time,
+      burnedCalories: calories,
+      name: exercise_ID.name,
+      target: exercise_ID.category,
+      equipment: exercise_ID.equipment,
+      bodyPart: exercise_ID.bodyPart,
+    })
+  );
+
+  const caloriesBurned = exercisesExtended.reduce(
+    (accumulator, currentExercise) => {
+      return accumulator + currentExercise.burnedCalories;
+    },
+    0
+  );
+  const timeTotal = exercisesExtended.reduce((accumulator, currentExercise) => {
+    return accumulator + currentExercise.time;
+  }, 0);
+
+  const exercisesResult = {
+    exercises: exercisesExtended,
+    timeTotal,
+    caloriesBurnedTotal: caloriesBurned,
+  };
 
   // Full response *******************************************************
   res.json({
