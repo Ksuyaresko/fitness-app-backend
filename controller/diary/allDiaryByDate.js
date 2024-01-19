@@ -23,6 +23,7 @@ const allDiaryByDate = async (req, res) => {
     "product_ID",
     "title category groupBloodNotAllowed"
   );
+  // *******************************************************************
 
   let productsResult;
   if (!productsByDate || productsByDate.length === 0) productsResult = null;
@@ -68,7 +69,7 @@ const allDiaryByDate = async (req, res) => {
     ownerId: owner,
     date: date,
   });
-
+  // *****************************************************************
   let exercisesResult;
   if (!exercises) exercisesResult = null;
   else {
@@ -81,6 +82,7 @@ const allDiaryByDate = async (req, res) => {
     };
   }
 
+  // Full response *******************************************************
   res.json({
     data: {
       productsResult,
