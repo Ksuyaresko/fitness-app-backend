@@ -1128,87 +1128,100 @@
                   }
                 }
               },
-              "doneExercises": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "description": "Diary entry ID"
-                    },
-                    "time": {
-                      "type": "integer",
-                      "description": "How long did the exercise last, in minutes"
-                    },
-                    "calories": {
-                      "type": "integer",
-                      "description": "How many calories this exercise burned during the time"
-                    },
-                    "exercise_ID": {
-                      "type": "string",
-                      "description": "Exercise ID from Data-Base"
+              "exercisesResult": {
+                "type": "object",
+                "properties": {
+                  "exercises": {
+                    "type": "array",
+                    "items": {
+                      "id": {
+                        "type": "string",
+                        "description": "Diary entry ID"
+                      },
+                      "time": {
+                        "type": "integer",
+                        "description": "How long did the exercise last, in minutes"
+                      },
+                      "calories": {
+                        "type": "integer",
+                        "description": "How many calories this exercise burned during the time"
+                      },
+                      "exercise_ID": {
+                        "type": "string",
+                        "description": "Exercise ID from Data-Base"
+                      }
                     }
+                  },
+                  "timeTotal": {
+                    "type": "integer",
+                    "description": "Total time spent on all exercises per day"
+                  },
+                  "caloriesBurned": {
+                    "type": "integer",
+                    "description": "Sum of calories burned by the user per day"
                   }
                 }
-              },
-              "caloriesBurned": {
-                "type": "integer",
-                "description": "Sum of calories burned by the user per day"
               }
             }
           }
         },
         "example": {
           "data": {
-            "productsResult": [
-              {
-                "_id": "65a8157db0140836b3cb16c0",
-                "product_ID": "5d51694902b2373622ff5b7f",
-                "date": "12/12/4000",
-                "amount": 23,
-                "calories": 23,
-                "title": "marlin",
-                "category": "fish",
-                "groupBloodNotAllowed": {
-                  "1": false,
-                  "2": false,
-                  "3": false,
-                  "4": false
+            "productsResult": {
+              "products": [
+                {
+                  "_id": "65aa7fdaf5fa58e17322fbef",
+                  "product_ID": "5d51694902b2373622ff5b7f",
+                  "date": "12/12/5000",
+                  "amount": 23,
+                  "calories": 23,
+                  "title": "marlin",
+                  "category": "fish",
+                  "groupBloodNotAllowed": {
+                    "1": false,
+                    "2": false,
+                    "3": false,
+                    "4": false
+                  },
+                  "recommend": false
+                },
+                {
+                  "_id": "65aa854b9f944f7d6fed4526",
+                  "product_ID": "5d51694902b2373622ff5b7f",
+                  "date": "12/12/5000",
+                  "amount": 23,
+                  "calories": 23,
+                  "title": "marlin",
+                  "category": "fish",
+                  "groupBloodNotAllowed": {
+                    "1": false,
+                    "2": false,
+                    "3": false,
+                    "4": false
+                  },
+                  "recommend": false
                 }
-              },
-              {
-                "_id": "65a8157eb0140836b3cb16c3",
-                "product_ID": "5d51694902b2373622ff5b7f",
-                "date": "12/12/4000",
-                "amount": 23,
-                "calories": 23,
-                "title": "marlin",
-                "category": "fish",
-                "groupBloodNotAllowed": {
-                  "1": false,
-                  "2": false,
-                  "3": false,
-                  "4": false
+              ],
+              "caloriesConsumedTotal": 46
+            },
+            "exercisesResult": {
+              "exercises": [
+                {
+                  "id": "ezlsuCdsHCpi9MlGX-_AR",
+                  "exercise_ID": "64f2458d6f67bc34bae4f857",
+                  "calories": 300,
+                  "time": 21
+                },
+                {
+                  "id": "edOobnVBJCtscZwFxnqDc",
+                  "exercise_ID": "64f2458d6f67bc34bae4f857",
+                  "calories": 300,
+                  "time": 21
                 }
-              }
-            ],
-            "caloriesConsumed": 46,
-            "doneExercises": [
-              {
-                "id": "dgqJNz54a5q2dPslqVwxJ",
-                "exercise_ID": "64f2458d6f67bc34bae4f857",
-                "calories": 300,
-                "time": 21
-              },
-              {
-                "id": "d0pUjRHeUEn3KcnJdEqPb",
-                "exercise_ID": "64f2458d6f67bc34bae4f857",
-                "calories": 300,
-                "time": 21
-              }
-            ],
-            "caloriesBurned": 600
+              ],
+              "timeTotal": 42,
+              "caloriesBurnedTotal": 600
+            }
           }
         }
       },
