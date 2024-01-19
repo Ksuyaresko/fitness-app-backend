@@ -28,6 +28,7 @@ const addExerciseById = async (req, res) => {
       doneExercises: [doneExercise],
       caloriesTotal: calories,
       timeTotal: time,
+      date,
     });
 
     res.status(201).json({ data: { doneExercise: doneExercise } });
