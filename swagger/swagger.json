@@ -543,11 +543,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid exercise ID)",
-            "content": {}
-          },
-          "404": {
-            "description": "Exercise not found",
+            "description": "Bad request (invalid exercise ID or Date)",
             "content": {}
           }
         }
@@ -1272,9 +1268,17 @@
               "doneExercise": {
                 "type": "object",
                 "properties": {
-                  "id": {
+                  "_id": {
                     "type": "string",
                     "description": "Diary entry ID"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "Id of the user who performed the exercise"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Date when exercise was performed"
                   },
                   "time": {
                     "type": "integer",
@@ -1296,10 +1300,12 @@
         "example": {
           "data": {
             "doneExercise": {
-              "id": "N7uWu1M0HDgHq0MWaKV4f",
-              "exercise_ID": "64f2458d6f67bc34bae4f857",
+              "ownerId": "65a11a2a1f2ac88efe6329fc",
               "calories": 300,
-              "time": 21
+              "date": "12/12/6100",
+              "time": 1,
+              "exercise_ID": "64f2458d6f67bc34bae4f989",
+              "_id": "65aaed860a951a3b1578197e"
             }
           }
         }
