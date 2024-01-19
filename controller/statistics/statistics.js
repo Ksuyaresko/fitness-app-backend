@@ -12,7 +12,7 @@ const getStatistics = async (req, res) => {
     },
   ]);
 
-  // Витягуємо значення totalUsersCalories та trainingHoursUsers з об'єктів у масиві
+  // Extract the values of totalUsersCalories and trainingHoursUsers from the objects in the array
   const totalUsersCalories =
     usersCaloriesActivity.length > 0
       ? usersCaloriesActivity[0].totalUsersCalories
@@ -29,13 +29,14 @@ const getStatistics = async (req, res) => {
   const totalTrainingUsers = 1;
 
   res.json({
-    totalVideo,
-    totalUsersCalories,
-    totalUsers,
-    totalTrainingHoursUsers,
-    totalTrainingUsers,
+    data: {
+      totalVideo,
+      totalUsersCalories,
+      totalUsers,
+      totalTrainingHoursUsers,
+      totalTrainingUsers,
+    },
   });
 };
 
 module.exports = getStatistics;
-
