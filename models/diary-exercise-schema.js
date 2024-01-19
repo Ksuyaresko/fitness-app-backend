@@ -18,6 +18,10 @@ const diaryEntrySchema = new Schema(
       type: String,
       required: true,
     },
+    timeTotal: {
+      type: Number,
+      required: true,
+    },
   },
   { versionKey: false }
 );

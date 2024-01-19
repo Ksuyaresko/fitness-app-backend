@@ -16,17 +16,20 @@ const deleteExerciseById = async (req, res) => {
     (exercise) => exercise.id === id
   );
 
-  const time = foundedDiaryEntry.time;
-  const calories = foundedDiaryEntry.burnedCalories;
+  const { time, calories } = foundedDiaryEntry;
 
-  await DiaryExercise.findByIdAndUpdate(
-    foundedDiary._id,
-    {
-      $inc: { burnedCalories: -calories, sportTime: -time },
-      $pull: { doneExercises: { id } },
-    },
-    { new: true }
-  );
+  if (foundedDiary.doneExercises.length === 1) {
+    await DiaryExercise.deleteOne({ _id: foundedDiary._id });
+  } else {
+    await DiaryExercise.findByIdAndUpdate(
+      foundedDiary._id,
+      {
+        $inc: { caloriesTotal: -calories, timeTotal: -time },
+        $pull: { doneExercises: { id } },
+      },
+      { new: true }
+    );
+  }
 
   res.json({ data: { message: "Diary entry successfully deleted" } });
 };

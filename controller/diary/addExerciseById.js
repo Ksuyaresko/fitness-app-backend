@@ -27,6 +27,7 @@ const addExerciseById = async (req, res) => {
       ownerId: owner,
       doneExercises: [doneExercise],
       caloriesTotal: calories,
+      timeTotal: time,
       date,
     });
 
@@ -37,6 +38,7 @@ const addExerciseById = async (req, res) => {
       {
         $inc: {
           caloriesTotal: +calories,
+          timeTotal: +time,
         },
         $push: {
           doneExercises: doneExercise,
