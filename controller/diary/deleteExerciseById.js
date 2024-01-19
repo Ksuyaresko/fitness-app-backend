@@ -16,13 +16,12 @@ const deleteExerciseById = async (req, res) => {
     (exercise) => exercise.id === id
   );
 
-  const time = foundedDiaryEntry.time;
-  const calories = foundedDiaryEntry.burnedCalories;
+  const { time, calories } = foundedDiaryEntry;
 
   await DiaryExercise.findByIdAndUpdate(
     foundedDiary._id,
     {
-      $inc: { burnedCalories: -calories, sportTime: -time },
+      $inc: { caloriesTotal: -calories, timeTotal: -time },
       $pull: { doneExercises: { id } },
     },
     { new: true }

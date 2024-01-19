@@ -59,15 +59,18 @@ const allDiaryByDate = async (req, res) => {
 
     let exercisesResult = [];
     let caloriesBurned = 0;
+    let sportTime = 0;
     if (exercisesByDayAndOwner) {
       exercisesResult = exercisesByDayAndOwner.doneExercises;
       caloriesBurned = exercisesByDayAndOwner.caloriesTotal;
+      sportTime = exercisesByDayAndOwner.timeTotal;
     }
 
     const productsExercisesResult = {
       productsResult: newProductsResult,
       caloriesConsumed,
       exercisesResult,
+      sportTime,
       caloriesBurned,
     };
     res.status(200).json({ data: productsExercisesResult });

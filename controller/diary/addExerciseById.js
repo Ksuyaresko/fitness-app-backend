@@ -27,7 +27,7 @@ const addExerciseById = async (req, res) => {
       ownerId: owner,
       doneExercises: [doneExercise],
       caloriesTotal: calories,
-      date,
+      timeTotal: time,
     });
 
     res.status(201).json({ data: { doneExercise: doneExercise } });
@@ -37,6 +37,7 @@ const addExerciseById = async (req, res) => {
       {
         $inc: {
           caloriesTotal: +calories,
+          timeTotal: +time,
         },
         $push: {
           doneExercises: doneExercise,
