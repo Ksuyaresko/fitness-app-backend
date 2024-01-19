@@ -1122,7 +1122,7 @@
                       }
                     }
                   },
-                  "caloriesConsumed": {
+                  "caloriesConsumedTotal": {
                     "type": "integer",
                     "description": "Sum of calories consumed by the user per day"
                   }
@@ -1379,6 +1379,11 @@
             "type": "string",
             "description": "Notification of successful deletion of a diary entry",
             "example": "The product has been removed from the diary"
+          },
+          "caloriesConsumedTotal": {
+            "type": "integer",
+            "description": "Sum of calories consumed by the user per day",
+            "example": 236
           }
         }
       }
