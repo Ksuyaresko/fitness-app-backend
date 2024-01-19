@@ -6,6 +6,13 @@ const { DiaryExercise } = require("../../models");
 const { HttpError } = require("../../utils");
 
 const allDiaryByDate = async (req, res) => {
+  let bloodUser;
+  try {
+    bloodUser = req.user.settings.blood.toString();
+  } catch {
+    throw HttpError(404, "User blood type is not specified");
+  }
+
   const { _id: owner } = req.user;
   const { date } = req.query;
 
@@ -24,13 +31,6 @@ const allDiaryByDate = async (req, res) => {
     "title category groupBloodNotAllowed"
   );
   // *******************************************************************
-
-  let bloodUser;
-  try {
-    bloodUser = req.user.settings.blood.toString();
-  } catch {
-    throw HttpError(404, "User blood type is not specified");
-  }
 
   const products = productsByDate.map(
     ({ _id, product_ID, date, amount, calories }) => ({
