@@ -1059,69 +1059,74 @@
             "type": "object",
             "properties": {
               "productsResult": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "description": "Diary entry ID"
-                    },
-                    "product_ID": {
-                      "type": "string",
-                      "description": "Products ID from Data-Base"
-                    },
-                    "date": {
-                      "type": "string",
-                      "description": "Date the product was consumed"
-                    },
-                    "amount": {
-                      "type": "integer",
-                      "description": "Amount of product"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "Name of the product"
-                    },
-                    "category": {
-                      "type": "integer",
-                      "description": "Category of the product"
-                    },
-                    "calories": {
-                      "type": "integer",
-                      "description": "number of calories in the product"
-                    },
-                    "groupBloodNotAllowed": {
+                "type": "object",
+                "properties": {
+                  "products": {
+                    "type": "array",
+                    "items": {
                       "type": "object",
                       "properties": {
-                        "1": {
-                          "type": "boolean",
-                          "description": "Prohibition of consumption according to the user's blood type"
+                        "_id": {
+                          "type": "string",
+                          "description": "Diary entry ID"
                         },
-                        "2": {
-                          "type": "boolean",
-                          "description": "Prohibition of consumption according to the user's blood type"
+                        "product_ID": {
+                          "type": "string",
+                          "description": "Products ID from Data-Base"
                         },
-                        "3": {
-                          "type": "boolean",
-                          "description": "Prohibition of consumption according to the user's blood type"
+                        "date": {
+                          "type": "string",
+                          "description": "Date the product was consumed"
                         },
-                        "4": {
+                        "amount": {
+                          "type": "integer",
+                          "description": "Amount of product"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Name of the product"
+                        },
+                        "category": {
+                          "type": "integer",
+                          "description": "Category of the product"
+                        },
+                        "calories": {
+                          "type": "integer",
+                          "description": "number of calories in the product"
+                        },
+                        "groupBloodNotAllowed": {
+                          "type": "object",
+                          "properties": {
+                            "1": {
+                              "type": "boolean",
+                              "description": "Prohibition of consumption according to the user's blood type"
+                            },
+                            "2": {
+                              "type": "boolean",
+                              "description": "Prohibition of consumption according to the user's blood type"
+                            },
+                            "3": {
+                              "type": "boolean",
+                              "description": "Prohibition of consumption according to the user's blood type"
+                            },
+                            "4": {
+                              "type": "boolean",
+                              "description": "Prohibition of consumption according to the user's blood type"
+                            }
+                          }
+                        },
+                        "recommend": {
                           "type": "boolean",
-                          "description": "Prohibition of consumption according to the user's blood type"
+                          "description": "Whether the product is recommended according to the user's blood type"
                         }
                       }
-                    },
-                    "recommend": {
-                      "type": "boolean",
-                      "description": "Whether the product is recommended according to the user's blood type"
                     }
+                  },
+                  "caloriesConsumed": {
+                    "type": "integer",
+                    "description": "Sum of calories consumed by the user per day"
                   }
                 }
-              },
-              "caloriesConsumed": {
-                "type": "integer",
-                "description": "Sum of calories consumed by the user per day"
               },
               "doneExercises": {
                 "type": "array",
