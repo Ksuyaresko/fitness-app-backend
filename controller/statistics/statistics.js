@@ -1,4 +1,4 @@
-const { ExerciseBodyParts, User } = require("../../models");
+const { ExerciseBodyParts, User, DiaryExercise } = require("../../models");
 
 const getStatistics = async (req, res) => {
   const totalVideo = await ExerciseBodyParts.countDocuments("gifUrl");
@@ -25,9 +25,7 @@ const getStatistics = async (req, res) => {
 
   const totalUsers = await User.countDocuments();
 
-  // Треба запросити у когось ці данні (загальна кількость тренувань, виконаних зареєстрованими користувачами)
-  const totalTrainingUsers = 1;
-
+  const totalTrainingUsers = await DiaryExercise.countDocuments({});
   res.json({
     data: {
       totalVideo,
