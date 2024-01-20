@@ -1169,6 +1169,10 @@
                         "type": "string",
                         "description": "Name of the exercise"
                       },
+                      "target": {
+                        "type": "string",
+                        "description": "Target muscle trained by this exercise"
+                      },
                       "equipment": {
                         "type": "string",
                         "description": "Necessary equipment for the exercise"
@@ -1234,18 +1238,20 @@
             "exercisesResult": {
               "exercises": [
                 {
-                  "_id": "65aab67b84faa0f96eae583e",
+                  "_id": "65abc2a98d4f11c8ced27565",
                   "time": 21,
                   "burnedCalories": 300,
                   "name": "barbell standing leg calf raise",
+                  "target": "calves",
                   "equipment": "barbell",
                   "bodyPart": "lower legs"
                 },
                 {
-                  "_id": "65aac09c2873bb543d157ada",
+                  "_id": "65abc2ca8d4f11c8ced27570",
                   "time": 21,
                   "burnedCalories": 300,
                   "name": "barbell standing leg calf raise",
+                  "target": "calves",
                   "equipment": "barbell",
                   "bodyPart": "lower legs"
                 }

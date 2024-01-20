@@ -5,7 +5,7 @@ const exercisesResultsMaker = (rawDataFromDB) => {
       time,
       burnedCalories: calories,
       name: exercise_ID.name,
-      target: exercise_ID.category,
+      target: exercise_ID.target,
       equipment: exercise_ID.equipment,
       bodyPart: exercise_ID.bodyPart,
     })
