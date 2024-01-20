@@ -547,11 +547,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid exercise ID)",
-            "content": {}
-          },
-          "404": {
-            "description": "Exercise not found",
+            "description": "Bad request (invalid exercise ID or Date)",
             "content": {}
           }
         }
@@ -1157,7 +1153,7 @@
                   "exercises": {
                     "type": "array",
                     "items": {
-                      "id": {
+                      "_id": {
                         "type": "string",
                         "description": "Diary entry ID"
                       },
@@ -1165,13 +1161,21 @@
                         "type": "integer",
                         "description": "How long did the exercise last, in minutes"
                       },
-                      "calories": {
+                      "burnedCalories": {
                         "type": "integer",
                         "description": "How many calories this exercise burned during the time"
                       },
-                      "exercise_ID": {
+                      "name": {
                         "type": "string",
-                        "description": "Exercise ID from Data-Base"
+                        "description": "Name of the exercise"
+                      },
+                      "equipment": {
+                        "type": "string",
+                        "description": "Necessary equipment for the exercise"
+                      },
+                      "bodyPart": {
+                        "type": "string",
+                        "description": "Part of the body that works in the exercise"
                       }
                     }
                   },
@@ -1193,10 +1197,10 @@
             "productsResult": {
               "products": [
                 {
-                  "_id": "65aa7fdaf5fa58e17322fbef",
+                  "_id": "65aac0982873bb543d157ad4",
                   "product_ID": "5d51694902b2373622ff5b7f",
-                  "date": "12/12/5000",
-                  "amount": 23,
+                  "date": "12/12/6100",
+                  "amount": 25,
                   "calories": 23,
                   "title": "marlin",
                   "category": "fish",
@@ -1209,10 +1213,10 @@
                   "recommend": false
                 },
                 {
-                  "_id": "65aa854b9f944f7d6fed4526",
+                  "_id": "65aac0992873bb543d157ad7",
                   "product_ID": "5d51694902b2373622ff5b7f",
-                  "date": "12/12/5000",
-                  "amount": 23,
+                  "date": "12/12/6100",
+                  "amount": 25,
                   "calories": 23,
                   "title": "marlin",
                   "category": "fish",
@@ -1230,16 +1234,20 @@
             "exercisesResult": {
               "exercises": [
                 {
-                  "id": "ezlsuCdsHCpi9MlGX-_AR",
-                  "exercise_ID": "64f2458d6f67bc34bae4f857",
-                  "calories": 300,
-                  "time": 21
+                  "_id": "65aab67b84faa0f96eae583e",
+                  "time": 21,
+                  "burnedCalories": 300,
+                  "name": "barbell standing leg calf raise",
+                  "equipment": "barbell",
+                  "bodyPart": "lower legs"
                 },
                 {
-                  "id": "edOobnVBJCtscZwFxnqDc",
-                  "exercise_ID": "64f2458d6f67bc34bae4f857",
-                  "calories": 300,
-                  "time": 21
+                  "_id": "65aac09c2873bb543d157ada",
+                  "time": 21,
+                  "burnedCalories": 300,
+                  "name": "barbell standing leg calf raise",
+                  "equipment": "barbell",
+                  "bodyPart": "lower legs"
                 }
               ],
               "timeTotal": 42,
@@ -1283,9 +1291,17 @@
               "doneExercise": {
                 "type": "object",
                 "properties": {
-                  "id": {
+                  "_id": {
                     "type": "string",
                     "description": "Diary entry ID"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "Id of the user who performed the exercise"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Date when exercise was performed"
                   },
                   "time": {
                     "type": "integer",
@@ -1307,10 +1323,12 @@
         "example": {
           "data": {
             "doneExercise": {
-              "id": "N7uWu1M0HDgHq0MWaKV4f",
-              "exercise_ID": "64f2458d6f67bc34bae4f857",
+              "ownerId": "65a11a2a1f2ac88efe6329fc",
               "calories": 300,
-              "time": 21
+              "date": "12/12/6100",
+              "time": 1,
+              "exercise_ID": "64f2458d6f67bc34bae4f989",
+              "_id": "65aaed860a951a3b1578197e"
             }
           }
         }
