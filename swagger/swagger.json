@@ -1387,35 +1387,46 @@
       "DiaryAddProductsResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "ID product in diary",
-            "example": "5d51694902b2373622ff5b6f"
+          "product": {
+            "type": "object",
+            "description": "Add product in diary",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "ID product in diary",
+                "example": "5d51694902b2373622ff5b6f"
+              },
+              "product_ID": {
+                "type": "string",
+                "description": "Product-ID in the list of all products",
+                "example": "5d51694902b2373622ff5773"
+              },
+              "date": {
+                "type": "string",
+                "description": "Date add product to dairy",
+                "example": "15/01/2024"
+              },
+              "amount": {
+                "type": "integer",
+                "description": "Amount product",
+                "example": 90
+              },
+              "calories": {
+                "type": "integer",
+                "description": "Calories consumed",
+                "example": 150
+              },
+              "owner": {
+                "type": "string",
+                "description": "User`s ID",
+                "example": "65a45e22f46e25e508a9ffb7"
+              }
+            }
           },
-          "product_ID": {
-            "type": "string",
-            "description": "Product-ID in the list of all products",
-            "example": "5d51694902b2373622ff5773"
-          },
-          "date": {
-            "type": "string",
-            "description": "Date add product to dairy",
-            "example": "15/01/2024"
-          },
-          "amount": {
+          "caloriesConsumedTotal": {
             "type": "integer",
-            "description": "Amount product",
-            "example": 90
-          },
-          "calories": {
-            "type": "integer",
-            "description": "Calories consumed",
-            "example": 150
-          },
-          "owner": {
-            "type": "string",
-            "description": "User`s ID",
-            "example": "65a45e22f46e25e508a9ffb7"
+            "description": "Sum of calories consumed by the user per day",
+            "example": 295
           }
         }
       },

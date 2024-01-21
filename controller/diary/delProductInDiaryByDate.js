@@ -9,6 +9,8 @@ const delProductInDiaryByDate = async (req, res) => {
 
   // Отримуємо з бази даних продукт, який буде видалятися
   const deletedProduct = await ProductDiary.findById(id);
+
+  // Отримуємо дату продукту, який буде видалятися
   const dateAddDelProduct = deletedProduct?.date;
 
   // Видаляємо продукт з бази даних
@@ -25,7 +27,7 @@ const delProductInDiaryByDate = async (req, res) => {
   const allProductByDate = await ProductDiary.find({
     owner,
     date: dateAddDelProduct,
-  }); //
+  });
 
   // Рахуємо загальну кількість калорій спожитих продуктів за датою
   const caloriesConsumed = allProductByDate.reduce(
@@ -33,7 +35,7 @@ const delProductInDiaryByDate = async (req, res) => {
       return accumulator + currentProduct.calories;
     },
     0
-  ); //
+  );
 
   res.json({
     message: "The product has been removed from the diary",
