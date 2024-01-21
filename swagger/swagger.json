@@ -1322,6 +1322,10 @@
                     "description": "Exercise ID from Data-Base"
                   }
                 }
+              },
+              "caloriesBurnedTotal": {
+                "type": "integer",
+                "description": "Calories burned on this date"
               }
             }
           }
@@ -1331,11 +1335,12 @@
             "doneExercise": {
               "ownerId": "65a11a2a1f2ac88efe6329fc",
               "calories": 300,
-              "date": "12/12/6100",
-              "time": 1,
-              "exercise_ID": "64f2458d6f67bc34bae4f989",
-              "_id": "65aaed860a951a3b1578197e"
-            }
+              "date": "12/12/2000",
+              "time": 21,
+              "exercise_ID": "64f2458d6f67bc34bae4f857",
+              "_id": "65ad91ee564161eaf71d0d5b"
+            },
+            "caloriesBurnedTotal": 900
           }
         }
       },
@@ -1348,13 +1353,18 @@
               "message": {
                 "type": "string",
                 "description": "Notification of successful deletion of a diary entry"
+              },
+              "caloriesBurnedTotal": {
+                "type": "integer",
+                "description": "Calories burned on this date"
               }
             }
           }
         },
         "example": {
           "data": {
-            "message": "Diary entry successfully deleted"
+            "message": "Diary entry successfully deleted",
+            "caloriesBurnedTotal": 600
           }
         }
       },
