@@ -1,5 +1,4 @@
-const { differenceInYears, parse } = require("date-fns");
-const { userMock } = require("../../DB");
+const { differenceInYears } = require("date-fns");
 const { User } = require("../../models");
 
 const LEVEL_ACTIVITY_K = { 1: 1.2, 2: 1.375, 3: 1.55, 4: 1.725, 5: 1.9 };
