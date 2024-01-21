@@ -21,6 +21,18 @@ const addExerciseById = async (req, res) => {
     date,
   });
 
-  res.status(201).json({ data: { doneExercise } });
+  const foundedDiaryEntryes = await DiaryExercise.find({
+    ownerId: owner,
+    date,
+  });
+
+  const caloriesBurnedTotal = foundedDiaryEntryes.reduce(
+    (accumulator, currentExercise) => {
+      return accumulator + currentExercise.calories;
+    },
+    0
+  );
+
+  res.status(201).json({ data: { doneExercise, caloriesBurnedTotal } });
 };
 module.exports = addExerciseById;
