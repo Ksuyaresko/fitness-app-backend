@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const exerciseBodyParts = new Schema(
+const exerciseQuery = new Schema(
   {
     bodyPart: {
       type: String,
@@ -36,6 +36,6 @@ const exerciseBodyParts = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const ExerciseBodyParts = mongoose.model("exercises", exerciseBodyParts);
+const ExerciseQuery = mongoose.model("exercises", exerciseQuery);
 
-module.exports = { ExerciseBodyParts };
+module.exports = { ExerciseQuery };
