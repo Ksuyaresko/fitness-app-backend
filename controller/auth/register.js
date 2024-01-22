@@ -2,8 +2,8 @@ const bcrypt = require("bcrypt");
 const { User } = require("../../models");
 const { HttpError } = require("../../utils");
 const { nanoid } = require("nanoid");
-const jwt = require("jsonwebtoken");
 const SendMail = require("../../services/email");
+const { createSession } = require("./helper");
 
 const { SECRET_KEY, BASE_URL } = process.env;
 
@@ -27,17 +27,8 @@ const register = async (req, res) => {
     html: `<a target="_blank" href="${BASE_URL}/users/verify/${verificationCode}">Click verify email</a>`,
   });
 
-  const payload = {
-    id: newUser._id,
-  };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
-  await User.findByIdAndUpdate(newUser._id, { token });
-
-  res.status(201).json({
-    data: {
-      token,
-    },
-  });
+  const { accessToken, refreshToken } = await createSession(newUser._id);
+  res.status(201).json({ data: { accessToken, refreshToken } });
 };
 
 module.exports = register;

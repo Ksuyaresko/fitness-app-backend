@@ -16,6 +16,8 @@ router.post(
   validateBody(schemasUser.loginSchema),
   errorWrap(Auth.login)
 );
+router.post("/refresh", errorWrap(Auth.refresh));
+
 router.get("/current", authorization, errorWrap(Auth.current));
 router.post("/logout", authorization, errorWrap(Auth.logout));
 
