@@ -33,6 +33,19 @@ const addExerciseById = async (req, res) => {
     0
   );
 
-  res.status(201).json({ data: { doneExercise, caloriesBurnedTotal } });
+  const timeTotal = foundedDiaryEntryes.reduce(
+    (accumulator, currentExercise) => {
+      return accumulator + currentExercise.time;
+    },
+    0
+  );
+
+  res.status(201).json({
+    data: {
+      doneExercise,
+      timeTotal,
+      caloriesBurnedTotal,
+    },
+  });
 };
 module.exports = addExerciseById;

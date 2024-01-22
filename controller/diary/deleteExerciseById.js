@@ -14,9 +14,9 @@ const deleteExerciseById = async (req, res) => {
     date: foundedDiaryEntry.date,
   });
 
-  let caloriesBurned = 0;
+  let caloriesBurnedTotal = 0;
   if (foundedDiaryEntryes) {
-    caloriesBurned = foundedDiaryEntryes.reduce(
+    caloriesBurnedTotal = foundedDiaryEntryes.reduce(
       (accumulator, currentExercise) => {
         return accumulator + currentExercise.calories;
       },
@@ -24,10 +24,18 @@ const deleteExerciseById = async (req, res) => {
     );
   }
 
+  let timeTotal = 0;
+  if (foundedDiaryEntryes) {
+    timeTotal = foundedDiaryEntryes.reduce((accumulator, currentExercise) => {
+      return accumulator + currentExercise.time;
+    }, 0);
+  }
+
   res.json({
     data: {
       message: "Diary entry successfully deleted",
-      caloriesBurnedTotal: caloriesBurned,
+      timeTotal,
+      caloriesBurnedTotal,
     },
   });
 };

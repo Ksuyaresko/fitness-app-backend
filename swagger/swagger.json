@@ -1323,6 +1323,10 @@
                   }
                 }
               },
+              "timeTotal": {
+                "type": "integer",
+                "description": "Time spent on exercises by user per day"
+              },
               "caloriesBurnedTotal": {
                 "type": "integer",
                 "description": "Calories burned on this date"
@@ -1338,9 +1342,10 @@
               "date": "12/12/2000",
               "time": 21,
               "exercise_ID": "64f2458d6f67bc34bae4f857",
-              "_id": "65ad91ee564161eaf71d0d5b"
+              "_id": "65ae877fc2a091695b1d20f6"
             },
-            "caloriesBurnedTotal": 900
+            "timeTotal": 84,
+            "caloriesBurnedTotal": 1200
           }
         }
       },
@@ -1354,6 +1359,10 @@
                 "type": "string",
                 "description": "Notification of successful deletion of a diary entry"
               },
+              "timeTotal": {
+                "type": "integer",
+                "description": "Time spent on exercises by user per day"
+              },
               "caloriesBurnedTotal": {
                 "type": "integer",
                 "description": "Calories burned on this date"
@@ -1364,7 +1373,8 @@
         "example": {
           "data": {
             "message": "Diary entry successfully deleted",
-            "caloriesBurnedTotal": 600
+            "timeTotal": 63,
+            "caloriesBurnedTotal": 900
           }
         }
       },
