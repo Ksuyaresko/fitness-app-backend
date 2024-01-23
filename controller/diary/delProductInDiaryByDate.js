@@ -1,6 +1,6 @@
 // controller для видалення продукту, що було спожито користувачем, із щоденника в обрану дату
 
-const { ProductDiary } = require("../../models/productDiary");
+const { ProductDiary } = require("../../models");
 const { HttpError } = require("../../utils");
 
 const delProductInDiaryByDate = async (req, res) => {
