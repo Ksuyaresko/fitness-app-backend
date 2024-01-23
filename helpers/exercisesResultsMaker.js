@@ -1,9 +1,11 @@
-const exercisesResultsMaker = (rawDataFromDB, dailyActivity) => {
+const exercisesCalculations = require("./exercisesCalculations");
+
+const exercisesResultsMaker = (rawDataFromDB, dailyActivity, dailyCalories) => {
   const exercisesExtended = rawDataFromDB.map(
     ({ _id, exercise_ID, time, calories }) => ({
       _id,
       time,
-      burnedCalories: calories,
+      calories,
       name: exercise_ID.name,
       target: exercise_ID.target,
       equipment: exercise_ID.equipment,
@@ -11,22 +13,16 @@ const exercisesResultsMaker = (rawDataFromDB, dailyActivity) => {
     })
   );
 
-  const caloriesBurned = exercisesExtended.reduce(
-    (accumulator, currentExercise) => {
-      return accumulator + currentExercise.burnedCalories;
-    },
-    0
+  const { timeRemains, caloriesRemains } = exercisesCalculations(
+    exercisesExtended,
+    dailyActivity,
+    dailyCalories
   );
-  const timeTotal = exercisesExtended.reduce((accumulator, currentExercise) => {
-    return accumulator + currentExercise.time;
-  }, 0);
-  const timeRemains = dailyActivity - timeTotal;
 
   const exercisesResult = {
     exercises: exercisesExtended,
-    timeTotal,
     timeRemains,
-    caloriesBurnedTotal: caloriesBurned,
+    caloriesRemains,
   };
   return exercisesResult;
 };

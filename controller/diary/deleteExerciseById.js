@@ -1,8 +1,11 @@
 const { DiaryExercise } = require("../../models");
+const { User } = require("../../models");
 const { HttpError } = require("../../utils");
+const { exercisesCalculations } = require("../../helpers");
 
 const deleteExerciseById = async (req, res) => {
   const { id } = req.params;
+  const { _id: owner } = req.user;
 
   const foundedDiaryEntry = await DiaryExercise.findById(id);
 
@@ -14,17 +17,24 @@ const deleteExerciseById = async (req, res) => {
     date: foundedDiaryEntry.date,
   });
 
-  let caloriesBurnedTotal = 0;
+  const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
+
+  let timeRemains = dailyActivity;
+  let caloriesRemains = dailyCalories;
+
   if (foundedDiaryEntryes) {
-    caloriesBurnedTotal = foundedDiaryEntryes.reduce(
-      (accumulator, currentExercise) => {
-        return accumulator + currentExercise.calories;
-      },
-      0
-    );
+    timeRemains = exercisesCalculations(
+      foundedDiaryEntryes,
+      dailyActivity,
+      dailyCalories
+    ).timeRemains;
+    caloriesRemains = exercisesCalculations(
+      foundedDiaryEntryes,
+      dailyActivity,
+      dailyCalories
+    ).caloriesRemains;
   }
 
-  let timeTotal = 0;
   if (foundedDiaryEntryes) {
     timeTotal = foundedDiaryEntryes.reduce((accumulator, currentExercise) => {
       return accumulator + currentExercise.time;
@@ -34,8 +44,8 @@ const deleteExerciseById = async (req, res) => {
   res.json({
     data: {
       message: "Diary entry successfully deleted",
-      timeTotal,
-      caloriesBurnedTotal,
+      timeRemains,
+      caloriesRemains,
     },
   });
 };
