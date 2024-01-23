@@ -420,32 +420,19 @@
         }
       }
     },
-    "/exercises/bodyPart/{query}": {
+    "/exercises/choice/{query}": {
       "get": {
         "tags": ["Exercises"],
-        "summary": "Get a list of exercises based on a bodyPart",
+        "summary": "Get a list of exercises based on body part, muscle and equipment",
         "parameters": [
           {
             "in": "path",
             "name": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "enum": [
-                "chest",
-                "upper arms",
-                "waist",
-                "upper legs",
-                "back",
-                "shoulders",
-                "lower arms",
-                "cardio",
-                "neck",
-                "lower legs"
-              ]
+              "type": "string"
             },
-            "description": "Type of exercise to be received ",
-            "example": "equipment"
+            "description": "Type of exercise to be received"
           },
           {
             "in": "query",
@@ -473,7 +460,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExercisesBodyPartsResponse"
+                  "$ref": "#/components/schemas/ExercisesQueryResponse"
                 }
               }
             }
@@ -1015,7 +1002,7 @@
           "totalItems": 20
         }
       },
-      "ExercisesBodyPartsResponse": {
+      "ExercisesQueryResponse": {
         "type": "object",
         "properties": {
           "data": {

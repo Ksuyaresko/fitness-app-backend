@@ -2,7 +2,7 @@ const { User, schemas: schemasUser } = require("./users");
 
 const { Product } = require("./products");
 
-const { ExerciseBodyParts } = require("./exerciseBodyParts");
+const { ExerciseQuery } = require("./exerciseQuery");
 
 const { Filters } = require("./filters");
 
@@ -15,7 +15,7 @@ module.exports = {
   User,
   schemasUser,
   Product,
-  ExerciseBodyParts,
+  ExerciseQuery,
   Filters,
   DiaryExercise,
   schemasExercise,
