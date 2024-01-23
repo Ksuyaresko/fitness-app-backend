@@ -5,6 +5,7 @@ const logout = require("./logout");
 const settingsPut = require("./settings");
 const avatar = require("./avatar");
 const { verifyEmail, resendVerifyEmail } = require("./verify");
+const refresh = require("./refresh");
 
 module.exports = {
   register,
@@ -15,4 +16,5 @@ module.exports = {
   avatar,
   verifyEmail,
   resendVerifyEmail,
+  refresh,
 };
