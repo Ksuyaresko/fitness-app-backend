@@ -9,9 +9,9 @@ const getAllProducts = async (req, res) => {
   const validPage = parseInt(req.query.page) || 1;
   const validLimit = parseInt(req.query.limit) || 10;
 
-   if (isNaN(validPage) || isNaN(validLimit)) {
-     throw HttpError(400, "Page and limit must be numeric values");
-   }
+  if (isNaN(validPage) || isNaN(validLimit)) {
+    throw HttpError(400, "Page and limit must be numeric values");
+  }
 
   if (validPage < 1 || validLimit < 1) {
     throw HttpError(400, `Invalid page or limit value`);
@@ -25,7 +25,7 @@ const getAllProducts = async (req, res) => {
   const lowercaseType = type ? type.toLowerCase() : null;
   if (
     lowercaseType &&
-    !["recommended", "notrecommended"].includes(lowercaseType)
+    !["recommended", "notrecommended", "all"].includes(lowercaseType)
   ) {
     throw HttpError(400, `Invalid type value`);
   }
@@ -48,6 +48,9 @@ const getAllProducts = async (req, res) => {
       query[`groupBloodNotAllowed.${bloodType}`] = true;
     } else if (type === "notrecommended") {
       query[`groupBloodNotAllowed.${bloodType}`] = false;
+    }
+    if (type === "all") {
+      delete query[`groupBloodNotAllowed.${bloodType}`];
     }
   }
 
