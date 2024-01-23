@@ -6,11 +6,11 @@ const { errorWrap } = require("../../utils");
 
 const router = express.Router();
 
-router.get("/:query", authorization, errorWrap(Exercises.getAllExercises));
+router.get("/:query", authorization, errorWrap(Exercises.getFilterExercises));
 router.get(
-  "/bodyPart/:query",
+  "/choice/:query",
   authorization,
-  errorWrap(Exercises.getExercisesBodyPart)
+  errorWrap(Exercises.getExercisesQuery)
 );
 
 module.exports = router;

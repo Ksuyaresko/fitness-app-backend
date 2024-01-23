@@ -11,7 +11,7 @@ const setting = new Schema({
   birthday: { type: Date },
   blood: { type: Number, enum: [1, 2, 3, 4] },
   sex: { type: String, enum: ["male", "female"] },
-  levelActivity: { type: Number, enum: [1, 2, 3, 4] },
+  levelActivity: { type: Number, enum: [1, 2, 3, 4, 5] },
 });
 
 const user = new Schema(

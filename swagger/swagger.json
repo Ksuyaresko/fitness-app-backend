@@ -457,32 +457,19 @@
         }
       }
     },
-    "/exercises/bodyPart/{query}": {
+    "/exercises/choice/{query}": {
       "get": {
         "tags": ["Exercises"],
-        "summary": "Get a list of exercises based on a bodyPart",
+        "summary": "Get a list of exercises based on body part, muscle and equipment",
         "parameters": [
           {
             "in": "path",
             "name": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "enum": [
-                "chest",
-                "upper arms",
-                "waist",
-                "upper legs",
-                "back",
-                "shoulders",
-                "lower arms",
-                "cardio",
-                "neck",
-                "lower legs"
-              ]
+              "type": "string"
             },
-            "description": "Type of exercise to be received ",
-            "example": "equipment"
+            "description": "Type of exercise to be received"
           },
           {
             "in": "query",
@@ -510,7 +497,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExercisesBodyPartsResponse"
+                  "$ref": "#/components/schemas/ExercisesQueryResponse"
                 }
               }
             }
@@ -1057,7 +1044,7 @@
           "totalItems": 20
         }
       },
-      "ExercisesBodyPartsResponse": {
+      "ExercisesQueryResponse": {
         "type": "object",
         "properties": {
           "data": {
@@ -1364,6 +1351,14 @@
                     "description": "Exercise ID from Data-Base"
                   }
                 }
+              },
+              "timeTotal": {
+                "type": "integer",
+                "description": "Time spent on exercises by user per day"
+              },
+              "caloriesBurnedTotal": {
+                "type": "integer",
+                "description": "Calories burned on this date"
               }
             }
           }
@@ -1373,11 +1368,13 @@
             "doneExercise": {
               "ownerId": "65a11a2a1f2ac88efe6329fc",
               "calories": 300,
-              "date": "12/12/6100",
-              "time": 1,
-              "exercise_ID": "64f2458d6f67bc34bae4f989",
-              "_id": "65aaed860a951a3b1578197e"
-            }
+              "date": "12/12/2000",
+              "time": 21,
+              "exercise_ID": "64f2458d6f67bc34bae4f857",
+              "_id": "65ae877fc2a091695b1d20f6"
+            },
+            "timeTotal": 84,
+            "caloriesBurnedTotal": 1200
           }
         }
       },
@@ -1390,13 +1387,23 @@
               "message": {
                 "type": "string",
                 "description": "Notification of successful deletion of a diary entry"
+              },
+              "timeTotal": {
+                "type": "integer",
+                "description": "Time spent on exercises by user per day"
+              },
+              "caloriesBurnedTotal": {
+                "type": "integer",
+                "description": "Calories burned on this date"
               }
             }
           }
         },
         "example": {
           "data": {
-            "message": "Diary entry successfully deleted"
+            "message": "Diary entry successfully deleted",
+            "timeTotal": 63,
+            "caloriesBurnedTotal": 900
           }
         }
       },
@@ -1429,35 +1436,46 @@
       "DiaryAddProductsResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "ID product in diary",
-            "example": "5d51694902b2373622ff5b6f"
+          "product": {
+            "type": "object",
+            "description": "Add product in diary",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "ID product in diary",
+                "example": "5d51694902b2373622ff5b6f"
+              },
+              "product_ID": {
+                "type": "string",
+                "description": "Product-ID in the list of all products",
+                "example": "5d51694902b2373622ff5773"
+              },
+              "date": {
+                "type": "string",
+                "description": "Date add product to dairy",
+                "example": "15/01/2024"
+              },
+              "amount": {
+                "type": "integer",
+                "description": "Amount product",
+                "example": 90
+              },
+              "calories": {
+                "type": "integer",
+                "description": "Calories consumed",
+                "example": 150
+              },
+              "owner": {
+                "type": "string",
+                "description": "User`s ID",
+                "example": "65a45e22f46e25e508a9ffb7"
+              }
+            }
           },
-          "product_ID": {
-            "type": "string",
-            "description": "Product-ID in the list of all products",
-            "example": "5d51694902b2373622ff5773"
-          },
-          "date": {
-            "type": "string",
-            "description": "Date add product to dairy",
-            "example": "15/01/2024"
-          },
-          "amount": {
+          "caloriesConsumedTotal": {
             "type": "integer",
-            "description": "Amount product",
-            "example": 90
-          },
-          "calories": {
-            "type": "integer",
-            "description": "Calories consumed",
-            "example": 150
-          },
-          "owner": {
-            "type": "string",
-            "description": "User`s ID",
-            "example": "65a45e22f46e25e508a9ffb7"
+            "description": "Sum of calories consumed by the user per day",
+            "example": 295
           }
         }
       },

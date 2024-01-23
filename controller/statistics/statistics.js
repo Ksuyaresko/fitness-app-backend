@@ -1,7 +1,7 @@
-const { ExerciseBodyParts, User, DiaryExercise } = require("../../models");
+const { ExerciseQuery, User, DiaryExercise } = require("../../models");
 
 const getStatistics = async (req, res) => {
-  const totalVideo = await ExerciseBodyParts.countDocuments("gifUrl");
+  const totalVideo = await ExerciseQuery.countDocuments("gifUrl");
   const usersCaloriesActivity = await User.aggregate([
     {
       $group: {
