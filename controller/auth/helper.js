@@ -10,7 +10,7 @@ const createSession = async (userId) => {
     { id: userId, sid: newSession._id },
     SECRET_KEY,
     {
-      expiresIn: "10s",
+      expiresIn: "1h",
     }
   );
   const refreshToken = jwt.sign(
