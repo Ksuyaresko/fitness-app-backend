@@ -4,7 +4,7 @@ const router = express.Router();
 const { diaryController } = require("../../controller");
 const { authorization, validateBody, isValidId } = require("../../middlewares");
 const { errorWrap } = require("../../utils");
-const { bodyDiaryProductSchema } = require("../../models/productDiary");
+const { bodyDiaryProductSchema } = require("../../models");
 
 const { addProductInDiaryByDate, delProductInDiaryByDate } = diaryController;
 
