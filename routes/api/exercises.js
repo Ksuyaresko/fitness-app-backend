@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/:query", authorization, errorWrap(Exercises.getFilterExercises));
 router.get(
-  "/:query/:query",
+  "/choice/:query",
   authorization,
   errorWrap(Exercises.getExercisesQuery)
 );

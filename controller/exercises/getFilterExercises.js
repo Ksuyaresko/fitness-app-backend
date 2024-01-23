@@ -9,12 +9,6 @@ const getFilterExercises = async (req, res) => {
     throw HttpError(400, "Query parameter is missing");
   }
 
-  if (!["body parts", "equipment", "muscles"].includes(query)) {
-    throw HttpError(
-      400,
-      "Invalid query parameter. Allowed values: 'body parts', 'equipment', 'muscles'"
-    );
-  }
   const validPage = parseInt(req.query.page) || 1;
   const validLimit = parseInt(req.query.limit) || 10;
 

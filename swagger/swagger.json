@@ -457,7 +457,7 @@
         }
       }
     },
-    "/exercises/:query/{query}": {
+    "/exercises/choice/{query}": {
       "get": {
         "tags": ["Exercises"],
         "summary": "Get a list of exercises based on body part, muscle and equipment",
