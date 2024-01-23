@@ -10,9 +10,11 @@ const {
   DiaryExercise,
   schemas: schemasExercise,
 } = require("./diary-exercise-schema");
+const { Session } = require("./session")
 
 module.exports = {
   User,
+  Session,
   schemasUser,
   Product,
   ExerciseQuery,

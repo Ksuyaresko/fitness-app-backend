@@ -1,14 +1,13 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const { User } = require("../../models");
 const { HttpError } = require("../../utils");
+const { createSession } = require("./helper");
 
-const { SECRET_KEY } = process.env;
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    throw HttpError(401, "Email or password is wrong");
+    throw HttpError(404, "Email or password is wrong");
   }
   // we are skipping this check for now
   // if(!user.verify) {
@@ -16,24 +15,11 @@ const login = async (req, res) => {
   // }
   const comparePass = await bcrypt.compare(password, user.password);
   if (!comparePass) {
-    throw HttpError(401, "Email or password is wrong");
+    throw HttpError(404, "Email or password is wrong");
   }
 
-  // check current token to keep sessions on dif devices
-  try {
-    const { id } = jwt.verify(user.token, SECRET_KEY);
-    if (id === user.id) {
-      res.json({ data: { token: user.token } });
-    }
-  } catch (e) {
-    const payload = {
-      id: user._id,
-    };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
-    await User.findByIdAndUpdate(user._id, { token });
-
-    res.json({ data: { token } });
-  }
+  const { accessToken, refreshToken } = await createSession(user._id);
+  res.json({ data: { accessToken, refreshToken } });
 };
 
 module.exports = login;

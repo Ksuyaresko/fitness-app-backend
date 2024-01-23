@@ -36,7 +36,6 @@ const user = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    token: String,
     avatarURL: String,
     verify: {
       type: Boolean,
