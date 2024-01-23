@@ -457,7 +457,7 @@
         }
       }
     },
-    "/exercises/choice/{query}": {
+    "/exercises/:query/{query}": {
       "get": {
         "tags": ["Exercises"],
         "summary": "Get a list of exercises based on body part, muscle and equipment",
@@ -467,7 +467,32 @@
             "name": "query",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "upper arms",
+                "shoulders",
+                "waist",
+                "back",
+                "upper legs",
+                "lower arms",
+                "triceps",
+                "delts",
+                "abs",
+                "lats",
+                "biceps",
+                "upper back",
+                "glutes",
+                "forearms",
+                "hamstrings",
+                "pectorals",
+                "leverage machine",
+                "kettlebell",
+                "body weight",
+                "dumbbell",
+                "cable",
+                "barbell",
+                "assisted"
+              ]
             },
             "description": "Type of exercise to be received"
           },

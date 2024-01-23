@@ -1,5 +1,6 @@
 const { ExerciseQuery } = require("../../models");
 const { HttpError } = require("../../utils");
+const { validQueryParams } = require("../../helpers");
 
 const getExercisesQuery = async (req, res) => {
   const { query } = req.params;
@@ -9,6 +10,9 @@ const getExercisesQuery = async (req, res) => {
 
   if (!query || query.trim() === "") {
     throw HttpError(400, "Query cannot be empty");
+  }
+  if (!validQueryParams.includes(query)) {
+    throw HttpError(400, "Invalid query parameter");
   }
 
   if (isNaN(validPage) || isNaN(validLimit)) {

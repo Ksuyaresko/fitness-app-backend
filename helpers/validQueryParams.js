@@ -1,0 +1,27 @@
+const validQueryParams = [
+  "upper arms",
+  "shoulders",
+  "waist",
+  "back",
+  "upper legs",
+  "lower arms",
+  "triceps",
+  "delts",
+  "abs",
+  "lats",
+  "biceps",
+  "upper back",
+  "glutes",
+  "forearms",
+  "hamstrings",
+  "pectorals",
+  "leverage machine",
+  "body weight",
+  "dumbbell",
+  "cable",
+  "barbell",
+  "assisted",
+  "kettlebell",
+];
+
+module.exports = validQueryParams;
