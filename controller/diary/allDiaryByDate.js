@@ -2,6 +2,7 @@ const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models/productDiary");
 const { DiaryExercise } = require("../../models");
+const { User } = require("../../models");
 const {
   productsResultsMaker,
   exercisesResultsMaker,
@@ -37,10 +38,12 @@ const allDiaryByDate = async (req, res) => {
     date: date,
   }).populate("exercise_ID", "bodyPart equipment name target");
 
+  const { dailyActivity } = await User.findOne({ _id: owner });
+
   res.json({
     data: {
       productsResult: productsResultsMaker(products, bloodUser),
-      exercisesResult: exercisesResultsMaker(exercises),
+      exercisesResult: exercisesResultsMaker(exercises, dailyActivity),
     },
   });
 };

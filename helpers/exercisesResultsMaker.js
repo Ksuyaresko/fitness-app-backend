@@ -1,4 +1,4 @@
-const exercisesResultsMaker = (rawDataFromDB) => {
+const exercisesResultsMaker = (rawDataFromDB, dailyActivity) => {
   const exercisesExtended = rawDataFromDB.map(
     ({ _id, exercise_ID, time, calories }) => ({
       _id,
@@ -20,10 +20,12 @@ const exercisesResultsMaker = (rawDataFromDB) => {
   const timeTotal = exercisesExtended.reduce((accumulator, currentExercise) => {
     return accumulator + currentExercise.time;
   }, 0);
+  const timeRemains = dailyActivity - timeTotal;
 
   const exercisesResult = {
     exercises: exercisesExtended,
     timeTotal,
+    timeRemains,
     caloriesBurnedTotal: caloriesBurned,
   };
   return exercisesResult;

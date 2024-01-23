@@ -1174,6 +1174,10 @@
                     "type": "integer",
                     "description": "Total time spent on all exercises per day"
                   },
+                  "timeRemains": {
+                    "type": "integer",
+                    "description": "How much more time the user needs to spend on exercise that day"
+                  },
                   "caloriesBurned": {
                     "type": "integer",
                     "description": "Sum of calories burned by the user per day"
@@ -1244,6 +1248,7 @@
                 }
               ],
               "timeTotal": 42,
+              "timeRemains": 68,
               "caloriesBurnedTotal": 600
             }
           }
