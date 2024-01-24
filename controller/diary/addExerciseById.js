@@ -1,5 +1,4 @@
 const { DiaryExercise } = require("../../models");
-const { User } = require("../../models");
 const { HttpError } = require("../../utils");
 const { isMatch } = require("date-fns");
 const { isValidObjectId } = require("mongoose");
@@ -23,7 +22,10 @@ const addExerciseById = async (req, res) => {
     date,
   });
 
-  const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
+  const { dailyActivity, dailyCalories } = req.user;
+
+  if (!(dailyActivity || dailyCalories))
+    throw HttpError(404, "Required user settings are not specified");
 
   const foundedDiaryEntryes = await DiaryExercise.find({
     ownerId: owner,
