@@ -40,6 +40,8 @@ const allDiaryByDate = async (req, res) => {
 
   const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
 
+  console.log(dailyActivity);
+
   res.json({
     data: {
       productsResult: productsResultsMaker(products, bloodUser),

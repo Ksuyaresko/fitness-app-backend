@@ -6,8 +6,6 @@ const exercisesCalculations = (diaryEntryes, dailyActivity, dailyCalories) => {
     return accumulator + currentExercise.time;
   }, 0);
 
-  console.log(diaryEntryes);
-
   return {
     timeRemains: dailyActivity - timeTotal,
     caloriesRemains: dailyCalories - caloriesBurned,
