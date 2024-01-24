@@ -1206,6 +1206,10 @@
                   "caloriesConsumedTotal": {
                     "type": "integer",
                     "description": "Sum of calories consumed by the user per day"
+                  },
+                  "caloriesRemainingTotal": {
+                    "type": "integer",
+                    "description": "The amount of calories the user still needs to consume"
                   }
                 }
               },
@@ -1295,7 +1299,8 @@
                   "recommend": false
                 }
               ],
-              "caloriesConsumedTotal": 46
+              "caloriesConsumedTotal": 46,
+              "caloriesRemainingTotal": 569
             },
             "exercisesResult": {
               "exercises": [
