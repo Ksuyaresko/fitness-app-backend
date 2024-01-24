@@ -6,5 +6,6 @@ const validQueryParams = require("./validQueryParams");
 module.exports = {
   productsResultsMaker,
   exercisesResultsMaker,
+  exercisesCalculations,
   validQueryParams,
 };
