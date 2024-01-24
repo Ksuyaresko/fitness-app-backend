@@ -10,7 +10,10 @@ const {
   DiaryExercise,
   schemas: schemasExercise,
 } = require("./diary-exercise-schema");
-const { Session } = require("./session")
+
+const { bodyDiaryProductSchema, ProductDiary } = require("./productDiary");
+
+const { Session } = require("./session");
 
 module.exports = {
   User,
@@ -21,4 +24,6 @@ module.exports = {
   Filters,
   DiaryExercise,
   schemasExercise,
+  bodyDiaryProductSchema,
+  ProductDiary,
 };

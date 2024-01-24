@@ -4,14 +4,20 @@ const Schema = mongoose.Schema;
 
 emailReqexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
+const HEIGHT_MIN = 150;
+const WEIGHT_MIN = 35
+const BLOOD_ENUM = [1, 2, 3, 4]
+const SEX_ENUM = ["male", "female"]
+const ACTIVITY_ENUM = [1, 2, 3, 4, 5]
+
 const setting = new Schema({
-  height: { type: Number, min: [150, 'min is 150'] },
-  currentWeight: { type: Number, min: 35 },
-  desiredWeight: { type: Number, min: 35 },
+  height: { type: Number, min: [HEIGHT_MIN, 'min is 150'] },
+  currentWeight: { type: Number, min: WEIGHT_MIN },
+  desiredWeight: { type: Number, min: WEIGHT_MIN },
   birthday: { type: Date },
-  blood: { type: Number, enum: [1, 2, 3, 4] },
-  sex: { type: String, enum: ["male", "female"] },
-  levelActivity: { type: Number, enum: [1, 2, 3, 4, 5] },
+  blood: { type: Number, enum: BLOOD_ENUM },
+  sex: { type: String, enum: SEX_ENUM },
+  levelActivity: { type: Number, enum: ACTIVITY_ENUM },
 });
 
 const user = new Schema(
@@ -69,14 +75,13 @@ const emailSchema = Joi.object({
 
 const settingSchema = Joi.object({
   name: Joi.string().required(),
-  height: Joi.number().min(150).required(),
-  currentWeight: Joi.number().min(35).required(),
-  desiredWeight: Joi.number().min(35).required(),
-  // @todo check 18+
+  height: Joi.number().min(HEIGHT_MIN).required(),
+  currentWeight: Joi.number().min(WEIGHT_MIN).required(),
+  desiredWeight: Joi.number().min(WEIGHT_MIN).required(),
   birthday: Joi.date().iso().required(),
-  blood: Joi.number().valid(1, 2, 3, 4).required(),
-  sex: Joi.number().valid("male", "female").required(),
-  levelActivity: Joi.number().valid(1, 2, 3, 4, 5).required(),
+  blood: Joi.number().valid(...BLOOD_ENUM).required(),
+  sex: Joi.number().valid(...SEX_ENUM).required(),
+  levelActivity: Joi.number().valid(...ACTIVITY_ENUM).required(),
 });
 
 const schemas = {

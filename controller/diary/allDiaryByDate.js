@@ -1,6 +1,6 @@
 const { isMatch } = require("date-fns");
 
-const { ProductDiary } = require("../../models/productDiary");
+const { ProductDiary } = require("../../models");
 const { DiaryExercise } = require("../../models");
 const { User } = require("../../models");
 const {

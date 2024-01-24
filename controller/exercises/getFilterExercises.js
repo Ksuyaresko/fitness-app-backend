@@ -8,6 +8,7 @@ const getFilterExercises = async (req, res) => {
   if (!req.params.query) {
     throw HttpError(400, "Query parameter is missing");
   }
+
   const validPage = parseInt(req.query.page) || 1;
   const validLimit = parseInt(req.query.limit) || 10;
 
@@ -25,7 +26,6 @@ const getFilterExercises = async (req, res) => {
 
   const skip = (page - 1) * limit;
 
-  //? Функція для зміни регістру першої букви
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
