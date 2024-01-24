@@ -39,9 +39,6 @@ const allDiaryByDate = async (req, res) => {
 
   const { dailyActivity, dailyCalories } = req.user;
 
-  if (!(dailyActivity || dailyCalories))
-    throw HttpError(404, "Required user settings are not specified");
-
   res.json({
     data: {
       productsResult: productsResultsMaker(products, bloodUser),
