@@ -22,9 +22,9 @@ const addExerciseById = async (req, res) => {
     date,
   });
 
-  const { dailyActivity, dailyCalories } = req.user;
+  const { dailyActivity } = req.user;
 
-  if (!(dailyActivity || dailyCalories))
+  if (!dailyActivity)
     throw HttpError(404, "Required user settings are not specified");
 
   const foundedDiaryEntryes = await DiaryExercise.find({
@@ -32,17 +32,16 @@ const addExerciseById = async (req, res) => {
     date,
   });
 
-  const { timeRemains, caloriesRemains } = exercisesCalculations(
+  const { caloriesBurned, sportsRemaining } = exercisesCalculations(
     foundedDiaryEntryes,
-    dailyActivity,
-    dailyCalories
+    dailyActivity
   );
 
   res.status(201).json({
     data: {
       doneExercise,
-      timeRemains,
-      caloriesRemains,
+      caloriesBurned,
+      sportsRemaining,
     },
   });
 };

@@ -1,4 +1,4 @@
-const productsResultsMaker = (rawDataFromDB, bloodUser) => {
+const productsResultsMaker = (rawDataFromDB, bloodUser, dailyCalories) => {
   const products = rawDataFromDB.map(
     ({ _id, product_ID, date, amount, calories }) => ({
       _id,
@@ -22,11 +22,11 @@ const productsResultsMaker = (rawDataFromDB, bloodUser) => {
     return accumulator + currentProduct.calories;
   }, 0);
 
-  const productsResult = {
+  return {
     products: newProducts,
     caloriesConsumedTotal: caloriesConsumed,
+    caloriesRemainingTotal: dailyCalories - caloriesConsumed,
   };
-  return productsResult;
 };
 
 module.exports = productsResultsMaker;

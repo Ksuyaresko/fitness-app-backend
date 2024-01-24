@@ -1,4 +1,4 @@
-const exercisesCalculations = (diaryEntryes, dailyActivity, dailyCalories) => {
+const exercisesCalculations = (diaryEntryes, dailyActivity) => {
   const caloriesBurned = diaryEntryes.reduce((accumulator, currentExercise) => {
     return accumulator + currentExercise.calories;
   }, 0);
@@ -7,8 +7,8 @@ const exercisesCalculations = (diaryEntryes, dailyActivity, dailyCalories) => {
   }, 0);
 
   return {
-    timeRemains: dailyActivity - timeTotal,
-    caloriesRemains: dailyCalories - caloriesBurned,
+    caloriesBurned,
+    sportsRemaining: dailyActivity - timeTotal,
   };
 };
 module.exports = exercisesCalculations;

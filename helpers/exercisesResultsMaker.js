@@ -1,6 +1,6 @@
 const exercisesCalculations = require("./exercisesCalculations");
 
-const exercisesResultsMaker = (rawDataFromDB, dailyActivity, dailyCalories) => {
+const exercisesResultsMaker = (rawDataFromDB, dailyActivity) => {
   const exercisesExtended = rawDataFromDB.map(
     ({ _id, exercise_ID, time, calories }) => ({
       _id,
@@ -13,18 +13,16 @@ const exercisesResultsMaker = (rawDataFromDB, dailyActivity, dailyCalories) => {
     })
   );
 
-  const { timeRemains, caloriesRemains } = exercisesCalculations(
+  const { caloriesBurned, sportsRemaining } = exercisesCalculations(
     exercisesExtended,
-    dailyActivity,
-    dailyCalories
+    dailyActivity
   );
 
-  const exercisesResult = {
+  return {
     exercises: exercisesExtended,
-    timeRemains,
-    caloriesRemains,
+    caloriesBurned,
+    sportsRemaining,
   };
-  return exercisesResult;
 };
 
 module.exports = exercisesResultsMaker;
