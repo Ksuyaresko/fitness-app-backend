@@ -1245,13 +1245,13 @@
                       }
                     }
                   },
-                  "timeRemains": {
+                  "caloriesBurned": {
+                    "type": "integer",
+                    "description": "Amount of calories burned by the user per day"
+                  },
+                  "sportsRemaining": {
                     "type": "integer",
                     "description": "How much more time the user needs to spend on exercise that day"
-                  },
-                  "caloriesRemains": {
-                    "type": "integer",
-                    "description": "How many calories the user has left to burn"
                   }
                 }
               }
@@ -1300,7 +1300,7 @@
             "exercisesResult": {
               "exercises": [
                 {
-                  "_id": "65b01c5f84d7799fb4805abe",
+                  "_id": "65b128dfa637b5d3f2dc8046",
                   "time": 21,
                   "calories": 300,
                   "name": "barbell standing leg calf raise",
@@ -1309,7 +1309,7 @@
                   "bodyPart": "lower legs"
                 },
                 {
-                  "_id": "65b01f9bc10f1951bf6b3d97",
+                  "_id": "65b12fd10424aad8b794c33b",
                   "time": 21,
                   "calories": 300,
                   "name": "barbell standing leg calf raise",
@@ -1318,8 +1318,8 @@
                   "bodyPart": "lower legs"
                 }
               ],
-              "timeRemains": 68,
-              "caloriesRemains": 1455
+              "caloriesBurned": 600,
+              "sportsRemaining": 68
             }
           }
         }
@@ -1385,13 +1385,13 @@
                   }
                 }
               },
-              "timeRemains": {
+              "caloriesBurned": {
+                "type": "integer",
+                "description": "Amount of calories burned by the user per day"
+              },
+              "sportsRemaining": {
                 "type": "integer",
                 "description": "How much more time the user needs to spend on exercise that day"
-              },
-              "caloriesRemains": {
-                "type": "integer",
-                "description": "How many calories the user has left to burn"
               }
             }
           }
@@ -1399,15 +1399,15 @@
         "example": {
           "data": {
             "doneExercise": {
-              "ownerId": "65a11a2a1f2ac88efe6329fc",
+              "ownerId": "65a16d41b144c96136bbbfb1",
               "calories": 300,
-              "date": "18/01/2024",
+              "date": "24/01/2024",
               "time": 21,
               "exercise_ID": "64f2458d6f67bc34bae4f857",
-              "_id": "65b021efdd9625fa0e3eb0e5"
+              "_id": "65b12fd10424aad8b794c33b"
             },
-            "timeRemains": 47,
-            "caloriesRemains": 1155
+            "caloriesBurned": 600,
+            "sportsRemaining": 68
           }
         }
       },
@@ -1421,13 +1421,13 @@
                 "type": "string",
                 "description": "Notification of successful deletion of a diary entry"
               },
-              "timeRemains": {
+              "caloriesBurned": {
+                "type": "integer",
+                "description": "Amount of calories burned by the user per day"
+              },
+              "sportsRemaining": {
                 "type": "integer",
                 "description": "How much more time the user needs to spend on exercise that day"
-              },
-              "caloriesRemains": {
-                "type": "integer",
-                "description": "How many calories the user has left to burn"
               }
             }
           }
@@ -1435,8 +1435,8 @@
         "example": {
           "data": {
             "message": "Diary entry successfully deleted",
-            "timeRemains": 68,
-            "caloriesRemains": 1455
+            "caloriesBurned": 300,
+            "sportsRemaining": 89
           }
         }
       },

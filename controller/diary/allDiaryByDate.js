@@ -37,16 +37,12 @@ const allDiaryByDate = async (req, res) => {
     date: date,
   }).populate("exercise_ID", "bodyPart equipment name target");
 
-  const { dailyActivity, dailyCalories } = req.user;
+  const { dailyActivity } = req.user;
 
   res.json({
     data: {
       productsResult: productsResultsMaker(products, bloodUser),
-      exercisesResult: exercisesResultsMaker(
-        exercises,
-        dailyActivity,
-        dailyCalories
-      ),
+      exercisesResult: exercisesResultsMaker(exercises, dailyActivity),
     },
   });
 };

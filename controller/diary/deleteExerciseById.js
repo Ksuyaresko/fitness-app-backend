@@ -17,29 +17,27 @@ const deleteExerciseById = async (req, res) => {
     date: foundedDiaryEntry.date,
   });
 
-  const { dailyActivity, dailyCalories } = req.user;
+  const { dailyActivity } = req.user;
 
-  let timeRemains = dailyActivity;
-  let caloriesRemains = dailyCalories;
+  let sportsRemaining = dailyActivity;
+  let caloriesBurned = 0;
 
   if (foundedDiaryEntryes) {
-    timeRemains = exercisesCalculations(
+    caloriesBurned = exercisesCalculations(
       foundedDiaryEntryes,
-      dailyActivity,
-      dailyCalories
-    ).timeRemains;
-    caloriesRemains = exercisesCalculations(
+      dailyActivity
+    ).caloriesBurned;
+    sportsRemaining = exercisesCalculations(
       foundedDiaryEntryes,
-      dailyActivity,
-      dailyCalories
-    ).caloriesRemains;
+      dailyActivity
+    ).sportsRemaining;
   }
 
   res.json({
     data: {
       message: "Diary entry successfully deleted",
-      timeRemains,
-      caloriesRemains,
+      caloriesBurned,
+      sportsRemaining,
     },
   });
 };
