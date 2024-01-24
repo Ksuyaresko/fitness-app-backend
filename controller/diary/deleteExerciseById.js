@@ -1,5 +1,4 @@
 const { DiaryExercise } = require("../../models");
-const { User } = require("../../models");
 const { HttpError } = require("../../utils");
 const { exercisesCalculations } = require("../../helpers");
 
@@ -18,7 +17,7 @@ const deleteExerciseById = async (req, res) => {
     date: foundedDiaryEntry.date,
   });
 
-  const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
+  const { dailyActivity, dailyCalories } = req.user;
 
   let timeRemains = dailyActivity;
   let caloriesRemains = dailyCalories;

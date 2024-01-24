@@ -2,7 +2,6 @@ const { isMatch } = require("date-fns");
 
 const { ProductDiary } = require("../../models");
 const { DiaryExercise } = require("../../models");
-const { User } = require("../../models");
 const {
   productsResultsMaker,
   exercisesResultsMaker,
@@ -38,7 +37,7 @@ const allDiaryByDate = async (req, res) => {
     date: date,
   }).populate("exercise_ID", "bodyPart equipment name target");
 
-  const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
+  const { dailyActivity, dailyCalories } = req.user;
 
   if (!(dailyActivity || dailyCalories))
     throw HttpError(404, "Required user settings are not specified");
