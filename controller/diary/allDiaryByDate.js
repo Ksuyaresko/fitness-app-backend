@@ -21,7 +21,7 @@ const allDiaryByDate = async (req, res) => {
   try {
     bloodUser = req.user.settings.blood.toString();
   } catch {
-    throw HttpError(404, "User blood type is not specified");
+    throw HttpError(404, "Required user settings are not specified");
   }
 
   const { _id: owner } = req.user;
@@ -40,7 +40,8 @@ const allDiaryByDate = async (req, res) => {
 
   const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
 
-  console.log(dailyActivity);
+  if (!(dailyActivity || dailyCalories))
+    throw HttpError(404, "Required user settings are not specified");
 
   res.json({
     data: {

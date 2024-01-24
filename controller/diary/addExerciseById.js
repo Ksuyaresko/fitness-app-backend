@@ -25,6 +25,9 @@ const addExerciseById = async (req, res) => {
 
   const { dailyActivity, dailyCalories } = await User.findOne({ _id: owner });
 
+  if (!(dailyActivity || dailyCalories))
+    throw HttpError(404, "Required user settings are not specified");
+
   const foundedDiaryEntryes = await DiaryExercise.find({
     ownerId: owner,
     date,

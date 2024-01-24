@@ -563,6 +563,10 @@
           "400": {
             "description": "Bad request (The date is not valid or does not match the dd/MM/yyyy format)",
             "content": {}
+          },
+          "404": {
+            "description": "Not found (Required user settings are not specified)",
+            "content": {}
           }
         }
       }
@@ -597,6 +601,10 @@
           },
           "400": {
             "description": "Bad request (invalid exercise ID or Date)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found (Required user settings are not specified)",
             "content": {}
           }
         }
