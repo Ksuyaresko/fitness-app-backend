@@ -1215,7 +1215,7 @@
                         "type": "integer",
                         "description": "How long did the exercise last, in minutes"
                       },
-                      "burnedCalories": {
+                      "calories": {
                         "type": "integer",
                         "description": "How many calories this exercise burned during the time"
                       },
@@ -1237,13 +1237,13 @@
                       }
                     }
                   },
-                  "timeTotal": {
+                  "timeRemains": {
                     "type": "integer",
-                    "description": "Total time spent on all exercises per day"
+                    "description": "How much more time the user needs to spend on exercise that day"
                   },
-                  "caloriesBurned": {
+                  "caloriesRemains": {
                     "type": "integer",
-                    "description": "Sum of calories burned by the user per day"
+                    "description": "How many calories the user has left to burn"
                   }
                 }
               }
@@ -1292,26 +1292,26 @@
             "exercisesResult": {
               "exercises": [
                 {
-                  "_id": "65abc2a98d4f11c8ced27565",
+                  "_id": "65b01c5f84d7799fb4805abe",
                   "time": 21,
-                  "burnedCalories": 300,
+                  "calories": 300,
                   "name": "barbell standing leg calf raise",
                   "target": "calves",
                   "equipment": "barbell",
                   "bodyPart": "lower legs"
                 },
                 {
-                  "_id": "65abc2ca8d4f11c8ced27570",
+                  "_id": "65b01f9bc10f1951bf6b3d97",
                   "time": 21,
-                  "burnedCalories": 300,
+                  "calories": 300,
                   "name": "barbell standing leg calf raise",
                   "target": "calves",
                   "equipment": "barbell",
                   "bodyPart": "lower legs"
                 }
               ],
-              "timeTotal": 42,
-              "caloriesBurnedTotal": 600
+              "timeRemains": 68,
+              "caloriesRemains": 1455
             }
           }
         }
@@ -1377,13 +1377,13 @@
                   }
                 }
               },
-              "timeTotal": {
+              "timeRemains": {
                 "type": "integer",
-                "description": "Time spent on exercises by user per day"
+                "description": "How much more time the user needs to spend on exercise that day"
               },
-              "caloriesBurnedTotal": {
+              "caloriesRemains": {
                 "type": "integer",
-                "description": "Calories burned on this date"
+                "description": "How many calories the user has left to burn"
               }
             }
           }
@@ -1393,13 +1393,13 @@
             "doneExercise": {
               "ownerId": "65a11a2a1f2ac88efe6329fc",
               "calories": 300,
-              "date": "12/12/2000",
+              "date": "18/01/2024",
               "time": 21,
               "exercise_ID": "64f2458d6f67bc34bae4f857",
-              "_id": "65ae877fc2a091695b1d20f6"
+              "_id": "65b021efdd9625fa0e3eb0e5"
             },
-            "timeTotal": 84,
-            "caloriesBurnedTotal": 1200
+            "timeRemains": 47,
+            "caloriesRemains": 1155
           }
         }
       },
@@ -1413,13 +1413,13 @@
                 "type": "string",
                 "description": "Notification of successful deletion of a diary entry"
               },
-              "timeTotal": {
+              "timeRemains": {
                 "type": "integer",
-                "description": "Time spent on exercises by user per day"
+                "description": "How much more time the user needs to spend on exercise that day"
               },
-              "caloriesBurnedTotal": {
+              "caloriesRemains": {
                 "type": "integer",
-                "description": "Calories burned on this date"
+                "description": "How many calories the user has left to burn"
               }
             }
           }
@@ -1427,8 +1427,8 @@
         "example": {
           "data": {
             "message": "Diary entry successfully deleted",
-            "timeTotal": 63,
-            "caloriesBurnedTotal": 900
+            "timeRemains": 68,
+            "caloriesRemains": 1455
           }
         }
       },
