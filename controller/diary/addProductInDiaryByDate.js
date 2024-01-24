@@ -26,9 +26,14 @@ const addProductInDiaryByDate = async (req, res) => {
     0
   );
 
+  // Рахуємо скільки ще калорій користувач може зʼїсти дотримуючись денної норми
+  const dailyCalorieIntake = req.user.dailyCalories;
+  const caloriesRemaining = dailyCalorieIntake - caloriesConsumed;
+
   res.status(201).json({
     product: { _id, product_ID, date, amount, calories, owner },
     caloriesConsumedTotal: caloriesConsumed,
+    caloriesRemainingTotal: caloriesRemaining,
   });
 };
 

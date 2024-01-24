@@ -37,9 +37,14 @@ const delProductInDiaryByDate = async (req, res) => {
     0
   );
 
+  // Рахуємо скільки ще калорій користувач може зʼїсти дотримуючись денної норми
+  const dailyCalorieIntake = req.user.dailyCalories;
+  const caloriesRemaining = dailyCalorieIntake - caloriesConsumed;
+
   res.json({
     message: "The product has been removed from the diary",
     caloriesConsumedTotal: caloriesConsumed,
+    caloriesRemainingTotal: caloriesRemaining,
   });
 };
 
