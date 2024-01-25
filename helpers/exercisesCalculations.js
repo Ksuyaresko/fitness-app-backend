@@ -8,7 +8,7 @@ const exercisesCalculations = (diaryEntryes, dailyActivity) => {
 
   return {
     caloriesBurned,
-    sportsRemaining: dailyActivity - timeTotal,
+    sportsRemaining: timeTotal - dailyActivity,
   };
 };
 module.exports = exercisesCalculations;
